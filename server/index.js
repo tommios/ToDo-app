@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import bodyParser from "body-parser";
 import Routes from "./routes";
 import config from "./config";
@@ -12,6 +13,8 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+
+app.use(cors());
 
 // connect to MongoDB:
 connectMongo();

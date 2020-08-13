@@ -45,41 +45,17 @@ class userClass {
     this.lastName = firstSpace === -1 ? "" : v.substr(firstSpace + 1);
   }
 
-  // `getFullName()` becomes a document method
-  getFullName() {
-    return `${this.firstName} ${this.lastName}`;
-  }
-
-  getFirstName() {
-    return `${this.firstName}`;
-  }
-
-  getLastName() {
-    return `${this.lastName}`;
-  }
-
-  getUserName() {
-    return `${this.username}`;
-  }
-
-  getPhoneNumber() {
-    return `${this.phoneNumber}`;
-  }
-
-  getEmail() {
-    return `${this.email}`;
-  }
-
-  getCountry() {
-    return `${this.country}`;
-  }
-
   // `findByFullName()` becomes a static
   static findByFullName(name) {
     const firstSpace = name.indexOf(" ");
     const firstName = name.split(" ")[0];
     const lastName = firstSpace === -1 ? "" : name.substr(firstSpace + 1);
     return this.findOne({ firstName, lastName });
+  }
+
+  // `getFullName()` becomes a document method
+  getFullName() {
+    return `${this.firstName} ${this.lastName}`;
   }
 }
 
