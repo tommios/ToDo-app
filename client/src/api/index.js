@@ -1,5 +1,7 @@
 import axios from "axios";
 
-export function getAllTodo() {
+function getAllTodo() {
   return axios.get("http://localhost:8000/todos");
 }
+
+export { getAllTodo };

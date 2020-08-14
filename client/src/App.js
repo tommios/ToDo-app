@@ -9,11 +9,26 @@ import "./App.css";
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route exact path="/" component={ItemList} />
-        <Route exact path="/addTodo" component={AddTodo} />
-        <Route exact path="/login" component={LogIn} />
-      </Switch>
+      <div>
+        <ul>
+          <li>
+            <Link to="/">Todo List</Link>
+          </li>
+          <li>
+            <Link to="/addTodo">Add Todo</Link>
+          </li>
+          <li>
+            <Link to="/login">Log In</Link>
+          </li>
+        </ul>
+
+        <hr />
+        <Switch>
+          <Route exact path="/" component={ItemList} />
+          <Route exact path="/addTodo" component={AddTodo} />
+          <Route exact path="/login" component={LogIn} />
+        </Switch>
+      </div>
     </Router>
   );
 }

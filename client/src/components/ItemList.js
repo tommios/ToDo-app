@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as todoApi from "../api";
 import { Link } from "react-router-dom";
 import { Layout, Card, List, Button } from "antd";
-import { PlusCircleOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -10,20 +10,10 @@ function ItemList(props) {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    // axios
-    //   .get("http://localhost:8000/todos")
-    //   .then((res) => {
-    //     setTodos(res.data);
-    //     console.log(res.data);
-    //   })
-    //   .catch((err) => console.log(err));
-
     todoApi.getAllTodo().then((res) => {
       setTodos(res.data);
     });
   }, []);
-
-  //const handleClick = () => {};
 
   return (
     <Layout>
@@ -61,7 +51,7 @@ function ItemList(props) {
                         EDIT
                       </Button>
                       <Button type="link" danger>
-                        DELETE
+                        <DeleteOutlined />
                       </Button>
                     </div>
                   </Card>
