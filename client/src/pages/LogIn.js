@@ -1,28 +1,19 @@
 import React from "react";
-import { Avatar, Form, Input, Button, Checkbox, Typography } from "antd";
+import { Avatar, Form, Input, Button, Typography } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import axios from "axios";
 
 const { Title } = Typography;
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
-
 class login extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
-      <div>
-        <Avatar size={64} icon={<UserOutlined />} />
-        <Title>Login</Title>
+      <div className="login-form-container">
+        <Avatar
+          size={64}
+          icon={<UserOutlined />}
+          className="login-form-avatar"
+        />
+        <Title className="login-form-title">Login</Title>
         <Form name="normal_login" className="login-form">
           <Form.Item
             label="Email"

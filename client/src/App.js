@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import login from "./pages/login";
+import LogIn from "./pages/LogIn";
 import ItemList from "./components/ItemList";
-import example from "./pages/example";
+import AddTodo from "./components/AddTodo";
+import "antd/dist/antd.css";
+import "./App.css";
 
 function App() {
   return (
     <Router>
-      <div>
-        <Link to="/login">Log In</Link>
-        <br />
-        <br />
-        <br />
-
-        <ItemList />
-        <Switch>
-          <Route exact path="/login" component={login} />
-          {/* <Route exact path="/" component={} /> */}
-        </Switch>
-      </div>
+      <Switch>
+        <Route exact path="/" component={ItemList} />
+        <Route exact path="/addTodo" component={AddTodo} />
+        <Route exact path="/login" component={LogIn} />
+      </Switch>
     </Router>
   );
 }

@@ -1,1 +1,41 @@
-@import "~antd/dist/antd.css";
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.todo-form {
+  margin: 20px 40px;
+}
+
+.sider {
+  background-color: #ebe3e3;
+}
+
+.ant-layout-header {
+  background: #ff5722;
+}
+
+.ant-layout-sider {
+  background: #ceccc6;
+}
+
+.ant-list-item {
+  margin: 10px 10px;
+}
+
+.btn-add-todo {
+  margin-right: 20px;
+  float: right;
+  color: #fa3939;
+}
+
+.login-form-container {
+  max-width: 300px;
+  margin: auto;
+}
+
+.login-form-container > .login-form-avatar {
+  margin: auto;
+  text-align: center;
+}
