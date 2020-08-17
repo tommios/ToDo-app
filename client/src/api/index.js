@@ -1,7 +1,5 @@
-import axios from "axios";
+import * as todo from "./todo";
 
-function getAllTodo() {
-  return axios.get("http://localhost:8000/todos");
-}
-
-export { getAllTodo };
+export default {
+  todo,
+};
