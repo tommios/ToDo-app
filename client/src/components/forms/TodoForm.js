@@ -19,8 +19,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TodoForm = (props) => {
-  console.log(props);
+  console.log("props TodoForm: ", props);
   const classes = useStyles();
+
   const { formData: original, onSubmit } = props;
   const [todo, setTodo] = useState(original || {});
 
@@ -44,6 +45,7 @@ const TodoForm = (props) => {
       completed,
     });
   };
+
   return (
     <form className={classes.form} noValidate>
       <Grid container spacing={2}>

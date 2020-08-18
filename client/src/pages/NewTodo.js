@@ -3,8 +3,8 @@ import API from "../api";
 import TodoForm from "../components/forms/TodoForm";
 
 const NewTodo = (props) => {
-  const onSubmit = () => {
-    return API.todo.create();
+  const onSubmit = (data) => {
+    return API.todo.create(data);
   };
 
   return (

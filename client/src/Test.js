@@ -11,27 +11,9 @@ const A = (props) => {
     });
   };
 
-  const handleClick2 = (e) => {
-    console.log(e);
-
-    props.onClick({
-      title: "testTask",
-      body: "test content",
-      completed: "false",
-    });
-  };
-
-  const handleMouse = (e) => {
-    handleClick();
-  };
   return (
     <>
-      <button onClick={handleClick2} onMouseEnter={handleMouse}>
-        Click ME TOO
-      </button>
-      <button onClick={handleClick} onMouseEnter={handleMouse}>
-        Click ME
-      </button>
+      <button onClick={handleClick}>Click ME</button>
     </>
   );
 };
@@ -53,12 +35,5 @@ const C = () => {
   };
   return <B onSomething={(data) => handleClick(data)} />;
 };
-
-// const D = (props) => {
-//   const handleClickDDD = (e) => {
-//     console.log("DDD: ", e);
-//   };
-//   return <C onNext={data} myTestVal={12312412334} />;
-// };
 
 export default C;
