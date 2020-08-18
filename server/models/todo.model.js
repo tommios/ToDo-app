@@ -21,4 +21,13 @@ const todoSchema = new mongoose.Schema({
   },
 });
 
+todoSchema.toJSON = function () {
+  return {
+    _id: this._id,
+    title: this.title,
+    body: this.body,
+    completed: this.completed,
+    created: this.created,
+  };
+};
 export default mongoose.model("Todo", todoSchema);

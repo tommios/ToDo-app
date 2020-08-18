@@ -1,27 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import moment from "moment";
+import { Link as MaterialLink } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 export default function TodoView(props) {
-  console.log(props);
-  const { todo = {} } = props;
+  const { todo = {}, onEdit } = props;
   return todo ? (
     <>
+      <div>
+        <Link
+          to={{
+            pathname: "/",
+          }}
+          className="btn"
+        >
+          Back
+        </Link>
+        <MaterialLink onClick={onEdit} href="#">
+          Edit
+        </MaterialLink>
+      </div>
       <h2>{todo.title}</h2>
+      <hr />
       <p>{todo.body}</p>
       <p>{moment(todo.created).fromNow()}</p>
-      <Link
-        to={{
-          pathname: "/",
-        }}
-        className="btn"
-      >
-        {/* <KeyboardBackspaceIcon /> */}
-        Back
-      </Link>
-      <hr />
-      <Link to={{ pathname: `/todos/${todo.id}`, isEdit: true }}>Edit</Link>
     </>
   ) : (
     "Ops! No todo yet"

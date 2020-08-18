@@ -1,14 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import Container from "@material-ui/core/Container";
+// import App from "./App";
+import App from "./Test";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Container>
-      <App />
-    </Container>
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -34,18 +34,19 @@ export const createTodo = (req, res) => {
 };
 
 // Get a single Todo with an id
-export const findOneTodo = (req, res) => {
+export const findOneTodo = async (req, res) => {
   const id = req.params.id;
 
-  Todo.findById(id)
-    .then((data) => {
-      if (!data)
-        res.status(404).send({ message: "Not found Todo with id " + id });
-      else res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({ message: "Error retrieving Todo with id=" + id });
-    });
+  try {
+    const todo = await Todo.findById(id);
+    if (!todo) {
+      return res.status(404).send({ message: "Not found Todo with id " + id });
+    }
+    return res.send(todo);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ message: "Oops! Something went wrong..." });
+  }
 };
 
 // Get all Todo
@@ -77,38 +78,28 @@ export const filterTodo = (req, res) => {
 };
 
 // Update a Todo by the id in the request
-export const updateTodo = (req, res) => {
-  if (!req.body) {
-    return res.status(400).send({
-      message: "Data to update can not be empty!",
-    });
-  }
+export const updateTodo = async (req, res) => {
+  const id = req.params.id;
+  const data = {
+    title: req.body.title,
+    body: req.body.body,
+    completed: req.body.completed,
+  };
 
-  const { error } = schemaTodo.validate(req.body);
-
+  const { error } = schemaTodo.validate(data);
   if (error) {
-    res.status(500).send({
+    return res.status(400).send({
       message: error.message,
     });
-
-    return;
   }
 
-  const id = req.params.id;
-
-  Todo.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then((data) => {
-      if (!data) {
-        res.status(404).send({
-          message: `Cannot update Todo with id=${id}. Maybe Todo was not found!`,
-        });
-      } else res.send({ message: "Todo was updated successfully." });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Error updating Todo with id=" + id,
-      });
-    });
+  try {
+    const todo = await Todo.findByIdAndUpdate(id, data, { new: true });
+    return res.send(todo);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ message: "Oops! Something went wrong!" });
+  }
 };
 
 // Delete a Todo with the specified id in the request

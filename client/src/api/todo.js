@@ -9,3 +9,19 @@ export const getAll = () => {
 export const getById = (id) => {
   return client.get(`${BASE_URL}/${id}`).then((response) => response.data);
 };
+
+export const remove = (id) => {
+  return client
+    .delete(`${BASE_URL}/${id}`)
+    .then((response) => console.log(response.data));
+};
+
+export const update = (id, data) => {
+  return client
+    .patch(`${BASE_URL}/${id}`, data)
+    .then((response) => response.data);
+};
+
+export const create = (data) => {
+  return client.post(`${BASE_URL}`, data).then((response) => response.data);
+};

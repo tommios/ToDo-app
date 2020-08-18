@@ -8,20 +8,27 @@ import {
   CardContent,
   CardActions,
   Typography,
+  Button,
+  Link as MaterialLink,
 } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import ViewHeadlineIcon from "@material-ui/icons/ViewHeadline";
 
-export function Item(props) {
+import {
+  Edit as EditIcon,
+  ViewHeadline as ViewHeadlineIcon,
+  Delete as DeleteIcon,
+} from "@material-ui/icons";
+
+const Item = (props) => {
+  const { onDelete } = props;
   return (
     <Card className="" variant="outlined">
       <CardHeader
+        component="header"
         title={props.todo.title}
         subheader={moment(props.todo.created).fromNow()}
       />
 
-      <CardContent>
+      <CardContent component="section">
         <Typography className="" color="textSecondary" gutterBottom>
           {props.todo.body}
         </Typography>
@@ -37,7 +44,6 @@ export function Item(props) {
         >
           <ViewHeadlineIcon />
         </Link>
-
         <Link
           to={{
             pathname: `/todos/${props.todo._id}`,
@@ -48,10 +54,12 @@ export function Item(props) {
           <EditIcon />
         </Link>
 
-        <Link to="#" className="btn">
+        <MaterialLink href="#" onClick={() => onDelete(props.todo._id)}>
           <DeleteIcon />
-        </Link>
+        </MaterialLink>
       </CardActions>
     </Card>
   );
-}
+};
+
+export default Item;
