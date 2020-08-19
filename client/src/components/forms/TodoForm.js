@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TodoForm = (props) => {
-  console.log("props TodoForm: ", props);
+  // console.log("props TodoForm: ", props);
   const classes = useStyles();
 
   const { formData: original, onSubmit } = props;
@@ -49,47 +49,50 @@ const TodoForm = (props) => {
   return (
     <form className={classes.form} noValidate>
       <Grid container spacing={2}>
-        <Grid item xs={12} lg={12} sm={12}>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              fullWidth
-              id="title"
-              label="Title"
-              name="title"
-              value={todo.title || ""}
-              onChange={(e) => handleChange("title", e.target.value)}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              fullWidth
-              name="body"
-              label="Description"
-              type="text"
-              id="body"
-              value={todo.body || ""}
-              onChange={(e) => handleChange("body", e.target.value)}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={todo.completed || false}
-                  onChange={(e) =>
-                    handleChange("completed", !!e.target.checked)
-                  }
-                  color="primary"
-                />
-              }
-              label="Completed"
-            />
-          </Grid>
+        {/* <Grid item xs={12} lg={12} sm={12} spacing={2}> */}
+        <Grid item xs={12}>
+          <TextField
+            variant="outlined"
+            fullWidth
+            required
+            id="title"
+            label="Title"
+            name="title"
+            value={todo.title || ""}
+            onChange={(e) => handleChange("title", e.target.value)}
+          />
         </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            variant="outlined"
+            fullWidth
+            required
+            multiline
+            rows={25}
+            rowsMax={25}
+            name="body"
+            label="Description"
+            type="text"
+            id="body"
+            value={todo.body || ""}
+            onChange={(e) => handleChange("body", e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={todo.completed || false}
+                onChange={(e) => handleChange("completed", !!e.target.checked)}
+                color="primary"
+              />
+            }
+            label="Completed"
+          />
+        </Grid>
+        {/* </Grid> */}
 
         <Button
           type="submit"

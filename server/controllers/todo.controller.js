@@ -5,7 +5,7 @@ import { schemaTodo } from "../validations/todoValidation";
 import moment from "moment";
 
 // Create and Save a new Todo
-export const createTodo = (req, res) => {
+export const createTodo = async (req, res) => {
   // Create a Todo
   const { error } = schemaTodo.validate(req.body);
 
@@ -17,20 +17,25 @@ export const createTodo = (req, res) => {
     return;
   }
 
-  const { title, body, completed } = req.body;
-  const todo = new Todo({ title, body, completed });
+  try {
+    const { title, body, completed } = req.body;
+    const todo = new Todo({ title, body, completed });
 
-  // Save Todo in the database
-  todo
-    .save()
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while creating the Todo.",
+    // Save Todo in the database
+    todo
+      .save()
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the Todo.",
+        });
       });
-    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // Get a single Todo with an id
