@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
@@ -8,6 +8,7 @@ import {
   CardContent,
   CardActions,
   Typography,
+  Checkbox,
   Button,
   Link as MaterialLink,
 } from "@material-ui/core";
@@ -19,25 +20,46 @@ import {
 } from "@material-ui/icons";
 
 const Item = (props) => {
-  const { onDelete } = props;
+  const { todo, onDelete, onUpdate } = props;
+  const handleChange = (event) => {
+    onUpdate({ ...todo, completed: event.target.checked });
+  };
+
   return (
     <Card className="" variant="outlined">
       <CardHeader
         component="header"
-        title={props.todo.title}
-        subheader={moment(props.todo.created).fromNow()}
+        action={
+          <Checkbox
+            checked={todo.completed}
+            onChange={handleChange}
+            name="checked"
+            color="primary"
+          />
+        }
+        title={todo.title}
+        subheader={moment(todo.created).fromNow()}
       />
-
-      <CardContent component="section">
-        <Typography className="" color="textSecondary" gutterBottom>
-          {props.todo.body}
-        </Typography>
-      </CardContent>
+      {!todo.completed ? (
+        <CardContent component="section">
+          <Typography className="" color="textSecondary" gutterBottom>
+            {todo.body}
+          </Typography>
+        </CardContent>
+      ) : (
+        <CardContent component="section">
+          <Typography
+            className=""
+            color="textSecondary"
+            gutterBottom
+          ></Typography>
+        </CardContent>
+      )}
 
       <CardActions>
         <Link
           to={{
-            pathname: `/todos/${props.todo._id}`,
+            pathname: `/todos/${todo._id}`,
             isEdit: false,
           }}
           className="btn"
@@ -46,7 +68,7 @@ const Item = (props) => {
         </Link>
         <Link
           to={{
-            pathname: `/todos/${props.todo._id}`,
+            pathname: `/todos/${todo._id}`,
             isEdit: true,
           }}
           className="btn"
@@ -54,7 +76,7 @@ const Item = (props) => {
           <EditIcon />
         </Link>
 
-        <MaterialLink href="#" onClick={() => onDelete(props.todo._id)}>
+        <MaterialLink href="#" onClick={() => onDelete(todo._id)}>
           <DeleteIcon />
         </MaterialLink>
       </CardActions>

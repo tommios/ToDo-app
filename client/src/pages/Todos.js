@@ -55,6 +55,17 @@ const ItemList = (props) => {
     });
   };
 
+  const handleUpdate = (id, data) => {
+    return API.todo.update(id, data).then((todo) => {
+      let index = todos.findIndex((element) => id === element._id);
+      if (index === -1) {
+        return;
+      }
+
+      todos.splice(index, 1, todo);
+      setTodos([...todos]);
+    });
+  };
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} component="header">
@@ -66,7 +77,11 @@ const ItemList = (props) => {
       </Grid>
 
       <Grid item xs={9} component="section">
-        <TodoList todos={todos} onDelete={handleDelete} />
+        <TodoList
+          todos={todos}
+          onDelete={handleDelete}
+          onUpdate={handleUpdate}
+        />
       </Grid>
     </Grid>
   );

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
   },
   absolute: {
-    position: "absolute",
+    position: "fixed",
     bottom: theme.spacing(4),
     right: theme.spacing(6),
   },
@@ -29,8 +29,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const TodosList = ({ todos, onDelete, onUpdate }) => (
+  <Grid container justify="flex-start" spacing={2}>
+    {todos.map((todo) => (
+      <Grid key={todo._id} item xs={6} component="article">
+        <Item
+          todo={todo}
+          onDelete={onDelete}
+          onUpdate={(data) => onUpdate(todo._id, data)}
+        />
+      </Grid>
+    ))}
+  </Grid>
+);
+
 const List = (props) => {
-  const { todos, onDelete } = props;
+  const { todos, onDelete, onUpdate } = props;
   const classes = useStyles();
 
   return (
@@ -40,13 +54,18 @@ const List = (props) => {
           <AddIcon />
         </Fab>
       </Link>
-      <Grid container justify="flex-start" spacing={2}>
-        {todos.map((todo) => (
-          <Grid key={todo._id} item xs={6} component="article">
-            <Item todo={todo} onDelete={onDelete} />
-          </Grid>
-        ))}
-      </Grid>
+      <h1>Incompleted:</h1>
+      <TodosList
+        todos={todos.filter((todo) => !todo.completed)}
+        onDelete={onDelete}
+        onUpdate={onUpdate}
+      />
+      <h1>Completed:</h1>
+      <TodosList
+        todos={todos.filter((todo) => !!todo.completed)}
+        onDelete={onDelete}
+        onUpdate={onUpdate}
+      />
     </>
   );
 };
