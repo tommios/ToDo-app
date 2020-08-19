@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TodoForm = (props) => {
+<<<<<<< HEAD
+=======
+  // console.log("props TodoForm: ", props);
+>>>>>>> cb135aaf5845b19088ff96344735d7cf383c13d9
   const classes = useStyles();
 
   const { formData: original, onSubmit } = props;
@@ -48,12 +52,19 @@ const TodoForm = (props) => {
   return (
     <form className={classes.form} noValidate>
       <Grid container spacing={2}>
+<<<<<<< HEAD
+=======
+        {/* <Grid item xs={12} lg={12} sm={12} spacing={2}> */}
+>>>>>>> cb135aaf5845b19088ff96344735d7cf383c13d9
         <Grid item xs={12}>
           <TextField
             variant="outlined"
             fullWidth
             required
+<<<<<<< HEAD
             autoComplete="todoTitle"
+=======
+>>>>>>> cb135aaf5845b19088ff96344735d7cf383c13d9
             id="title"
             label="Title"
             name="title"
@@ -67,13 +78,22 @@ const TodoForm = (props) => {
             variant="outlined"
             fullWidth
             required
+<<<<<<< HEAD
+=======
+            multiline
+            rows={25}
+            rowsMax={25}
+>>>>>>> cb135aaf5845b19088ff96344735d7cf383c13d9
             name="body"
             label="Description"
             type="text"
             id="body"
+<<<<<<< HEAD
             multiline
             rows={20}
             rowsMax={25}
+=======
+>>>>>>> cb135aaf5845b19088ff96344735d7cf383c13d9
             value={todo.body || ""}
             onChange={(e) => handleChange("body", e.target.value)}
           />
@@ -91,6 +111,7 @@ const TodoForm = (props) => {
             label="Completed"
           />
         </Grid>
+        {/* </Grid> */}
 
         <Button
           type="submit"
