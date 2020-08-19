@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Grid,
   FormControlLabel,
@@ -19,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TodoForm = (props) => {
+  let history = useHistory();
   const classes = useStyles();
 
-  const { formData: original, onSubmit } = props;
+  const { formData: original, onSubmit, onCancel } = props;
   const [todo, setTodo] = useState(original || {});
 
   useEffect(() => {
@@ -36,13 +38,16 @@ const TodoForm = (props) => {
   };
 
   const handleSave = (event) => {
-    event.preventDefault();
     const { title, body, completed } = todo;
     onSubmit({
       title,
       body,
       completed,
     });
+  };
+
+  const handleCancel = () => {
+    onCancel();
   };
 
   return (
@@ -91,18 +96,32 @@ const TodoForm = (props) => {
             label="Completed"
           />
         </Grid>
-        {/* </Grid> */}
 
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-          onClick={handleSave}
-        >
-          {todo._id ? "Update" : "Create"}
-        </Button>
+        <Grid item xs={9}>
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handleSave}
+          >
+            {todo._id ? "Update" : "Create"}
+          </Button>
+        </Grid>
+
+        <Grid item xs={3}>
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="secondary"
+            className={classes.submit}
+            onClick={handleCancel}
+          >
+            Cancel
+          </Button>
+        </Grid>
       </Grid>
     </form>
   );

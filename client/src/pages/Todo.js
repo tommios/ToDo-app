@@ -36,7 +36,11 @@ const Todo = (props) => {
     <Container component="main" maxWidth="lg">
       <CssBaseline />
       {editMode && id ? (
-        <TodoForm formData={todo} onSubmit={handleUpdate} />
+        <TodoForm
+          formData={todo}
+          onSubmit={handleUpdate}
+          onCancel={() => setEditMode(false)}
+        />
       ) : (
         <TodoView todo={todo} onEdit={() => setEditMode(true)} />
       )}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
@@ -9,7 +9,6 @@ import {
   CardActions,
   Typography,
   Checkbox,
-  Button,
   Link as MaterialLink,
 } from "@material-ui/core";
 
@@ -41,7 +40,13 @@ const Item = (props) => {
         subheader={moment(todo.created).fromNow()}
       />
       {!todo.completed ? (
-        <CardContent component="section">
+        <CardContent
+          component="section"
+          style={{
+            height: "60px",
+            overflow: "hidden",
+          }}
+        >
           <Typography className="" color="textSecondary" gutterBottom>
             {todo.body}
           </Typography>

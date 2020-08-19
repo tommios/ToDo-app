@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Item from "./Item";
 import { Grid, Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   fab: {
     margin: theme.spacing(2),
   },
-  absolute: {
+  fixed: {
     position: "fixed",
     bottom: theme.spacing(4),
     right: theme.spacing(6),
@@ -27,21 +27,33 @@ const useStyles = makeStyles((theme) => ({
   relative: {
     textAlign: "center",
   },
+  completed: {
+    opacity: 0.4,
+  },
 }));
 
-const TodosList = ({ todos, onDelete, onUpdate }) => (
-  <Grid container justify="flex-start" spacing={2}>
-    {todos.map((todo) => (
-      <Grid key={todo._id} item xs={6} component="article">
-        <Item
-          todo={todo}
-          onDelete={onDelete}
-          onUpdate={(data) => onUpdate(todo._id, data)}
-        />
-      </Grid>
-    ))}
-  </Grid>
-);
+const TodosList = ({ todos, onDelete, onUpdate }) => {
+  const classes = useStyles();
+  return (
+    <Grid container justify="flex-start" spacing={2}>
+      {todos.map((todo) => (
+        <Grid
+          key={todo._id}
+          item
+          xs={6}
+          component="article"
+          className={todo.completed ? classes.completed : ""}
+        >
+          <Item
+            todo={todo}
+            onDelete={onDelete}
+            onUpdate={(data) => onUpdate(todo._id, data)}
+          />
+        </Grid>
+      ))}
+    </Grid>
+  );
+};
 
 const List = (props) => {
   const { todos, onDelete, onUpdate } = props;
@@ -50,7 +62,7 @@ const List = (props) => {
   return (
     <>
       <Link to="/todos/new">
-        <Fab color="secondary" className={classes.absolute}>
+        <Fab color="secondary" className={classes.fixed}>
           <AddIcon />
         </Fab>
       </Link>
