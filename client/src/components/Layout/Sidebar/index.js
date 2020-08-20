@@ -4,22 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import NotesOutlinedIcon from "@material-ui/icons/NotesOutlined";
 import AccountBoxOutlinedIcon from "@material-ui/icons/AccountBoxOutlined";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
+import useStyles from "./style";
 
 const Sidebar = () => {
-  const useStyles = makeStyles((theme) => ({
-    userInfo: {
-      height: "auto",
-      padding: theme.spacing(2),
-      textAlign: "center",
-      backgroundColor: "#ffffff",
-    },
-    avatar: {
-      margin: "auto",
-      width: theme.spacing(7),
-      height: theme.spacing(7),
-    },
-  }));
-
   const classes = useStyles();
 
   return (

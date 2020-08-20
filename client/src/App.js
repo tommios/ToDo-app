@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import LogIn from "./pages/LogIn";
 import Todos from "./pages/Todos";
 import Todo from "./pages/Todo";
 import NewTodo from "./pages/NewTodo";
+
 import Container from "@material-ui/core/Container";
-import "./App.css";
 
 function App() {
   return (

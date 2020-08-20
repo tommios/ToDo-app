@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ItemList = (props) => {
   const [todos, setTodos] = useState([]);
-
   useEffect(() => {
     API.todo.getAll().then((res) => {
       setTodos(res);

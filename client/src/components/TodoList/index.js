@@ -1,39 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Item from "./Item";
 import { Grid, Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-  marginAdd: {
-    textAlign: "center",
-    margin: theme.spacing(1),
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
-  fab: {
-    margin: theme.spacing(2),
-  },
-  fixed: {
-    position: "fixed",
-    bottom: theme.spacing(4),
-    right: theme.spacing(6),
-  },
-  relative: {
-    textAlign: "center",
-  },
-  completed: {
-    opacity: 0.4,
-  },
-}));
+import useStyles from "./style";
 
 const TodosList = ({ todos, onDelete, onUpdate }) => {
   const classes = useStyles();
+
   return (
     <Grid container justify="flex-start" spacing={2}>
       {todos.map((todo) => (
@@ -57,6 +31,7 @@ const TodosList = ({ todos, onDelete, onUpdate }) => {
 
 const List = (props) => {
   const { todos, onDelete, onUpdate } = props;
+
   const classes = useStyles();
 
   return (
