@@ -1,6 +1,5 @@
 import React from "react";
 import { Paper, Avatar, Box, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import NotesOutlinedIcon from "@material-ui/icons/NotesOutlined";
 import AccountBoxOutlinedIcon from "@material-ui/icons/AccountBoxOutlined";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";

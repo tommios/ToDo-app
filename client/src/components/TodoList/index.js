@@ -41,12 +41,14 @@ const List = (props) => {
           <AddIcon />
         </Fab>
       </Link>
+
       <h1>Incompleted:</h1>
       <TodosList
         todos={todos.filter((todo) => !todo.completed)}
         onDelete={onDelete}
         onUpdate={onUpdate}
       />
+
       <h1>Completed:</h1>
       <TodosList
         todos={todos.filter((todo) => !!todo.completed)}

@@ -12,6 +12,7 @@ const TodoForm = (props) => {
   const classes = useStyles();
 
   const { formData: original, onSubmit, onCancel } = props;
+
   const [todo, setTodo] = useState(original || {});
 
   useEffect(() => {

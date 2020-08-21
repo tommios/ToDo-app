@@ -20,6 +20,7 @@ import {
 
 const Item = (props) => {
   const { todo, onDelete, onUpdate } = props;
+
   const handleChange = (event) => {
     onUpdate({ ...todo, completed: event.target.checked });
   };

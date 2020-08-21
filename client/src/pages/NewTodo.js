@@ -5,10 +5,11 @@ import TodoForm from "../components/forms/TodoForm";
 import { Alert } from "@material-ui/lab";
 
 const NewTodo = (props) => {
-  console.log("NewTodo props: ", props);
+  //console.log("NewTodo props: ", props);
 
   const history = useHistory();
   const [error, setError] = useState();
+
   const onSubmit = (data) => {
     setError(undefined);
     return API.todo
@@ -19,6 +20,10 @@ const NewTodo = (props) => {
       .catch((error) => {
         setError("Oops! Something went wrong, please try later");
       });
+  };
+
+  const onCancel = () => {
+    history.push("/todos");
   };
 
   return (
@@ -32,7 +37,7 @@ const NewTodo = (props) => {
         Back
       </Link>
       {!!error && <Alert severity="error">{error}</Alert>}
-      <TodoForm onSubmit={onSubmit} />
+      <TodoForm onSubmit={onSubmit} onCancel={onCancel} />
     </>
   );
 };
