@@ -3,6 +3,7 @@ import httpClient from "../services/http";
 import { handleRequests } from "@redux-requests/core";
 import { createDriver } from "@redux-requests/axios";
 import thunk from "redux-thunk";
+import logger from "redux-logger";
 
 import todosReducer from "./todos/reducer";
 import { onRequest, onSuccess, onError } from "./interceptors";
@@ -27,7 +28,7 @@ export const configureStore = () => {
 
   const store = createStore(
     reducers,
-    composeEnhancers(applyMiddleware(...requestsMiddleware, thunk))
+    composeEnhancers(applyMiddleware(...requestsMiddleware, thunk, logger))
   );
 
   return store;
