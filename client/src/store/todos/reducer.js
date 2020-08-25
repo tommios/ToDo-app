@@ -1,5 +1,10 @@
-import { TODOS_FETCH } from "./types";
-import { TODOS_AXIOS } from "./types";
+//import { TODOS_FETCH } from "./types";
+import {
+  TODOS_GET_ALL,
+  TODOS_GET_ONE,
+  TODOS_DELETE_ONE,
+  TODOS_UPDATE,
+} from "./types";
 import { success, error } from "@redux-requests/core";
 
 // const initialState = {
@@ -9,6 +14,7 @@ import { success, error } from "@redux-requests/core";
 
 const initialState = {
   todos: [],
+  todo: {},
   isLoading: false,
 };
 
@@ -45,7 +51,7 @@ const initialState = {
 export default (state = initialState, action) => {
   console.log(action);
   switch (action.type) {
-    case TODOS_AXIOS: {
+    case TODOS_GET_ALL: {
       return {
         ...state,
         todos: [],
@@ -53,14 +59,14 @@ export default (state = initialState, action) => {
         errors: undefined,
       };
     }
-    case success(TODOS_AXIOS): {
+    case success(TODOS_GET_ALL): {
       return {
         ...state,
         todos: action.response.data,
         isLoading: false,
       };
     }
-    case error(TODOS_AXIOS): {
+    case error(TODOS_GET_ALL): {
       return {
         ...state,
         todos: [],
@@ -68,6 +74,55 @@ export default (state = initialState, action) => {
         errors: action.payload.error,
       };
     }
+
+    case TODOS_GET_ONE: {
+      return {
+        ...state,
+        todo: {},
+        isLoading: true,
+        errors: undefined,
+      };
+    }
+    case success(TODOS_GET_ONE): {
+      return {
+        ...state,
+        todo: action.response.data,
+        isLoading: false,
+      };
+    }
+    case error(TODOS_GET_ONE): {
+      return {
+        ...state,
+        todo: {},
+        isLoading: false,
+        errors: action.payload.error,
+      };
+    }
+
+    case TODOS_UPDATE: {
+      return {
+        ...state,
+        todo: {},
+        isLoading: true,
+        errors: undefined,
+      };
+    }
+    case success(TODOS_UPDATE): {
+      return {
+        ...state,
+        todo: action.response.data,
+        isLoading: false,
+      };
+    }
+    case error(TODOS_UPDATE): {
+      return {
+        ...state,
+        todo: {},
+        isLoading: false,
+        errors: action.error.response.data,
+      };
+    }
+
     default: {
       return state;
     }
