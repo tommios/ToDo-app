@@ -20,11 +20,11 @@ import {
 } from "./types";
 
 export const todoCreate = (data) => ({
-  type: TODOS_UPDATE,
+  type: TODOS_CREATE,
   request: {
     method: "POST",
-    url: `/todos`,
-    data: { data },
+    url: "/todos",
+    data,
   },
 });
 
@@ -49,7 +49,7 @@ export const todoUpdate = (id, data) => ({
   request: {
     method: "PATCH",
     url: `/todos/${id}`,
-    data: { data },
+    data: { ...data },
   },
 });
 
@@ -59,4 +59,5 @@ export const todoDeleteOne = (id) => ({
     method: "DELETE",
     url: `/todos/${id}`,
   },
+  id: { id },
 });

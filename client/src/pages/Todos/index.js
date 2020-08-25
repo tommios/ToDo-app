@@ -36,38 +36,19 @@ const ItemList = (props) => {
     dispatch(todoGetAll());
   };
 
-  const handleDelete = async (id) => {
-    await dispatch(todoDeleteOne(id));
-    // return API.todo.remove(id).then(() => {
-    //   let index = todos.findIndex((element) => id === element._id);
-    //   //console.log(index);
-    //   if (index === -1) {
-    //     return;
-    //   }
-    //   todos.splice(index, 1);
-    //   setTodos([...todos]);
-    // });
-    await dispatch(todoGetAll());
+  const handleDelete = (id) => {
+    dispatch(todoDeleteOne(id));
   };
 
-  const handleUpdate = async (id, data) => {
-    await dispatch(todoUpdate(id, data));
-    await dispatch(todoGetAll());
-    // return API.todo.update(id, data).then((todo) => {
-    //   let index = todos.findIndex((element) => id === element._id);
-    //   if (index === -1) {
-    //     return;
-    //   }
-    //   todos.splice(index, 1, todo);
-    //   setTodos([...todos]);
-    // });
+  const handleUpdate = (id, data) => {
+    dispatch(todoUpdate(id, data));
   };
 
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} component="header">
         <Paper className={classes.header}>Todo App</Paper>
-        <button onClick={handleClick}>Get All</button>
+        {/* <button onClick={handleClick}>Get All</button> */}
         {isLoading && "Loading..."}
       </Grid>
 

@@ -5,27 +5,37 @@ import API from "../api";
 import TodoForm from "../components/forms/TodoForm";
 import TodoView from "../components/TodoView";
 
+import { todoGetOne, todoUpdate } from "../store/todos/actions";
+import { useDispatch, useSelector } from "react-redux";
+
 const Todo = (props) => {
   const { id } = useParams();
   const location = useLocation();
   const { isEdit } = location;
 
-  const [todo, setTodo] = useState({});
+  const dispatch = useDispatch();
+
+  // const [todo, setTodo] = useState({});
+  const todo = useSelector((state) => state?.todos?.todo || {});
   const [editMode, setEditMode] = useState(isEdit);
 
   useEffect(() => {
     if (id) {
-      API.todo.getById(id).then((res) => {
-        setTodo(res);
-      });
+      // API.todo.getById(id).then((res) => {
+      //   setTodo(res);
+      // });
+
+      dispatch(todoGetOne(id));
     }
   }, [id]);
 
   const handleUpdate = (data) => {
-    return API.todo.update(todo._id, data).then((todo) => {
-      setTodo(todo);
-      setEditMode(false);
-    });
+    // return API.todo.update(todo._id, data).then((todo) => {
+    //   setTodo(todo);
+    //   setEditMode(false);
+    // });
+    dispatch(todoUpdate(id, data));
+    setEditMode(false);
   };
 
   if (!todo) {

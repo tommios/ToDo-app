@@ -84,12 +84,11 @@ export const filterTodo = (req, res) => {
 
 // Update a Todo by the id in the request
 export const updateTodo = async (req, res) => {
-  console.log(req.body);
   const id = req.params.id;
   const data = {
-    title: req.body.data.title,
-    body: req.body.data.body,
-    completed: req.body.data.completed,
+    title: req.body.title,
+    body: req.body.body,
+    completed: req.body.completed,
   };
 
   const { error } = schemaTodo.validate(data);
