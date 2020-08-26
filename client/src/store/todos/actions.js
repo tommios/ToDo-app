@@ -2,8 +2,10 @@ import {
   TODOS_CREATE,
   TODOS_GET_ALL,
   TODOS_GET_ONE,
-  TODOS_DELETE_ONE,
   TODOS_UPDATE,
+  TODOS_FILTER,
+  TODOS_DELETE_ONE,
+  TODOS_DELETE_ALL,
 } from "./types";
 
 export const todoCreate = (data) => ({
@@ -40,11 +42,26 @@ export const todoUpdate = (id, data) => ({
   },
 });
 
+export const todoFilter = (flag) => ({
+  type: TODOS_FILTER,
+  request: {
+    method: "GET",
+    url: `/todos/filter?completed=${flag}`,
+  },
+});
+
 export const todoDeleteOne = (id) => ({
   type: TODOS_DELETE_ONE,
   request: {
     method: "DELETE",
     url: `/todos/${id}`,
   },
-  id: { id },
+});
+
+export const todoDeleteAll = () => ({
+  type: TODOS_DELETE_ALL,
+  request: {
+    method: "DELETE",
+    url: "/todos/",
+  },
 });

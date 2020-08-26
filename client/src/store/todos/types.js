@@ -4,5 +4,6 @@ export const TODOS_CREATE = "TODOS/CREATE";
 export const TODOS_GET_ALL = "TODOS/GET_ALL";
 export const TODOS_GET_ONE = "TODOS/GET_ONE";
 export const TODOS_UPDATE = "TODOS/UPDATE";
+export const TODOS_FILTER = "TODOS/FILTER";
 export const TODOS_DELETE_ONE = "TODOS/DELETE_ONE";
 export const TODOS_DELETE_ALL = "TODOS/DELETE_ALL";

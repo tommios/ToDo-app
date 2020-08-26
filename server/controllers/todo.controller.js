@@ -2,8 +2,6 @@
 import Todo from "../models/todo.model";
 import { schemaTodo } from "../validations/todoValidation";
 
-import moment from "moment";
-
 // Create and Save a new Todo
 export const createTodo = async (req, res) => {
   // Create a Todo
@@ -13,7 +11,6 @@ export const createTodo = async (req, res) => {
     res.status(500).send({
       message: error.message,
     });
-
     return;
   }
 
@@ -55,31 +52,39 @@ export const findOneTodo = async (req, res) => {
 };
 
 // Get all Todo
-export const findAllTodo = (req, res) => {
-  Todo.find({})
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving todos.",
+export const findAllTodo = async (req, res) => {
+  try {
+    await Todo.find({})
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Some error occurred while retrieving todos.",
+        });
       });
-    });
+  } catch (error) {
+    console.log(errror);
+  }
 };
 
 // Get filter Todo
-export const filterTodo = (req, res) => {
-  const { completed } = req.body;
+export const filterTodo = async (req, res) => {
+  const { completed } = req.query;
 
-  Todo.find({ completed })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving todos.",
+  try {
+    await Todo.find({ completed })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Some error occurred while retrieving todos.",
+        });
       });
-    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // Update a Todo by the id in the request
@@ -110,7 +115,7 @@ export const updateTodo = async (req, res) => {
 // Delete a Todo with the specified id in the request
 export const deleteTodo = (req, res) => {
   const id = req.params.id;
-  console.log(id);
+  //console.log(id);
 
   Todo.findByIdAndRemove(id)
     .then((data) => {

@@ -1,4 +1,3 @@
-//import { TODOS_FETCH } from "./types";
 import {
   TODOS_CREATE,
   TODOS_GET_ALL,
@@ -6,12 +5,8 @@ import {
   TODOS_DELETE_ONE,
   TODOS_UPDATE,
 } from "./types";
-import { success, error } from "@redux-requests/core";
 
-// const initialState = {
-//   items: [],
-//   isLoading: false,
-// };
+import { success, error } from "@redux-requests/core";
 
 const initialState = {
   todos: [],
@@ -19,38 +14,8 @@ const initialState = {
   isLoading: false,
 };
 
-// export default (state = initialState, action) => {
-//   switch (action.type) {
-//     case TODOS_FETCH: {
-//       return {
-//         ...state,
-//         isLoading: true,
-//         errors: undefined,
-//       };
-//     }
-//     case success(TODOS_FETCH): {
-//       return {
-//         ...state,
-//         items: action.payload.items,
-//         isLoading: false,
-//       };
-//     }
-//     case error(TODOS_FETCH): {
-//       return {
-//         ...state,
-//         items: [],
-//         isLoading: false,
-//         errors: action.payload.error,
-//       };
-//     }
-//     default: {
-//       return state;
-//     }
-//   }
-// };
-
 export default (state = initialState, action) => {
-  console.log(action);
+  //console.log(action);
   switch (action.type) {
     case TODOS_CREATE: {
       return {
@@ -105,7 +70,6 @@ export default (state = initialState, action) => {
     case TODOS_GET_ONE: {
       return {
         ...state,
-        // todo: {},
         isLoading: true,
         errors: undefined,
       };
@@ -135,7 +99,7 @@ export default (state = initialState, action) => {
     }
     case success(TODOS_UPDATE): {
       const todo = action.response.data;
-      console.log(todo);
+      //console.log(todo);
       const todos = [...state.todos];
 
       const index = todos.findIndex((i) => i._id === todo._id);
@@ -184,13 +148,6 @@ export default (state = initialState, action) => {
       };
     }
 
-    //   let index = todos.findIndex((element) => id === element._id);
-    //   //console.log(index);
-    //   if (index === -1) {
-    //     return;
-    //   }
-    //   todos.splice(index, 1);
-    //   setTodos([...todos]);
     default: {
       return state;
     }
