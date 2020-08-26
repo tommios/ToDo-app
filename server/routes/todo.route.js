@@ -5,7 +5,7 @@ import {
   createTodo,
   findAllTodo,
   findOneTodo,
-  filterTodo,
+  // filterTodo,
   updateTodo,
   deleteTodo,
   deleteAllTodo,
@@ -24,7 +24,7 @@ todoRouter.get("/", findAllTodo);
 // @route GET /todos/filter/
 // @desc Get all Todo
 // @access Public
-todoRouter.get("/filter", filterTodo);
+// todoRouter.get("/filter", filterTodo);
 
 // @route GET /todos/:id
 // @desc Get a single Todo with id

@@ -17,13 +17,30 @@ export const todoCreate = (data) => ({
   },
 });
 
-export const todoGetAll = () => ({
-  type: TODOS_GET_ALL,
-  request: {
-    method: "GET",
-    url: "/todos",
-  },
-});
+// export const _todoGetAll = (query = {}) => ({
+//   type: TODOS_GET_ALL,
+//   request: {
+//     method: "GET",
+//     url: `/todos?${qString.stringify(query, {arrayFormat: 'bracket'})}`,
+//   },
+// });
+
+export const todoGetAll = (params = {}) => {
+  // const queryString =
+  /**
+   * 1) получить все ключи объекта (Object.keys)
+   * 2) отфильтровать этот массив что бы ключиу ключей было значение
+   * 3) преобразовать полученный массив в строку
+   */
+  return {
+    type: TODOS_GET_ALL,
+    request: {
+      method: "GET",
+      url: `/todos`,
+      params,
+    },
+  };
+};
 
 export const todoGetOne = (id) => ({
   type: TODOS_GET_ONE,
@@ -62,6 +79,6 @@ export const todoDeleteAll = () => ({
   type: TODOS_DELETE_ALL,
   request: {
     method: "DELETE",
-    url: "/todos/",
+    url: "/todos",
   },
 });

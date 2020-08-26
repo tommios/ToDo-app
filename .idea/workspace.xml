@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="44f5611a-4f9e-4c01-b98d-a83417f41ce9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Todos/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Todos/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Todos/style.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Todos/style.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/store/todos/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/todos/actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/store/todos/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/todos/reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/store/todos/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/todos/types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/todo.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/todo.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/todo.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/todo.route.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +44,7 @@
       <workItem from="1597936576545" duration="179000" />
       <workItem from="1597936777674" duration="62000" />
       <workItem from="1598340439449" duration="11000" />
+      <workItem from="1598439315773" duration="24000" />
     </task>
     <servers />
   </component>

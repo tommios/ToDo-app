@@ -53,8 +53,32 @@ export const findOneTodo = async (req, res) => {
 
 // Get all Todo
 export const findAllTodo = async (req, res) => {
+  console.log(req.query);
+  const { search, completed } = req.query;
+
+  const params = Object.keys({ search, completed }) // ['title', 'body', 'completed']
+    .filter((key) => !!req.query[key]) // if (!!req.query['body'])
+    .reduce((result, current) => {
+      // {}, 'title'
+      switch (current) {
+        case "search":
+          result.$or = [
+            { title: { $regex: new RegExp(req.query[current], "i") } },
+            { body: { $regex: new RegExp(req.query[current], "i") } },
+          ];
+          break;
+        default:
+          result[current] = req.query[current];
+      }
+      return result;
+    }, {});
+
+  // if (title !== undefined) params.title = title;
+  // if (body !== undefined) params.body = body;
+  // if (completed !== undefined) params.completed = completed;
+
   try {
-    await Todo.find({})
+    await Todo.find(params)
       .then((data) => {
         res.send(data);
       })
@@ -69,23 +93,29 @@ export const findAllTodo = async (req, res) => {
 };
 
 // Get filter Todo
-export const filterTodo = async (req, res) => {
-  const { completed } = req.query;
+// export const filterTodo = async (req, res) => {
+//   //console.log(req.query);
+//   const { title, body, completed } = req.query;
+//   const params = {};
 
-  try {
-    await Todo.find({ completed })
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || "Some error occurred while retrieving todos.",
-        });
-      });
-  } catch (error) {
-    console.log(error);
-  }
-};
+//   if (title !== undefined) params.title = title;
+//   if (body !== undefined) params.body = body;
+//   if (completed !== undefined) params.completed = completed;
+
+//   try {
+//     await Todo.find(params)
+//       .then((data) => {
+//         res.send(data);
+//       })
+//       .catch((err) => {
+//         res.status(500).send({
+//           message: err.message || "Some error occurred while retrieving todos.",
+//         });
+//       });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 // Update a Todo by the id in the request
 export const updateTodo = async (req, res) => {
