@@ -3,11 +3,13 @@ import TodoList from "../../components/TodoList";
 import Sidebar from "../../components/Layout/Sidebar";
 import { Grid, Paper } from "@material-ui/core";
 import useStyles from "./style";
+
 import {
   todoGetAll,
   todoDeleteOne,
   todoUpdate,
 } from "../../store/todos/actions";
+
 import { useDispatch, useSelector } from "react-redux";
 
 const ItemList = (props) => {

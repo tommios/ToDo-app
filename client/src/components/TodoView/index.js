@@ -8,14 +8,11 @@ import {
   TextField,
 } from "@material-ui/core";
 import useStyles from "./style";
-//import { useSelector } from "react-redux";
 
 const TodoView = (props) => {
   let history = useHistory();
 
   const { todo = {}, onEdit } = props;
-  // const { onEdit } = props;
-  // const todo = useSelector((state) => state?.todos?.todo || {});
 
   const handleCancel = () => {
     history.replace("/todos");
