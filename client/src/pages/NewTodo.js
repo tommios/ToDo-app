@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import API from "../api";
 import TodoForm from "../components/forms/TodoForm";
 import { Alert } from "@material-ui/lab";
 import { todoCreate } from "../store/todos/actions";
 import { useDispatch } from "react-redux";
 
 const NewTodo = (props) => {
-  //console.log("NewTodo props: ", props);
-
   const dispatch = useDispatch();
   const history = useHistory();
   const [error, setError] = useState();
@@ -16,14 +13,8 @@ const NewTodo = (props) => {
   const onSubmit = (data) => {
     setError(undefined);
     dispatch(todoCreate(data));
-    // return API.todo
-    //   .create(data)
-    //   .then(() => {
-    //     history.push("/todos");
-    //   })
-    //   .catch((error) => {
-    //     setError("Oops! Something went wrong, please try later");
-    //   });
+
+    history.push("/todos");
   };
 
   const onCancel = () => {

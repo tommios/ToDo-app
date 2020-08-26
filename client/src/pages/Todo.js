@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { Container, CssBaseline } from "@material-ui/core";
-import API from "../api";
 import TodoForm from "../components/forms/TodoForm";
 import TodoView from "../components/TodoView";
 
@@ -15,25 +14,16 @@ const Todo = (props) => {
 
   const dispatch = useDispatch();
 
-  // const [todo, setTodo] = useState({});
   const todo = useSelector((state) => state?.todos?.todo || {});
   const [editMode, setEditMode] = useState(isEdit);
 
   useEffect(() => {
     if (id) {
-      // API.todo.getById(id).then((res) => {
-      //   setTodo(res);
-      // });
-
       dispatch(todoGetOne(id));
     }
-  }, [id]);
+  }, [id, dispatch]);
 
   const handleUpdate = (data) => {
-    // return API.todo.update(todo._id, data).then((todo) => {
-    //   setTodo(todo);
-    //   setEditMode(false);
-    // });
     dispatch(todoUpdate(id, data));
     setEditMode(false);
   };

@@ -8,7 +8,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import useStyles from "./style";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 
 const TodoView = (props) => {
   let history = useHistory();

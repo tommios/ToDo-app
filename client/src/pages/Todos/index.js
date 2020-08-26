@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-//import API from "../../api";
 import TodoList from "../../components/TodoList";
 import Sidebar from "../../components/Layout/Sidebar";
 import { Grid, Paper } from "@material-ui/core";
@@ -12,29 +11,16 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 const ItemList = (props) => {
-  //const todosFromStore = useSelector((state) => state.todos.items);
-
   const todos = useSelector((state) => state?.todos?.todos || []);
   const isLoading = useSelector((state) => state.todos.isLoading);
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   console.log(todosFromStore);
-  // }, [todosFromStore]);
-
   useEffect(() => {
-    // API.todo.getAll().then((res) => {
-    //   setTodos(res);
-    // });
     dispatch(todoGetAll());
   }, [dispatch]);
 
   const classes = useStyles();
-
-  const handleClick = () => {
-    dispatch(todoGetAll());
-  };
 
   const handleDelete = (id) => {
     dispatch(todoDeleteOne(id));
@@ -48,7 +34,6 @@ const ItemList = (props) => {
     <Grid container spacing={3}>
       <Grid item xs={12} component="header">
         <Paper className={classes.header}>Todo App</Paper>
-        {/* <button onClick={handleClick}>Get All</button> */}
         {isLoading && "Loading..."}
       </Grid>
 
