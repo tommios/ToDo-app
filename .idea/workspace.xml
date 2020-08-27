@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="44f5611a-4f9e-4c01-b98d-a83417f41ce9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Todos/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Todos/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Todos/style.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Todos/style.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/store/todos/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/todos/actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/todo.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/todo.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/todo.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/todo.route.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/form.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/forms/TodoForm/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/forms/TodoForm/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/NewTodo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/NewTodo.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,15 +39,21 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1gMrHlDjm4Bf7GKrU5gSnMLnCeI" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -45,10 +73,44 @@
       <workItem from="1597936777674" duration="62000" />
       <workItem from="1598340439449" duration="11000" />
       <workItem from="1598439315773" duration="24000" />
+      <workItem from="1598454070752" duration="302000" />
+      <workItem from="1598510998521" duration="773000" />
+      <workItem from="1598511782743" duration="269000" />
+      <workItem from="1598515685908" duration="5000" />
+      <workItem from="1598529099567" duration="12122000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="707" y="415" width="568" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598529187163">
+      <screen x="72" y="27" width="1848" height="1173" />
+    </state>
+    <state x="707" y="415" width="568" height="403" key="#com.intellij.fileTypes.FileTypeChooser/72.27.1848.1173@72.27.1848.1173" timestamp="1598529187163" />
+    <state x="172" y="127" width="1648" height="973" key="DiffContextDialog" timestamp="1598511755980">
+      <screen x="72" y="27" width="1848" height="1173" />
+    </state>
+    <state x="172" y="127" width="1648" height="973" key="DiffContextDialog/72.27.1848.1173@72.27.1848.1173" timestamp="1598511755980" />
+    <state x="728" y="222" width="1022" height="737" key="SettingsEditor" timestamp="1598512051774">
+      <screen x="72" y="27" width="1848" height="1173" />
+    </state>
+    <state x="728" y="222" width="1022" height="737" key="SettingsEditor/72.27.1848.1173@72.27.1848.1173" timestamp="1598512051774" />
   </component>
 </project>
