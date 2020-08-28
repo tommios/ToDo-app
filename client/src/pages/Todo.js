@@ -39,12 +39,12 @@ const Todo = (props) => {
       <CssBaseline />
       {editMode && id ? (
         <TodoForm
-          formData={todo}
+          formData={{...todo}}
           onSubmit={handleUpdate}
           onCancel={() => setEditMode(false)}
         />
       ) : (
-        <TodoView todo={todo} onEdit={() => setEditMode(true)} />
+        <TodoView todo={{...todo}} onEdit={() => setEditMode(true)} />
       )}
     </Container>
   );

@@ -20,13 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44f5611a-4f9e-4c01-b98d-a83417f41ce9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/newForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/forms/WithConfig/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/NewTodo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/NewTodo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/newForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/newForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/Todo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Todo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/todo.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/todo.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/validations/todoValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/validations/todoValidation.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +56,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -83,7 +82,9 @@
       <workItem from="1598511782743" duration="269000" />
       <workItem from="1598515685908" duration="5000" />
       <workItem from="1598529099567" duration="12427000" />
-      <workItem from="1598597412998" duration="10071000" />
+      <workItem from="1598597412998" duration="20049000" />
+      <workItem from="1598622939083" duration="33000" />
+      <workItem from="1598622978281" duration="3269000" />
     </task>
     <servers />
   </component>
@@ -114,10 +115,10 @@
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
     <state x="172" y="127" width="1648" height="973" key="DiffContextDialog/72.27.1848.1173@72.27.1848.1173" timestamp="1598511755980" />
-    <state x="728" y="222" width="1022" height="737" key="SettingsEditor" timestamp="1598512051774">
+    <state x="728" y="222" width="1022" height="737" key="SettingsEditor" timestamp="1598615166106">
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
-    <state x="728" y="222" width="1022" height="737" key="SettingsEditor/72.27.1848.1173@72.27.1848.1173" timestamp="1598512051774" />
+    <state x="728" y="222" width="1022" height="737" key="SettingsEditor/72.27.1848.1173@72.27.1848.1173" timestamp="1598615166106" />
     <state x="659" y="289" width="672" height="678" key="search.everywhere.popup" timestamp="1598599314574">
       <screen x="72" y="27" width="1848" height="1173" />
     </state>

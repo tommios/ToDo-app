@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {Formik, Form, Field} from 'formik';
 import * as Yup from "yup"
 
@@ -14,6 +14,9 @@ const validationSchema = Yup.object({
 
 const NewForm = (props) => {
     const {formData, onSubmit, onCancel} = props;
+    //const {title, body, completed} = formData;
+
+    console.log("formData: ======>  ", formData);
 
     const handleSave = (values) => {
         const {title, body, completed} = values;
@@ -26,20 +29,34 @@ const NewForm = (props) => {
 
     const handleCancel = () => {
         onCancel();
+        // resetForm();
     };
 
     return (
         <Formik
-            initialValues={formData || {}}
+            enableReinitialize
+            initialValues={{
+                title: formData ? formData.title : "",
+                body: formData ? formData.body : "",
+                completed: formData ? formData.completed : false
+            }}
             validationSchema={validationSchema}
-            onSubmit={(values, formikHelpers) => {
-                //console.log('values ====> ', values);
+            onSubmit={(values) => {
                 handleSave(values);
+                // resetForm({});
             }}
             onReset={handleCancel}
         >
-            {({submitForm, isSubmitting, isValid, resetForm,values, touched, errors}) => (
-                <Form>
+            {({
+                  submitForm,
+                  isSubmitting,
+                  handleChange,
+                  isValid,
+                  resetForm,
+                  touched,
+                  errors
+              }) => {
+                return <Form>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <Field
@@ -49,9 +66,9 @@ const NewForm = (props) => {
                                 label="Title"
                                 variant="outlined"
                                 fullWidth
-                                value={values.title || ""}
                                 helperText={touched.title ? errors.title : ""}
                                 error={touched.title && Boolean(errors.title)}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -65,20 +82,19 @@ const NewForm = (props) => {
                                 multiline
                                 rows={20}
                                 rowsMax={25}
-                                value={values.body || ""}
                                 helperText={touched.body ? errors.body : ""}
                                 error={touched.body && Boolean(errors.body)}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <Field
                                 component={CheckboxWithLabel}
                                 type="checkbox"
-                                Label={{ label: 'Completed' }}
+                                Label={{label: 'Completed'}}
                                 name="completed"
                                 color="primary"
-                                checked={values.completed || false}
-                                value={values.completed || false}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item xs={9}>
@@ -106,7 +122,7 @@ const NewForm = (props) => {
                         </Grid>
                     </Grid>
                 </Form>
-            )}
+            }}
         </Formik>
     );
 }
