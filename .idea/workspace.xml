@@ -20,20 +20,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44f5611a-4f9e-4c01-b98d-a83417f41ce9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/form.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/newForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/forms/TodoForm/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/forms/TodoForm/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/NewTodo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/NewTodo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Todo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Todo.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -77,7 +82,8 @@
       <workItem from="1598510998521" duration="773000" />
       <workItem from="1598511782743" duration="269000" />
       <workItem from="1598515685908" duration="5000" />
-      <workItem from="1598529099567" duration="12122000" />
+      <workItem from="1598529099567" duration="12427000" />
+      <workItem from="1598597412998" duration="10071000" />
     </task>
     <servers />
   </component>
@@ -112,5 +118,9 @@
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
     <state x="728" y="222" width="1022" height="737" key="SettingsEditor/72.27.1848.1173@72.27.1848.1173" timestamp="1598512051774" />
+    <state x="659" y="289" width="672" height="678" key="search.everywhere.popup" timestamp="1598599314574">
+      <screen x="72" y="27" width="1848" height="1173" />
+    </state>
+    <state x="659" y="289" width="672" height="678" key="search.everywhere.popup/72.27.1848.1173@72.27.1848.1173" timestamp="1598599314574" />
   </component>
 </project>

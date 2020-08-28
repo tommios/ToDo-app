@@ -6,10 +6,11 @@ import {
     Checkbox,
     TextField,
 } from "@material-ui/core";
+
+import {Form, Field} from 'formik';
 import useStyles from "../TodoForm/style";
 
-export const Form = (props) => {
-    console.log("Form props: ", props);
+export const FormikForm = (props) => {
     const classes = useStyles();
 
     const {isUpdate} = props;
@@ -19,11 +20,13 @@ export const Form = (props) => {
         errors,
         touched,
         handleChange,
+        handleBlur,
         isValid,
         setFieldTouched,
         submitForm,
         resetForm
     } = props;
+
 
     const change = (name, e) => {
         e.persist();
@@ -34,6 +37,29 @@ export const Form = (props) => {
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
+                {/*<Field*/}
+                {/*    key="title"*/}
+                {/*    validateOnBlur*/}
+                {/*    validateOnChange*/}
+                {/*    name="title"*/}
+                {/*    type="text"*/}
+                {/*>*/}
+                {/*    {*/}
+                {/*        props =>*/}
+                {/*            <TextField*/}
+                {/*                id="title"*/}
+                {/*                name="title"*/}
+                {/*                label="Title"*/}
+                {/*                variant="outlined"*/}
+                {/*                fullWidth*/}
+                {/*                value={title}*/}
+                {/*                onChange={handleChange}*/}
+                {/*                onBlur={handleBlur}*/}
+                {/*                error={touched.title && Boolean(errors.title)}*/}
+                {/*                helperText={touched.title ? errors.title : ""}*/}
+                {/*            />*/}
+                {/*    }*/}
+                {/*</Field>*/}
                 <TextField
                     id="title"
                     name="title"
@@ -46,6 +72,7 @@ export const Form = (props) => {
                     value={title}
                     onChange={change.bind(null, "title")}
                 />
+                
             </Grid>
 
             <Grid item xs={12}>
@@ -67,6 +94,7 @@ export const Form = (props) => {
             </Grid>
 
             <Grid item xs={12}>
+
                 <FormControlLabel
                     control={
                         <Checkbox
@@ -79,6 +107,7 @@ export const Form = (props) => {
                     value={completed}
                     onChange={change.bind(null, "completed")}
                 />
+
             </Grid>
 
             <Grid item xs={9}>
@@ -105,6 +134,8 @@ export const Form = (props) => {
                     Cancel
                 </Button>
             </Grid>
+
         </Grid>
+
     )
 }

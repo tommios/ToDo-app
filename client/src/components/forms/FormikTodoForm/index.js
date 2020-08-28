@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup"
-import { Form } from "./form";
-//import useStyles from "../TodoForm/style";
+import { FormikForm } from "./form";
 
 const validationSchema = Yup.object({
     title: Yup.string("Enter a title")
@@ -13,9 +12,6 @@ const validationSchema = Yup.object({
 
 
 const FormikTodoForm = (props) => {
-    //const classes = useStyles();
-
-
     const {formData, onSubmit, onCancel} = props;
     // const [todo, setTodo] = useState(original || {});
 
@@ -47,7 +43,6 @@ const FormikTodoForm = (props) => {
 
     return (
             <Formik
-                render={props => <Form {...props} isUpdate={formData && formData._id} />}
                 initialValues={formData || {}}
                 validationSchema={validationSchema}
                 onSubmit={(values, formikHelpers) => {
@@ -55,10 +50,12 @@ const FormikTodoForm = (props) => {
                     handleSave(values);
                 }}
                 onReset={handleCancel}
-                // handleChange={(event) => {
-                //     console.log('event', event);
-                // }}
-            />
+                handleChange={(event) => {
+                    console.log('event', event);
+                }}
+            >
+                {props => <FormikForm {...props} isUpdate={formData && formData._id} />}
+            </Formik>
     )
 }
 
