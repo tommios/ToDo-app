@@ -49,7 +49,6 @@ const NewForm = (props) => {
         >
             {({
                   submitForm,
-                  isSubmitting,
                   handleChange,
                   isValid,
                   resetForm,

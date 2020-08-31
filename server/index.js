@@ -7,11 +7,13 @@ import connectMongo from "./config/database";
 
 const app = express();
 
+// parse requests of content-type - application/x-www-form-urlencoded
 app.use(
   bodyParser.urlencoded({
     extended: false,
   })
 );
+// parse requests of content-type - application/json
 app.use(bodyParser.json());
 
 app.use(cors());

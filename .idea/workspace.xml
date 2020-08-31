@@ -20,12 +20,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44f5611a-4f9e-4c01-b98d-a83417f41ce9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/forms/WithConfig/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/pages/Login/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/pages/Login/style.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/pages/Signup/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/pages/Signup/style.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/newForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/forms/FormikTodoForm/newForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Todo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Todo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/todo.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/todo.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/validations/todoValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/validations/todoValidation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/LogIn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +41,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -55,9 +62,15 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="textmate" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/pages/Login" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -84,7 +97,8 @@
       <workItem from="1598529099567" duration="12427000" />
       <workItem from="1598597412998" duration="20049000" />
       <workItem from="1598622939083" duration="33000" />
-      <workItem from="1598622978281" duration="3269000" />
+      <workItem from="1598622978281" duration="3521000" />
+      <workItem from="1598856205549" duration="5013000" />
     </task>
     <servers />
   </component>
@@ -107,6 +121,10 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="591" y="275" width="800" height="684" key="#Intentions" timestamp="1598863145641">
+      <screen x="72" y="27" width="1848" height="1173" />
+    </state>
+    <state x="591" y="275" width="800" height="684" key="#Intentions/72.27.1848.1173@72.27.1848.1173" timestamp="1598863145641" />
     <state x="707" y="415" width="568" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598529187163">
       <screen x="72" y="27" width="1848" height="1173" />
     </state>

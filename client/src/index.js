@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./theme";
 import App from "./App";
-// import App from "./Test2";
 //import App from "../src/components/forms/FormikTodoForm/index"
 //import App from "../src/components/forms/FormikTodoForm/newForm"
 import * as serviceWorker from "./serviceWorker";
