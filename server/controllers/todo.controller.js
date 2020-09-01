@@ -53,7 +53,7 @@ export const findOneTodo = async (req, res) => {
 
 // Get all Todo
 export const findAllTodo = async (req, res) => {
-  console.log(req.query);
+  //console.log(req.query);
   const { search, completed } = req.query;
 
   const params = Object.keys({ search, completed }) // ['title', 'body', 'completed']
@@ -91,31 +91,6 @@ export const findAllTodo = async (req, res) => {
     console.log(errror);
   }
 };
-
-// Get filter Todo
-// export const filterTodo = async (req, res) => {
-//   //console.log(req.query);
-//   const { title, body, completed } = req.query;
-//   const params = {};
-
-//   if (title !== undefined) params.title = title;
-//   if (body !== undefined) params.body = body;
-//   if (completed !== undefined) params.completed = completed;
-
-//   try {
-//     await Todo.find(params)
-//       .then((data) => {
-//         res.send(data);
-//       })
-//       .catch((err) => {
-//         res.status(500).send({
-//           message: err.message || "Some error occurred while retrieving todos.",
-//         });
-//       });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 // Update a Todo by the id in the request
 export const updateTodo = async (req, res) => {

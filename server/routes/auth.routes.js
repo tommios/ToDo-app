@@ -13,7 +13,6 @@ authRouter.use((req, res, next) => {
 })
 
 authRouter.post("/signup", [verifySignUp.checkDuplicateUsernameOrEmail], signup);
-
 authRouter.post("/signin", signin);
 
 export default authRouter;

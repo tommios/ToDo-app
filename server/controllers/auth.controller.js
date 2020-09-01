@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 export const signup = (req, res) => {
-    console.log("\n\n\n  SignUp  ====>  ", req.body);
+    //console.log("\n\n\n  SignUp  ====>  ", req.body);
     const user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -20,16 +20,14 @@ export const signup = (req, res) => {
             res.status(500).send({message: err});
             return;
         }
-
         res.send({message: "User was registered successfully!"});
     });
 };
 
 export const signin = (req, res) => {
-    console.log("\n\n\n  SignIn  ====> ", req.body);
+    //console.log("\n\n\n  SignIn  ====> ", req.body);
     User.findOne({
         email: req.body.email
-
     })
         .exec((err, user) => {
             if (err) {
@@ -41,8 +39,8 @@ export const signin = (req, res) => {
                 return res.status(404).send({message: "User Not found."});
             }
 
-            console.log("\n  user  ====> ", user);
-            console.log("\n  user.password  ====> ", user.password);
+            // console.log("\n  user  ====> ", user);
+            // console.log("\n  user.password  ====> ", user.password);
 
             let passwordIsValid = bcrypt.compareSync(
                 req.body.password,
