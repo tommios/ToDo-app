@@ -29,7 +29,7 @@ export const todoGetAll = (params = {}) => {
     // const queryString =
     /**
      * 1) получить все ключи объекта (Object.keys)
-     * 2) отфильтровать этот массив что бы ключиу ключей было значение
+     * 2) отфильтровать этот массив что бы у ключей было значение
      * 3) преобразовать полученный массив в строку
      */
     return {
@@ -58,14 +58,6 @@ export const todoUpdate = (id, data) => ({
         data: {...data},
     },
 });
-
-// export const todoFilter = (flag) => ({
-//   type: TODOS_FILTER,
-//   request: {
-//     method: "GET",
-//     url: `/todos/filter?completed=${flag}`,
-//   },
-// });
 
 export const todoDeleteOne = (id) => ({
     type: TODOS_DELETE_ONE,

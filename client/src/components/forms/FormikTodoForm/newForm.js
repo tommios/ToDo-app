@@ -57,6 +57,7 @@ const NewForm = (props) => {
               }) => {
                 return <Form>
                     <Grid container spacing={2}>
+
                         <Grid item xs={12}>
                             <Field
                                 component={TextField}
@@ -70,22 +71,27 @@ const NewForm = (props) => {
                                 onChange={handleChange}
                             />
                         </Grid>
+
                         <Grid item xs={12}>
                             <Field
-                                component={TextField}
-                                type="body"
-                                label="Description"
                                 name="body"
-                                variant="outlined"
-                                fullWidth
-                                multiline
-                                rows={20}
-                                rowsMax={25}
                                 helperText={touched.body ? errors.body : ""}
                                 error={touched.body && Boolean(errors.body)}
                                 onChange={handleChange}
-                            />
+                            >
+                                {(props) => <TextField
+                                    {...props}
+                                    label="Description"
+                                    fullWidth
+                                    multiline
+                                    rows={20}
+                                    rowsMax={25}
+                                    variant="outlined"
+
+                                />}
+                            </Field>
                         </Grid>
+
                         <Grid item xs={12}>
                             <Field
                                 component={CheckboxWithLabel}
@@ -96,6 +102,7 @@ const NewForm = (props) => {
                                 onChange={handleChange}
                             />
                         </Grid>
+
                         <Grid item xs={9}>
                             <Button
                                 type="button"
@@ -108,6 +115,7 @@ const NewForm = (props) => {
                                 {(formData && formData._id) ? "Update" : "Create"}
                             </Button>
                         </Grid>
+
                         <Grid item xs={3}>
                             <Button
                                 type="button"
@@ -119,6 +127,7 @@ const NewForm = (props) => {
                                 Cancel
                             </Button>
                         </Grid>
+
                     </Grid>
                 </Form>
             }}

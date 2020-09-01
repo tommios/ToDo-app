@@ -1,5 +1,3 @@
-export const TODOS_FETCH = "TODOS_FETCH";
-
 export const TODOS_CREATE = "TODOS/CREATE";
 export const TODOS_GET_ALL = "TODOS/GET_ALL";
 export const TODOS_GET_ONE = "TODOS/GET_ONE";

@@ -1,10 +1,18 @@
 import config from "../config"
 import User from '../models/user.model';
+import validateRegisterInput from "../validations/registerValidation"
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-export const signup = (req, res) => {
+export const signup = (req, res, next) => {
     //console.log("\n\n\n  SignUp  ====>  ", req.body);
+
+    const {errors, isValid} = validateRegisterInput(req.body);
+    // Check validation
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
     const user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -15,16 +23,18 @@ export const signup = (req, res) => {
         password: bcrypt.hashSync(req.body.password, 8)
     });
 
+    req.user = user;
     user.save((err, user) => {
         if (err) {
             res.status(500).send({message: err});
             return;
         }
-        res.send({message: "User was registered successfully!"});
+        next();
+        // res.send({message: "User was registered successfully!"});
     });
 };
 
-export const signin = (req, res) => {
+export const signin = (req, res, next) => {
     //console.log("\n\n\n  SignIn  ====> ", req.body);
     User.findOne({
         email: req.body.email
@@ -56,15 +66,17 @@ export const signin = (req, res) => {
                 });
             }
 
-            let token = jwt.sign({id: user.id}, config.auth.secret, {
-                expiresIn: 86400 // 24 hours
-            });
-
-            res.status(200).send({
-                id: user._id,
-                username: user.username,
-                email: user.email,
-                accessToken: token
-            });
+            // let token = jwt.sign({id: user.id}, config.auth.secret, {
+            //     expiresIn: 86400 // 24 hours
+            // });
+            //
+            // res.status(200).send({
+            //     id: user._id,
+            //     username: user.username,
+            //     email: user.email,
+            //     accessToken: token
+            // });
+            req.user = user;
+            next();
         });
 };
