@@ -60,6 +60,6 @@ class userClass {
 }
 
 userSchema.loadClass(userClass);
-const User = db.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 
 export default mongoose.model("User", userSchema);

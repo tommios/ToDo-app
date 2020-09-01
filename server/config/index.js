@@ -19,4 +19,7 @@ export default {
     level: process.env.LOG_LEVEL || "info",
     console: process.env.LOG_ENABLE_CONSOLE || true,
   },
+  auth:{
+    secret: process.env.AUTH_SECRET
+  }
 };
