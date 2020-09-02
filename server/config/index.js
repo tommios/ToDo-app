@@ -20,6 +20,9 @@ export default {
     console: process.env.LOG_ENABLE_CONSOLE || true,
   },
   auth:{
-    secret: process.env.AUTH_SECRET
+    secret: process.env.AUTH_SECRET,
+    refreshTokenSecret: process.env.AUTH_REFRESH_TOKEN_SECRET,
+    tokenLife: process.env.AUTH_TOKEN_LIFE,
+    refreshTokenLife: process.env.AUTH_REFRESH_TOKEN_LIFE
   }
 };

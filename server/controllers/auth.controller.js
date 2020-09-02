@@ -1,12 +1,15 @@
-import config from "../config"
 import User from '../models/user.model';
-import validateRegisterInput from "../validations/registerValidation"
-import jwt from "jsonwebtoken";
+import validateRegisterInput from "../validations/registerValidation";
+import validateLoginInput from "../validations/loginValidation";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import config from "../config";
 
-export const signup = (req, res, next) => {
-    //console.log("\n\n\n  SignUp  ====>  ", req.body);
+const tokenList = {}
 
+
+export const signUp = (req, res, next) => {
+    // Form validation
     const {errors, isValid} = validateRegisterInput(req.body);
     // Check validation
     if (!isValid) {
@@ -23,22 +26,28 @@ export const signup = (req, res, next) => {
         password: bcrypt.hashSync(req.body.password, 8)
     });
 
-    req.user = user;
+
     user.save((err, user) => {
         if (err) {
-            res.status(500).send({message: err});
+            res.status(500).send({message: err.message});
             return;
         }
+
+        req.user = user;
         next();
-        // res.send({message: "User was registered successfully!"});
     });
 };
 
-export const signin = (req, res, next) => {
-    //console.log("\n\n\n  SignIn  ====> ", req.body);
-    User.findOne({
-        email: req.body.email
-    })
+
+export const signIn = (req, res, next) => {
+    // Form validation
+    const {errors, isValid} = validateLoginInput(req.body);
+    // Check validation
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    User.findOne({email: req.body.email})
         .exec((err, user) => {
             if (err) {
                 res.status(500).send({message: err});
@@ -49,34 +58,69 @@ export const signin = (req, res, next) => {
                 return res.status(404).send({message: "User Not found."});
             }
 
-            // console.log("\n  user  ====> ", user);
-            // console.log("\n  user.password  ====> ", user.password);
-
-            let passwordIsValid = bcrypt.compareSync(
-                req.body.password,
-                user.password
-            );
-
-            console.log("\n  passwordIsValid  ====> ", passwordIsValid);
-
-            if (!passwordIsValid) {
-                return res.status(401).send({
-                    accessToken: null,
-                    message: "Invalid Password!"
-                });
-            }
-
-            // let token = jwt.sign({id: user.id}, config.auth.secret, {
-            //     expiresIn: 86400 // 24 hours
-            // });
-            //
-            // res.status(200).send({
-            //     id: user._id,
-            //     username: user.username,
-            //     email: user.email,
-            //     accessToken: token
-            // });
-            req.user = user;
-            next();
+            // Check password
+            bcrypt.compare(req.body.password, user.password)
+                .then(isMatch => {
+                    if (isMatch) {
+                        // User matched
+                        req.user = user;
+                        next();
+                    } else {
+                        return res
+                            .status(400)
+                            .json({message: "Password incorrect"});
+                    }
+                })
         });
+};
+
+
+export const refreshToken = (req, res) => {
+    // refresh the damn token
+    const user = req.body;
+
+    // if refresh token exists
+    if ((user.refreshToken) && (user.refreshToken in tokenList)) {
+        const payload = {
+            "id": user._id,
+            "email": user.email,
+            "username": user.username
+        }
+
+        const token = jwt.sign(payload, config.auth.secret, {expiresIn: config.auth.tokenLife});
+
+        const response = {
+            "token": token,
+        }
+        // update the token in the list
+        tokenList[user.refreshToken].token = token;
+
+        res.status(200).json(response);
+    } else {
+        res.status(404).send('Invalid request')
+    }
+}
+
+
+export const makeJwt = (req, res, next) => {
+    // Create JWT Payload
+    const user = req.user;
+
+    const payload = {
+        "id": user._id,
+        "email": user.email,
+        "username": user.username
+    };
+
+    const token = jwt.sign(payload, config.auth.secret, {expiresIn: config.auth.tokenLife}); // tokenLife = 900 (15 min)
+    const refreshToken = jwt.sign(payload, config.auth.refreshTokenSecret, {expiresIn: config.auth.refreshTokenLife}); // refreshTokenLife = 86400 (24 hour)
+
+    const response = {
+        "status": "Logged in",
+        "token": "Bearer " + token,
+        "refreshToken": "Bearer " + refreshToken,
+    }
+
+    tokenList[refreshToken] = response;
+    res.status(200).json(response);
 };

@@ -1,6 +1,9 @@
 import Router from "express-promise-router";
 const todoRouter = Router();
 
+import {tokenChecker} from "../middlewares/tokenChecker"
+import passport from "passport";
+
 import {
   createTodo,
   findAllTodo,
@@ -9,6 +12,11 @@ import {
   deleteTodo,
   deleteAllTodo,
 } from "../controllers/todo.controller";
+//import authRouter from "./auth.routes";
+
+todoRouter.use((req, res, next) => {
+  tokenChecker(req, res, next);
+});
 
 // @route POST /todos
 // @desc Create and Save a new Todo
@@ -18,6 +26,7 @@ todoRouter.post("/", createTodo);
 // @route GET /todos
 // @desc Get all Todo
 // @access Public
+// todoRouter.get("/", passport.authenticate("jwt", { session: false }), findAllTodo);
 todoRouter.get("/", findAllTodo);
 
 // @route GET /todos/:id

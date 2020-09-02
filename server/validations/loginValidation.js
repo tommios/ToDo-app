@@ -8,17 +8,17 @@ const schemaLogin = Joi.object({
         .max(30)
         .required()
         .trim()
-        .regex(
-            /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,30}/
-        )
+    // .regex(
+    //     /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,30}/
+    // )
 });
 
-export function validateLoginInput(data) {
+const validateLoginInput = (data) => {
     let errors = {};
-    let result = Joi.validate(data, schemaLogin);
+    let result = schemaLogin.validate(data);
 
     if (result.error) {
-        errors = result.error;
+        errors = result.error.message;
     }
 
     return {
@@ -26,3 +26,5 @@ export function validateLoginInput(data) {
         isValid: isEmpty(errors)
     };
 }
+
+export default validateLoginInput;

@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import passport from "passport";
+import configPassport from "./config/passport"
 import Routes from "./routes";
 import config from "./config";
 import connectMongo from "./config/database";
@@ -20,6 +22,11 @@ app.use(cors());
 
 // connect to MongoDB:
 connectMongo();
+
+// // Passport middleware
+// app.use(passport.initialize({}));
+// // Passport config
+// configPassport(passport);
 
 // Routes
 Routes(app);
