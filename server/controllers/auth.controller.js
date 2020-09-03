@@ -112,15 +112,14 @@ export const makeJwt = (req, res, next) => {
         "username": user.username
     };
 
-    const token = jwt.sign(payload, config.auth.secret, {expiresIn: config.auth.tokenLife}); // tokenLife = 900 (15 min)
-    const refreshToken = jwt.sign(payload, config.auth.refreshTokenSecret, {expiresIn: config.auth.refreshTokenLife}); // refreshTokenLife = 86400 (24 hour)
+    const token = jwt.sign(payload, config.auth.secret, {expiresIn: config.auth.tokenLife}); // tokenLife = (24 hour)
+    const refreshToken = jwt.sign(payload, config.auth.refreshTokenSecret, {expiresIn: '168h'}); // refreshTokenLife = 168h (7 days)
 
     const response = {
         "status": "Logged in",
-        "token": "Bearer " + token,
-        "refreshToken": "Bearer " + refreshToken,
+        "token": token,
+        "refreshToken": refreshToken,
     }
-
     tokenList[refreshToken] = response;
     res.status(200).json(response);
 };

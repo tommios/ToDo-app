@@ -24,9 +24,9 @@ app.use(cors());
 connectMongo();
 
 // // Passport middleware
-// app.use(passport.initialize({}));
+app.use(passport.initialize({}));
 // // Passport config
-// configPassport(passport);
+configPassport(passport);
 
 // Routes
 Routes(app);

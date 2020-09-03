@@ -7,7 +7,8 @@ const ExtractJwt = ExtractPassportJwt.ExtractJwt;
 const JwtStrategy = StrategyPassportJwt.Strategy;
 
 const opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+// opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = ExtractJwt.fromHeader("x-access-token")
 opts.secretOrKey = config.auth.secret
 
 export const passport =  (passport) => {
