@@ -19,6 +19,8 @@ function App() {
           <Route exact path="/todos/:id" component={Todo} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          {/*<Route exact path="/auth/password/:hash" component={Signup} />*/}
+          {/*<Route exact path="/auth/new-password" component={Signup} />*/}
         </Switch>
       </Router>
     </Container>

@@ -24,5 +24,10 @@ export default {
     refreshTokenSecret: process.env.AUTH_REFRESH_TOKEN_SECRET,
     tokenLife: process.env.AUTH_TOKEN_LIFE,
     refreshTokenLife: process.env.AUTH_REFRESH_TOKEN_LIFE
+  },
+  sendgrid:{
+    apiKey: process.env.SENDGRID_API_KEY,
+    emailFrom: process.env.EMAIL_FROM,
+    baseURL:process.env.BASE_URL
   }
 };
