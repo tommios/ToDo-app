@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
     progess: {
         position: 'absolute'
-    }
+    },
 }));
 
 export default useStyles;

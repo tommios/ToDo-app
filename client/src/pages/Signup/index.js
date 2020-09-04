@@ -7,15 +7,10 @@ import {
     Link,
     Grid,
     Typography,
-    Container,
-    CircularProgress
+    Container
 } from '@material-ui/core';
 import useStyles from "./style";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-
-import axios from 'axios';
-
-
 
 const Signup = (props) => {
     const classes = useStyles();
@@ -27,9 +22,11 @@ const Signup = (props) => {
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon/>
                 </Avatar>
+
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
+
                 <form className={classes.form} noValidate>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
@@ -46,6 +43,7 @@ const Signup = (props) => {
                                 // onChange={this.handleChange}
                             />
                         </Grid>
+
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 variant="outlined"

@@ -7,13 +7,18 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
 import Container from "@material-ui/core/Container";
+import {useSelector} from "react-redux";
 
 function App() {
+  const isLoggedIn = useSelector((state) => state.todos.isLoggedIn);
+  console.log("isLoggedIn ===> ", isLoggedIn);
+
   return (
     <Container>
       <Router>
         <Switch>
-          <Route exact path="/" component={Todos} />
+          {isLoggedIn ? <Route exact path="/" component={Todos} /> : <Route exact path="/" component={Login} />}
+
           <Route exact path="/todos" component={Todos} />
           <Route exact path="/todos/new" component={NewTodo} />
           <Route exact path="/todos/:id" component={Todo} />

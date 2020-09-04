@@ -7,14 +7,16 @@ import {
 } from "./types";
 
 import {success, error} from "@redux-requests/core";
+import initialState from "../initialState";
 
-const initialState = {
-    todos: [],
-    todo: {},
-    isLoading: false,
-};
+// const initialState = {
+//     todos: [],
+//     todo: {},
+//     isLoading: false,
+//     isLoggedIn: false,
+// };
 
-export default (state = initialState, action) => {
+export default (state = initialState(), action) => {
     switch (action.type) {
         case TODOS_CREATE: {
             return {

@@ -53,7 +53,6 @@ export const findOneTodo = async (req, res) => {
 
 // Get all Todo
 export const findAllTodo = async (req, res) => {
-  //console.log(req.query);
   const { search, completed } = req.query;
 
   const params = Object.keys({ search, completed }) // ['title', 'body', 'completed']
@@ -88,7 +87,7 @@ export const findAllTodo = async (req, res) => {
         });
       });
   } catch (error) {
-    console.log(errror);
+    console.log(error);
   }
 };
 

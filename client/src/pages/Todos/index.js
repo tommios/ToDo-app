@@ -7,10 +7,7 @@ import {
   TextField,
   FormControl,
   InputLabel,
-  Select,
-  MenuItem,
-  NativeSelect,
-  FormHelperText,
+  Select
 } from "@material-ui/core";
 import useStyles from "./style";
 
@@ -28,7 +25,7 @@ const options = [
 ];
 
 let searchTimer;
-let debounced;
+
 const ItemList = (props) => {
   const todos = useSelector((state) => state?.todos?.todos || []);
   const isLoading = useSelector((state) => state.todos.isLoading);

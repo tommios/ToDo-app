@@ -3,7 +3,6 @@ import {
     TODOS_GET_ALL,
     TODOS_GET_ONE,
     TODOS_UPDATE,
-    TODOS_FILTER,
     TODOS_DELETE_ONE,
     TODOS_DELETE_ALL,
 } from "./types";
@@ -25,6 +24,15 @@ export const todoCreate = (data) => ({
 //   },
 // });
 
+const protectedUrl = (params) => {
+    const request = { ...params };
+    const token = localStorage.getItem('token')
+    request.headers = {
+        Authorization: `Bearer ${token}`
+    }
+    return ({ ...request })
+}
+
 export const todoGetAll = (params = {}) => {
     // const queryString =
     /**
@@ -34,6 +42,11 @@ export const todoGetAll = (params = {}) => {
      */
     return {
         type: TODOS_GET_ALL,
+        // request: protectedUrl({
+        //     method: "GET",
+        //     url: `/todos`,
+        //     params,
+        // }),
         request: {
             method: "GET",
             url: `/todos`,

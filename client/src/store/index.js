@@ -6,6 +6,8 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 
 import todosReducer from "./todos/reducer";
+import authReducer from "./auth/reducer";
+
 import { onRequest, onSuccess, onError } from "./interceptors";
 
 export const configureStore = () => {
@@ -19,6 +21,7 @@ export const configureStore = () => {
   const reducers = combineReducers({
     requests: requestsReducer,
     todos: todosReducer,
+    auth: authReducer,
   });
 
   const composeEnhancers =

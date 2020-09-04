@@ -1,24 +1,47 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {useHistory}  from "react-router-dom";
+import {logIn} from "../../store/auth/actions";
 // Material UI components
 import {
     Avatar,
     Button,
     CssBaseline,
     Container,
-    CircularProgress,
     TextField,
     Link,
     Grid,
     Typography
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import axios from 'axios';
 import useStyles from "./style";
-
+import {todoGetAll} from "../../store/todos/actions";
 
 
 const Login = (props) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    let history = useHistory();
+
+    const [user, setUser] = useState({email: "", password: ""});
+    useEffect(() => {
+        setUser(user);
+    }, [user]);
+
+    const handleChange = (key, value) => {
+        setUser({
+            ...user,
+            [key]: value,
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(logIn({ email: user.email, password: user.password }));
+        history.push("/todos");
+    };
+
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
@@ -26,9 +49,11 @@ const Login = (props) => {
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon/>
                 </Avatar>
+
                 <Typography component="h1" variant="h5">
                     Login
                 </Typography>
+
                 <form className={classes.form} noValidate>
                     <TextField
                         variant="outlined"
@@ -40,9 +65,10 @@ const Login = (props) => {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        value={user.email || ""}
                         // helperText={errors.email}
                         //error={errors.email ? true : false}
-                        // onChange={this.handleChange}
+                        onChange={(e) => handleChange("email", e.target.value)}
                     />
                     <TextField
                         variant="outlined"
@@ -53,10 +79,11 @@ const Login = (props) => {
                         label="Password"
                         type="password"
                         id="password"
+                        value={user.password || ""}
                         autoComplete="current-password"
                         // helperText={errors.password}
                         //error={errors.password ? true : false}
-                        // onChange={this.handleChange}
+                        onChange={(e) => handleChange("password", e.target.value)}
                     />
                     <Button
                         type="submit"
@@ -64,7 +91,7 @@ const Login = (props) => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        // onClick={this.handleSubmit}
+                        onClick={handleSubmit}
                         // disabled={loading || !this.state.email || !this.state.password}
                     >
                         Sign In
