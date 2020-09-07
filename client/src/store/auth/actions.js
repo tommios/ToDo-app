@@ -13,5 +13,14 @@ export const logIn = (user) => ({
         method: "POST",
         url: "/auth/login",
         data: {...user},
-    },
+    }
+});
+
+export const signUp = (user) => ({
+    type: SIGN_UP_USER,
+    request: {
+        method: "POST",
+        url: "/auth/signup",
+        data: {...user},
+    }
 });

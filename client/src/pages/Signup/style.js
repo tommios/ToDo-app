@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
     progress: {
         position: 'absolute'
-    }
+    },
 }));
 
 export default useStyles;
