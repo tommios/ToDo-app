@@ -14,6 +14,7 @@ import {
     Typography,
     TextField as MuiTextField,
 } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 // Formik Material UI components
 import {TextField} from 'formik-material-ui';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -54,6 +55,9 @@ const LoginForm = (props) => {
                         password: "",
                     }}
                     validationSchema={validationSchema}
+                    onClose={(actions) => {
+                        actions.setSubmitting(false);
+                    }}
                     onSubmit={(values, actions, errors) => {
 
                         dispatch(logIn({email: values.email, password: values.password}))
@@ -64,16 +68,10 @@ const LoginForm = (props) => {
                                     history.push("/todos");
                                     actions.resetForm();
                                 } else {
-                                    actions.setFieldError('general', response.action.error.response.data.message);
-                                    setTimeout(()=>{
-                                        actions.setSubmitting(false);
-                                    }, 1000)
-                                    // actions.setErrors(response.action.error.response.data.message);
-                                    // console.log('LoginForm response.action.error =====> ', response.action.error.response.data.message);
-                                    //
-                                    // //actions.setFieldError('general', response.action.error.response.data.message);
-                                    // console.log("error.message ======> ", errors);
-                                    // console.log('01 LoginForm errors =====> ', errors);
+                                    actions.setFieldError('backend', response.action.error.response.data.message);
+                                    // setTimeout(()=>{
+                                    //     actions.setSubmitting(false);
+                                    // }, 2000)
                                 }
                             })
                             .catch(error => {
@@ -88,6 +86,7 @@ const LoginForm = (props) => {
                 >
                     {({
                           submitForm,
+                          setSubmitting,
                           isSubmitting,
                           handleChange,
                           isValid,
@@ -158,7 +157,10 @@ const LoginForm = (props) => {
                                     <></>
                                 ) : (
                                     <>
-                                        <p style={{color: 'red'}}>{errors.general}</p>
+                                        <Alert severity="error" onClose={() => {
+                                            setSubmitting(false)
+                                        }}>{errors.backend}</Alert>
+
                                     </>
                                 )}
 
