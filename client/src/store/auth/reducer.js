@@ -6,38 +6,64 @@ import {
     USER_LOADING,
     SET_CURRENT_USER,
 } from "./types";
-
+import isEmpty from "is-empty";
 import {success, error} from "@redux-requests/core";
-//import initialState from "../initialState";
+
 const initialState = {
-    isLoggedIn: false,
+    isAuthenticated: false,
+    user: {},
+    loading: false
+    // isLoggedIn: false,
 };
 
 export default (state = initialState, action) => {
-
     switch (action.type) {
-        case LOGIN_USER: {
+        case SET_CURRENT_USER: {
             return {
                 ...state,
-                isLoggedIn: false,
-                errors: undefined,
+                isAuthenticated: false,
+                user: {}
             };
         }
-        case success(LOGIN_USER): {
+        case success(SET_CURRENT_USER): {
             localStorage.setItem("token", action.response.data.token);
             localStorage.setItem("refreshToken", action.response.data.refreshToken);
             return {
                 ...state,
-                isLoggedIn: true,
+                isAuthenticated: !isEmpty(action.payload),
+                user: action.payload
             };
         }
-        case error(LOGIN_USER): {
+        case error(SET_CURRENT_USER): {
             return {
                 ...state,
-                isLoggedIn: false,
-                errors: action.error,
+                isAuthenticated: false,
+                user: {}
             };
         }
+
+
+        case USER_LOADING: {
+            return {
+                ...state,
+                loading: false
+            };
+        }
+        case success(USER_LOADING): {
+            localStorage.setItem("token", action.response.data.token);
+            localStorage.setItem("refreshToken", action.response.data.refreshToken);
+            return {
+                ...state,
+                loading: true
+            };
+        }
+        case error(USER_LOADING): {
+            return {
+                ...state,
+                loading: false
+            };
+        }
+
 
         case SIGN_UP_USER: {
             return {
