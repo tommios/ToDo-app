@@ -51,14 +51,12 @@ export const signUp = async (req, res, next) => {
 
 
 export const logIn = (req, res, next) => {
-    console.log(req.body);
     // Form validation
     const {errors, isValid} = validateLoginInput(req.body);
     // Check validation
     if (!isValid) {
         return res.status(400).json(errors);
     }
-    console.log("isValid ===>  ",isValid);
     User.findOne({email: req.body.email})
         .exec((err, user) => {
             if (err) {

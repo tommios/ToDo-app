@@ -1,6 +1,5 @@
 export const LOGIN_USER = "AUTH/LOGIN_USER";
 export const LOGOUT_USER = "AUTH/LOGOUT_USER";
 export const SIGN_UP_USER = "AUTH/SIGN_UP_USER";
-export const GET_ERRORS = "AUTH/GET_ERRORS";
 export const USER_LOADING = "AUTH/USER_LOADING";
 export const SET_CURRENT_USER = "AUTH/SET_CURRENT_USER";

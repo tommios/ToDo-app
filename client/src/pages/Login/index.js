@@ -11,7 +11,8 @@ import {
     Container,
     Link,
     Grid,
-    Typography
+    Typography,
+    TextField as MuiTextField,
 } from '@material-ui/core';
 // Formik Material UI components
 import {TextField} from 'formik-material-ui';
@@ -53,29 +54,47 @@ const LoginForm = (props) => {
                         password: "",
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values, {setSubmitting, resetForm}) => {
-                        setSubmitting(true);
-                        console.log("LoginForm values ===> ", values);
+                    onSubmit={(values, actions, errors) => {
+
                         dispatch(logIn({email: values.email, password: values.password}))
                             .then((response) => {
                                 if (!response.action.error) {
+                                    console.log("=========================");
+                                    actions.setSubmitting(true);
                                     history.push("/todos");
+                                    actions.resetForm();
+                                } else {
+                                    actions.setFieldError('general', response.action.error.response.data.message);
+                                    setTimeout(()=>{
+                                        actions.setSubmitting(false);
+                                    }, 1000)
+                                    // actions.setErrors(response.action.error.response.data.message);
+                                    // console.log('LoginForm response.action.error =====> ', response.action.error.response.data.message);
+                                    //
+                                    // //actions.setFieldError('general', response.action.error.response.data.message);
+                                    // console.log("error.message ======> ", errors);
+                                    // console.log('01 LoginForm errors =====> ', errors);
                                 }
-                            }, (error) => {
-                                console.log('error =====> ', error);
                             })
-
-                        resetForm();
-                        setSubmitting(false);
+                            .catch(error => {
+                                actions.setFieldError('general', error.message);
+                            })
+                            .finally(() => {
+                                //actions.setSubmitting(false);
+                            });
+                        //resetForm();
+                        //setSubmitting(false);
                     }}
                 >
                     {({
                           submitForm,
+                          isSubmitting,
                           handleChange,
                           isValid,
                           touched,
                           errors
                       }) => {
+                        console.log("errors.general =======> ", errors.general);
                         return (
                             <Form className={classes.form}>
                                 <Grid item xs={12}>
@@ -134,6 +153,14 @@ const LoginForm = (props) => {
                                         </Link>
                                     </Grid>
                                 </Grid>
+
+                                {!isSubmitting ? (
+                                    <></>
+                                ) : (
+                                    <>
+                                        <p style={{color: 'red'}}>{errors.general}</p>
+                                    </>
+                                )}
 
                             </Form>
                         )

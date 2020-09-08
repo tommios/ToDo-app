@@ -7,7 +7,6 @@ import {
 } from "./types";
 
 import {success, error} from "@redux-requests/core";
-//import initialState from "../initialState";
 
 const initialState = {
     todos: [],
@@ -99,9 +98,7 @@ export default (state = initialState, action) => {
         }
         case success(TODOS_UPDATE): {
             const todo = action.response.data;
-            //console.log(todo);
             const todos = [...state.todos];
-
             const index = todos.findIndex((i) => i._id === todo._id);
             if (index !== -1) {
                 todos[index] = todo;

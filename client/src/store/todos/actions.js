@@ -16,37 +16,15 @@ export const todoCreate = (data) => ({
     },
 });
 
-// export const _todoGetAll = (query = {}) => ({
-//   type: TODOS_GET_ALL,
-//   request: {
-//     method: "GET",
-//     url: `/todos?${qString.stringify(query, {arrayFormat: 'bracket'})}`,
-//   },
-// });
-
-const protectedUrl = (params) => {
-    const request = { ...params };
-    const token = localStorage.getItem('token')
-    request.headers = {
-        Authorization: `Bearer ${token}`
-    }
-    return ({ ...request })
-}
-
 export const todoGetAll = (params = {}) => {
-    // const queryString =
-    /**
+    /** const queryString =
+
      * 1) получить все ключи объекта (Object.keys)
      * 2) отфильтровать этот массив что бы у ключей было значение
      * 3) преобразовать полученный массив в строку
      */
     return {
         type: TODOS_GET_ALL,
-        // request: protectedUrl({
-        //     method: "GET",
-        //     url: `/todos`,
-        //     params,
-        // }),
         request: {
             method: "GET",
             url: `/todos`,

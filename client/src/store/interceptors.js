@@ -1,16 +1,22 @@
 export const onRequest = (request, action, store) => {
-    // console.log('\n\nrequest ===> ', request.headers);
-    // try {
-    //     const token = localStorage.get('token');
-    //
-    //     request.headers = {
-    //         Authorization: `Bearer ${token}`
-    //     }
-    //     console.log('\n\nrequest ===> ', request.headers);
-    //     // request.replace('Bearer ', '')
-    // } catch (e) {
-    //     // dispatch('logout')
-    // }
+    try{
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+            // Apply authorization token to every request if logged in
+            request.headers = {
+                Authorization: `Bearer ${token}`,
+            }
+        } else {
+            // Delete auth header
+            request.headers = {
+                Authorization: "",
+            }
+        }
+    }
+    catch(err){
+        console.log(err);
+    }
+
     return request;
 };
 

@@ -2,7 +2,6 @@ import {
     LOGIN_USER,
     LOGOUT_USER,
     SIGN_UP_USER,
-    GET_ERRORS,
     USER_LOADING,
     SET_CURRENT_USER,
 } from "./types";
@@ -24,3 +23,26 @@ export const signUp = (user) => ({
         data: {...user},
     }
 });
+
+// Init app
+export const init = () => {
+    const token = localStorage.getItem("accessToken");
+    return {
+        type: SET_CURRENT_USER,
+        token,
+    };
+};
+
+// User loading
+export const setUserLoading = () => {
+    return {
+        type: USER_LOADING
+    };
+};
+
+// Log user out
+export const logoutUser = () => {
+    return {
+        type: LOGOUT_USER
+    };
+};
