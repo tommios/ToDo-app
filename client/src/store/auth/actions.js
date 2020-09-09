@@ -5,6 +5,16 @@ import {
     USER_LOADING,
     SET_CURRENT_USER,
 } from "./types";
+import jwt_decode from "jwt-decode";
+
+// Init app
+export const init = () => ({
+    type: SET_CURRENT_USER,
+    request: {
+        method: 'GET',
+        url: '/auth/userinfo'
+    }
+});
 
 export const logIn = (user) => ({
     type: LOGIN_USER,
@@ -12,6 +22,12 @@ export const logIn = (user) => ({
         method: "POST",
         url: "/auth/login",
         data: {...user},
+    },
+    meta: {
+        onSuccess: (response) => {
+            localStorage.setItem('accessToken', response.data.token);
+            return response;
+        }
     }
 });
 
@@ -24,15 +40,6 @@ export const signUp = (user) => ({
     }
 });
 
-// Init app
-export const init = () => {
-    const token = localStorage.getItem("accessToken");
-    return {
-        type: SET_CURRENT_USER,
-        token,
-    };
-};
-
 // User loading
 export const setUserLoading = () => {
     return {
@@ -42,6 +49,8 @@ export const setUserLoading = () => {
 
 // Log user out
 export const logoutUser = () => {
+    // Remove token from local storage
+    localStorage.removeItem("accessToken");
     return {
         type: LOGOUT_USER
     };

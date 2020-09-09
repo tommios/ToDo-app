@@ -55,6 +55,7 @@ export const findOneTodo = async (req, res) => {
 export const findAllTodo = async (req, res) => {
   const { search, completed } = req.query;
 
+  //const user = req.user
   const params = Object.keys({ search, completed }) // ['title', 'body', 'completed']
     .filter((key) => !!req.query[key]) // if (!!req.query['body'])
     .reduce((result, current) => {

@@ -12,7 +12,6 @@ import {
     Link,
     Grid,
     Typography,
-    TextField as MuiTextField,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 // Formik Material UI components
@@ -55,47 +54,35 @@ const LoginForm = (props) => {
                         password: "",
                     }}
                     validationSchema={validationSchema}
-                    onClose={(actions) => {
-                        actions.setSubmitting(false);
-                    }}
-                    onSubmit={(values, actions, errors) => {
-
+                    onSubmit={(values, actions) => {
                         dispatch(logIn({email: values.email, password: values.password}))
                             .then((response) => {
                                 if (!response.action.error) {
-                                    console.log("=========================");
+                                    actions.setFieldError('backend', null);
                                     actions.setSubmitting(true);
-                                    history.push("/todos");
                                     actions.resetForm();
+                                    history.push("/todos");
+
                                 } else {
                                     actions.setFieldError('backend', response.action.error.response.data.message);
-                                    // setTimeout(()=>{
-                                    //     actions.setSubmitting(false);
-                                    // }, 2000)
+                                    actions.setSubmitting(false);
                                 }
                             })
                             .catch(error => {
-                                actions.setFieldError('general', error.message);
+                                actions.setFieldError('backend', error.message);
                             })
-                            .finally(() => {
-                                //actions.setSubmitting(false);
-                            });
-                        //resetForm();
-                        //setSubmitting(false);
                     }}
                 >
                     {({
                           submitForm,
-                          setSubmitting,
-                          isSubmitting,
                           handleChange,
                           isValid,
                           touched,
                           errors
                       }) => {
-                        console.log("errors.general =======> ", errors.general);
                         return (
                             <Form className={classes.form}>
+
                                 <Grid item xs={12}>
                                     <Field
                                         component={TextField}
@@ -153,17 +140,17 @@ const LoginForm = (props) => {
                                     </Grid>
                                 </Grid>
 
-                                {!isSubmitting ? (
+                                {!errors?.backend ?
                                     <></>
-                                ) : (
-                                    <>
-                                        <Alert severity="error" onClose={() => {
-                                            setSubmitting(false)
-                                        }}>{errors.backend}</Alert>
+                                    :
+                                    <Alert
+                                        severity="error"
+                                        variant="filled"
+                                    >
+                                        {errors.backend}
+                                    </Alert>
 
-                                    </>
-                                )}
-
+                                }
                             </Form>
                         )
                     }

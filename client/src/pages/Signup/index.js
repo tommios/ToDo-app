@@ -11,12 +11,12 @@ import {
     Link,
     Grid,
     Typography,
-    Container
+    Container,
 } from '@material-ui/core';
+import Alert from "@material-ui/lab/Alert";
 import {TextField} from 'formik-material-ui';
 import useStyles from "./style";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-
 
 
 const validationSchema = Yup.object({
@@ -49,7 +49,6 @@ const SignupForm = (props) => {
     const dispatch = useDispatch();
     let history = useHistory();
 
-
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
@@ -74,20 +73,22 @@ const SignupForm = (props) => {
                         confirmPassword: "",
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values, {setSubmitting, resetForm}) => {
-                        setSubmitting(true);
-                        console.log("SignupForm values ===> ", values);
+                    onSubmit={(values, actions) => {
                         dispatch(signUp({...values}))
                             .then((response) => {
                                 if (!response.action.error) {
+                                    actions.setFieldError('backend', null);
+                                    actions.setSubmitting(true);
                                     history.push("/todos");
+                                    actions.resetForm();
+                                } else {
+                                    actions.setFieldError('backend', response.action.error.response.data.message);
+                                    actions.setSubmitting(false);
                                 }
-                            }, (error) => {
-                                console.log('error =====> ', error);
                             })
-
-                        //resetForm();
-                        setSubmitting(false);
+                            .catch(error => {
+                                actions.setFieldError('backend', error.message);
+                            })
                     }}
                 >
 
@@ -258,6 +259,18 @@ const SignupForm = (props) => {
                                     </Link>
                                 </Grid>
                             </Grid>
+
+                            {!errors?.backend ?
+                                <></>
+                                :
+                                <Alert
+                                    severity="error"
+                                    variant="filled"
+                                >
+                                    {errors.backend}
+                                </Alert>
+
+                            }
                         </Form>
                     }}
 

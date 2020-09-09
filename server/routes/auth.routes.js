@@ -6,7 +6,8 @@ import {
     refreshToken,
     resetPassword,
     newPassword,
-    makeJwt
+    makeJwt,
+    getUserInfo
 }
     from "../controllers/auth.controller";
 
@@ -23,6 +24,7 @@ authRouter.use((req, res, next) => {
 authRouter.post("/login", logIn, makeJwt);
 authRouter.post("/signup", verifySignUp.checkDuplicateUsernameOrEmail, signUp, makeJwt);
 authRouter.post("/token", refreshToken);
+authRouter.get("/userinfo", getUserInfo);
 authRouter.post("/reset", resetPassword);
 authRouter.get("/password/:token", newPassword);
 

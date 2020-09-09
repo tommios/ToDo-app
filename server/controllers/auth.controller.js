@@ -123,24 +123,27 @@ export const refreshToken = (req, res) => {
 
 export const makeJwt = (req, res, next) => {
     // Create JWT Payload
-    const user = req.user;
-
     const payload = {
-        "id": user._id,
-        "email": user.email,
-        "username": user.username
+        "id": req.user._id,
+        "username": req.user.username
     };
 
     const token = jwt.sign(payload, config.auth.secret, {expiresIn: config.auth.tokenLife}); // tokenLife = (24 hour)
-    const refreshToken = jwt.sign(payload, config.auth.refreshTokenSecret, {expiresIn: config.auth.refreshTokenLife}); // refreshTokenLife = 168h (7 days)
+    //const refreshToken = jwt.sign(payload, config.auth.refreshTokenSecret, {expiresIn: config.auth.refreshTokenLife}); // refreshTokenLife = 168h (7 days)
 
     const response = {
-        "status": "Logged in",
         "token": token,
-        "refreshToken": refreshToken,
+        "userinfo": {
+            id: req.user._id,
+            firstName: req.user.firstName,
+            lastName: req.user.lastName,
+            username: req.user.username,
+            phoneNumber: req.user.phoneNumber,
+            country: req.user.country,
+            email: req.user.email,
+        }
     }
-    tokenList[refreshToken] = response;
-    //console.log("\n\nmakeJwt tokenList ===> \n", tokenList);
+    //tokenList[refreshToken] = response;
     res.status(200).json(response);
 };
 
@@ -159,8 +162,7 @@ export const resetPassword = (req, res) => {
                 await candidate.save();
 
                 await mailer.sendMail(resetEmail(candidate.email, candidate.resetToken));
-                res.status(200).send("Go to page /password/{token}......")
-                //res.redirect("/auth/signin");
+                res.status(200).send("Go to page /password/{token}......");
             } else {
                 console.log("Email not found!!!");
                 res.redirect("/auth/reset");
@@ -183,11 +185,51 @@ export const newPassword = async (req, res) => {
             resetTokenExp: {$gt: Date.now()}
         })
 
-        if(user){
+        if (user) {
             res.redirect("/auth/login")
         }
     } catch (e) {
         console.log(e)
     }
 
+}
+
+
+export const getUserInfo = async (req, res) => {
+    try {
+        const accessToken = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(accessToken, config.auth.secret);
+
+        if (new Date(decoded.exp * 1000) > new Date()) {
+            User.findOne({_id: decoded.id})
+                .exec((err, user) => {
+                    if (err) {
+                        res.status(500).send({message: err});
+                        return;
+                    }
+                    if (!user) {
+                        return res.status(404).send({message: "User Not found."});
+                    }
+
+
+                    const response = {
+                        "userinfo": {
+                            id: user._id,
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            username: user.username,
+                            phoneNumber: user.phoneNumber,
+                            country: user.country,
+                            email: user.email,
+                        }
+                    }
+                    res.status(200).json(response);
+                })
+        } else {
+            res.status(401).send('Token expired');
+        }
+    } catch
+        (e) {
+        res.status(401).send('Invalid token');
+    }
 }

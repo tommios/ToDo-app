@@ -1,5 +1,5 @@
 export const onRequest = (request, action, store) => {
-    try{
+    try {
         const token = localStorage.getItem('accessToken');
         if (token) {
             // Apply authorization token to every request if logged in

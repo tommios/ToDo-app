@@ -32,6 +32,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Password field is required!"],
     },
+    accessToken: {
+        type: String,
+    },
     resetToken: {
         type: String,
     },

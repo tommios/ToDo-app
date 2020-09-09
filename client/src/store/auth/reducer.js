@@ -17,6 +17,38 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        ////////   SET_CURRENT_USER   ////////
+        case SET_CURRENT_USER: {
+            return {
+                ...state,
+                isAuthenticated: false,
+                user: {}
+            }
+        }
+        case success(SET_CURRENT_USER): {
+            const userinfo = action.response.data.userinfo
+            if (userinfo.id) {
+                return {
+                    ...state,
+                    isAuthenticated: true,
+                    user: userinfo
+                }
+            } else {
+                return {
+                    ...state,
+                    isAuthenticated: false,
+                    user: {}
+                }
+            }
+        }
+        case error(SET_CURRENT_USER): {
+            return {
+                ...state,
+                errors: action.error.response.data
+            };
+        }
+
+        ////////   LOGIN_USER   ////////
         case LOGIN_USER: {
             return {
                 ...state,
@@ -25,17 +57,14 @@ export default (state = initialState, action) => {
             };
         }
         case success(LOGIN_USER): {
-            // Set token to localStorage
-            const {token} = action.response.data;
-            localStorage.setItem("accessToken", token);
-
-            // Decode token to get user data
-            const decoded = jwt_decode(token);
-
+            /**
+             * { token: string; user: object; }
+             * @type {any | undefined}
+             */
             return {
                 ...state,
                 isAuthenticated: true,
-                user: decoded
+                user: action.response.data.userinfo
             };
         }
         case error(LOGIN_USER): {
@@ -45,6 +74,7 @@ export default (state = initialState, action) => {
             };
         }
 
+        ////////   USER_LOADING   ////////
         case USER_LOADING: {
             return {
                 ...state,
@@ -65,6 +95,7 @@ export default (state = initialState, action) => {
             };
         }
 
+        ////////   SIGN_UP_USER   ////////
         case SIGN_UP_USER: {
             return {
                 ...state,
@@ -92,33 +123,13 @@ export default (state = initialState, action) => {
             };
         }
 
+        ////////   LOGOUT_USER   ////////
         case LOGOUT_USER: {
-            // Remove token from local storage
-            localStorage.removeItem("accessToken");
             return {
                 ...state,
                 isAuthenticated: false,
                 user: {}
             };
-        }
-
-        case SET_CURRENT_USER: {
-            const token = action.token;
-            if (token) {
-                const decoded = jwt_decode(token);
-                return {
-                    ...state,
-                    isAuthenticated: true,
-                    user: decoded
-                }
-            }
-            else{
-                return {
-                    ...state,
-                    isAuthenticated: false,
-                    user: {}
-                }
-            }
         }
 
         default: {
