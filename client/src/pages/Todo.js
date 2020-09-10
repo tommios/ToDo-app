@@ -4,7 +4,7 @@ import { Container, CssBaseline } from "@material-ui/core";
 // import TodoForm from "../components/forms/TodoForm";
 // import TodoForm from "../components/forms/FormikTodoForm/index";
 import TodoForm from "../components/forms/FormikTodoForm/newForm";
-import TodoView from "../components/TodoView";
+import TodoView from "../components/TodoView/index";
 
 import { todoGetOne, todoUpdate } from "../store/todos/actions";
 import { useDispatch, useSelector } from "react-redux";

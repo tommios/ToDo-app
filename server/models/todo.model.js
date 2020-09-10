@@ -3,12 +3,10 @@ import mongoose from "mongoose";
 const todoSchema = new mongoose.Schema({
   title: {
     type: String,
-    unique: true,
     required: true,
   },
   body: {
     type: String,
-    unique: true,
   },
   completed: {
     type: Boolean,
@@ -18,6 +16,11 @@ const todoSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  }
 });
 
 todoSchema.toJSON = function () {
@@ -27,6 +30,8 @@ todoSchema.toJSON = function () {
     body: this.body,
     completed: this.completed,
     created: this.created,
+    userId: this.userId,
   };
 };
+
 export default mongoose.model("Todo", todoSchema);

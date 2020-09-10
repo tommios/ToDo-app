@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {BrowserRouter as Router, Route, Switch, Redirect, useHistory} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import Todos from "./pages/Todos";
 import Todo from "./pages/Todo";
@@ -15,13 +15,13 @@ import {SET_CURRENT_USER} from "./store/auth/types";
 
 
 // todo move to configs
-function PrivateRoute({component: Component, authed, ...rest}) {
+function PrivateRoute({component: Component, redirectTo, authed, ...rest}) {
     return (
         <Route
             {...rest}
             render={(props) => authed === true
                 ? <Component {...props} />
-                : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>}
+                : <Redirect to={{pathname: redirectTo, state: {from: props.location}}}/>}
         />
     )
 }
@@ -38,25 +38,30 @@ function App() {
 
     if (isResponse.loading || isResponse.pristine) {
         return (
-            <CircularProgress/>
+            <div>
+                <CircularProgress size={"10rem"} style={{margin: "5em 50em 5em"}}/>
+            </div>
         )
     } else {
-
         return (
             <Container>
                 <Router>
                     <Switch>
-                        <Route exact path="/login" component={Login}/>
-                        <Route exact path="/signup" component={Signup}/>
-                        <PrivateRoute authed={isAuthenticated} exact path="/" component={Todos}/>
-                        <PrivateRoute authed={isAuthenticated} exact path="/todos" component={Todos}/>
-                        <PrivateRoute authed={isAuthenticated} exact path="/todos/new" component={NewTodo}/>
-                        <PrivateRoute authed={isAuthenticated} exact path="/todos/:id" component={Todo}/>
+                        <PrivateRoute authed={!isAuthenticated} exact path="/login" redirectTo='/' component={Login}/>
+                        <PrivateRoute authed={!isAuthenticated} exact path="/signup" redirectTo='/' component={Signup}/>
+                        <PrivateRoute authed={isAuthenticated} exact path="/" redirectTo="/login" component={Todos}/>
+                        <PrivateRoute authed={isAuthenticated} exact path="/todos" redirectTo="/login"
+                                      component={Todos}/>
+                        <PrivateRoute authed={isAuthenticated} exact path="/todos/new" redirectTo="/login"
+                                      component={NewTodo}/>
+                        <PrivateRoute authed={isAuthenticated} exact path="/todos/:id" redirectTo="/login"
+                                      component={Todo}/>
                     </Switch>
                 </Router>
             </Container>
         );
     }
+
 }
 
 export default App;

@@ -5,4 +5,5 @@ export const schemaTodo = Joi.object({
   body: Joi.string(),
   completed: Joi.bool(),
   created: Joi.date(),
+  userId: Joi.string(),
 });

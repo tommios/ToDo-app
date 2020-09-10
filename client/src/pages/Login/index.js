@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {useHistory} from "react-router-dom";
+//import {useHistory} from "react-router-dom";
 import {Formik, Form, Field} from 'formik';
 import * as Yup from "yup";
 // Material UI components
@@ -34,7 +34,7 @@ const validationSchema = Yup.object({
 const LoginForm = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    let history = useHistory();
+    //let history = useHistory();
 
     return (
         <Container component="main" maxWidth="xs">
@@ -55,13 +55,14 @@ const LoginForm = (props) => {
                     }}
                     validationSchema={validationSchema}
                     onSubmit={(values, actions) => {
+
                         dispatch(logIn({email: values.email, password: values.password}))
                             .then((response) => {
                                 if (!response.action.error) {
-                                    actions.setFieldError('backend', null);
-                                    actions.setSubmitting(true);
-                                    actions.resetForm();
-                                    history.push("/todos");
+                                    //actions.setFieldError('backend', null);
+                                    // actions.setSubmitting(true);
+                                    // actions.resetForm();
+                                    //history.push("/todos");
 
                                 } else {
                                     actions.setFieldError('backend', response.action.error.response.data.message);

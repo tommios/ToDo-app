@@ -1,100 +1,103 @@
-import React from "react";
+import React from 'react';
 import {useHistory}  from "react-router-dom";
-import {
-  Grid,
-  FormControlLabel,
-  Button,
-  Checkbox,
-  TextField,
-} from "@material-ui/core";
 import useStyles from "./style";
+import { withStyles } from '@material-ui/core/styles';
+import {
+    Button,
+    Dialog,
+    DialogTitle as MuiDialogTitle,
+    DialogContent as MuiDialogContent,
+    DialogActions as MuiDialogActions,
+    IconButton,
+    Typography, TextField
+} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
-const TodoView = (props) => {
-  let history = useHistory();
+const styles = (theme) => ({
+    root: {
+        width: '100%',
+        maxWidth: 1000,
+        margin: 0,
+        padding: theme.spacing(2),
+    },
+    closeButton: {
+        position: 'absolute',
+        right: theme.spacing(1),
+        top: theme.spacing(1),
+        color: theme.palette.grey[500],
+    },
+});
 
-  const { todo = {}, onEdit } = props;
+const DialogTitle = withStyles(styles)((props) => {
 
-  const handleCancel = () => {
-    history.replace("/todos");
-  };
+    const { children, classes, onClose, ...other } = props;
+    return (
+        <MuiDialogTitle disableTypography className={classes.root} {...other}>
+            <Typography variant="h6">{children}</Typography>
+            {onClose ? (
+                <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </MuiDialogTitle>
+    );
+});
 
-  const classes = useStyles();
+const DialogContent = withStyles((theme) => ({
+    root: {
+        padding: theme.spacing(2),
+    },
+}))(MuiDialogContent);
 
-  return todo ? (
-    <div className={classes.view}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            fullWidth
-            readOnly
-            autoComplete="todoTitle"
-            id="title"
-            label="Title"
-            name="title"
-            value={todo.title || ""}
-          />
-        </Grid>
+const DialogActions = withStyles((theme) => ({
+    root: {
+        margin: 0,
+        padding: theme.spacing(2),
+    },
+}))(MuiDialogActions);
 
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            fullWidth
-            readOnly
-            multiline
-            rows={20}
-            rowsMax={25}
-            name="body"
-            label="Description"
-            type="text"
-            id="body"
-            value={todo.body || ""}
-          />
-        </Grid>
 
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={todo.completed || false}
-                color="primary"
-                disabled
-              />
-            }
-            label="Completed"
-          />
-        </Grid>
+export default function TodoView(props) {
+   // const classes = useStyles();
+    const history = useHistory();
+    const { todo = {}, onEdit } = props;
+    const [open, setOpen] = React.useState(true);
 
-        <Grid item xs={4}>
-          <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            color="secondary"
-            className={classes.submit}
-            onClick={handleCancel}
-          >
-            Back
-          </Button>
-        </Grid>
+    const handleClose = () => {
+        setOpen(false);
+        history.replace("/todos");
+    };
 
-        <Grid item xs={8}>
-          <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={onEdit}
-          >
-            Edit Todo
-          </Button>
-        </Grid>
-      </Grid>
-    </div>
-  ) : (
-    "Ops! No todo yet"
-  );
-};
-
-export default TodoView;
+    return (
+        <div>
+            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} fullWidth>
+                <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+                    {todo.title}
+                </DialogTitle>
+                <DialogContent dividers>
+                    <TextField
+                        variant="outlined"
+                        fullWidth
+                        readOnly
+                        multiline
+                        rows={20}
+                        rowsMax={25}
+                        name="body"
+                        label="Description"
+                        type="text"
+                        id="body"
+                        value={todo.body || ""}
+                    />
+                    {/*<Typography variant="body1" noWrap={false} gutterBottom>*/}
+                    {/*    {todo.body}*/}
+                    {/*</Typography>*/}
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={onEdit} color="primary">
+                        Edit Todo
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    );
+}

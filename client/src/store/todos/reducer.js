@@ -62,7 +62,7 @@ export default (state = initialState, action) => {
                 ...state,
                 todos: [],
                 isLoading: false,
-                errors: action.error,
+                errors: action.error.response.data,
             };
         }
 
@@ -85,7 +85,7 @@ export default (state = initialState, action) => {
                 ...state,
                 todo: {},
                 isLoading: false,
-                errors: action.payload.error,
+                errors: action.error.response.data,
             };
         }
 

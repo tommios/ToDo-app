@@ -5,7 +5,6 @@ import {
     USER_LOADING,
     SET_CURRENT_USER,
 } from "./types";
-import jwt_decode from "jwt-decode";
 
 // Init app
 export const init = () => ({
