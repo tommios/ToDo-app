@@ -147,25 +147,25 @@ export const makeJwt = (req, res, next) => {
     res.status(200).json(response);
 };
 
+
 export const resetPassword = (req, res) => {
     try {
         crypto.randomBytes(32, async (err, buffer) => {
             if (err) {
-                return res.redirect("/auth/reset")
+                return res.status(400).send({message: err});
             }
             const token = buffer.toString("hex");
             const candidate = await User.findOne({email: req.body.email});
 
             if (candidate) {
-                candidate.resetToken = token;
-                candidate.resetTokenExp = Date.now() + 60 * 60 * 1000;
+                candidate.resetPasswordToken = token;
+                candidate.resetPasswordExpires = Date.now() + 60 * 60 * 3 * 1000; // 3 hour
                 await candidate.save();
 
-                await mailer.sendMail(resetEmail(candidate.email, candidate.resetToken));
-                res.status(200).send("Go to page /password/{token}......");
+                await mailer.sendMail(resetEmail(candidate.email, candidate.resetPasswordToken));
+                return res.status(200).send("Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder.");
             } else {
-                console.log("Email not found!!!");
-                res.redirect("/auth/reset");
+                return res.status(404).send("Email not found!");
             }
         })
     } catch (e) {
@@ -173,25 +173,33 @@ export const resetPassword = (req, res) => {
     }
 }
 
-export const newPassword = async (req, res) => {
-    console.log(req.params);
+
+export const newPassword = async (req, res, next) => {
+    console.log("\n\nreq.params.token ===> ", req.params.token);
+    console.log("req.body.password ===> ", req.body.password);
     if (!req.params.token) {
-        return res.redirect("/auth/login");
+        return res.status(400).send("Token not found!");
     }
 
     try {
         const user = await User.findOne({
-            resetToken: req.params.token,
-            resetTokenExp: {$gt: Date.now()}
+            resetPasswordToken: req.params.token,
+            resetPasswordExpires: {$gt: Date.now()}
         })
 
-        if (user) {
-            res.redirect("/auth/login")
+        if (!user) {
+            return res.status(401).send(`Token expired!`);
+        } else {
+            user.password = bcrypt.hashSync(req.body.password, 8);
+            await user.save();
+
+            req.user = user;
+            next();
+            //return res.status(200).send(`Token expired! resetTokenExp: ${user.resetPasswordExpires.toLocaleString()};  new Date: ${(new Date).toLocaleString()} `);
         }
     } catch (e) {
         console.log(e)
     }
-
 }
 
 

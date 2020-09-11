@@ -26,6 +26,6 @@ authRouter.post("/signup", verifySignUp.checkDuplicateUsernameOrEmail, signUp, m
 authRouter.post("/token", refreshToken);
 authRouter.get("/userinfo", getUserInfo);
 authRouter.post("/reset", resetPassword);
-authRouter.get("/password/:token", newPassword);
+authRouter.post("/password/:token", newPassword, makeJwt);
 
 export default authRouter;

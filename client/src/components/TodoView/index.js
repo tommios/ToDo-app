@@ -1,6 +1,5 @@
 import React from 'react';
 import {useHistory}  from "react-router-dom";
-import useStyles from "./style";
 import { withStyles } from '@material-ui/core/styles';
 import {
     Button,
@@ -25,6 +24,12 @@ const styles = (theme) => ({
         right: theme.spacing(1),
         top: theme.spacing(1),
         color: theme.palette.grey[500],
+    },
+    view: {
+        // width: "100%", // Fix IE 11 issue.
+        width: theme.spacing(56),
+        margin: "auto",
+        marginTop: theme.spacing(3),
     },
 });
 
@@ -57,8 +62,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 
-export default function TodoView(props) {
-   // const classes = useStyles();
+const TodoView = (props) => {
     const history = useHistory();
     const { todo = {}, onEdit } = props;
     const [open, setOpen] = React.useState(true);
@@ -74,23 +78,18 @@ export default function TodoView(props) {
                 <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                     {todo.title}
                 </DialogTitle>
-                <DialogContent dividers>
+                <DialogContent>
                     <TextField
-                        variant="outlined"
                         fullWidth
                         readOnly
                         multiline
-                        rows={20}
+                        rows={5}
                         rowsMax={25}
                         name="body"
-                        label="Description"
                         type="text"
                         id="body"
                         value={todo.body || ""}
                     />
-                    {/*<Typography variant="body1" noWrap={false} gutterBottom>*/}
-                    {/*    {todo.body}*/}
-                    {/*</Typography>*/}
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={onEdit} color="primary">
@@ -101,3 +100,5 @@ export default function TodoView(props) {
         </div>
     );
 }
+
+export default TodoView;

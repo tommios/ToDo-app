@@ -1,5 +1,6 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
+import {useLocation, useParams} from "react-router-dom";
 //import {useHistory} from "react-router-dom";
 import {Formik, Form, Field} from 'formik';
 import * as Yup from "yup";
@@ -18,22 +19,24 @@ import Alert from '@material-ui/lab/Alert';
 import {TextField} from 'formik-material-ui';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from "./style";
-import {logIn} from "../../store/auth/actions";
+import {newPassword} from "../../store/auth/actions";
 
 
 const validationSchema = Yup.object({
-    email: Yup.string()
-        .email('Invalid email')
-        .required('Email is required'),
     password: Yup.string("Enter a password")
         .min(6)
         .required("Password is required"),
+    confirm: Yup.string("Enter a confirmPassword")
+        .oneOf([Yup.ref('password'), null], 'Passwords do not match')
+        .required('Password confirm is required')
 });
 
 
-const LoginForm = (props) => {
+const NewPasswordForm = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const {token} = useParams();
+    console.log("NewPasswordForm token =====> ", token);
     //let history = useHistory();
 
     return (
@@ -45,27 +48,19 @@ const LoginForm = (props) => {
                 </Avatar>
 
                 <Typography component="h1" variant="h5">
-                    Login
+                    New Password
                 </Typography>
 
                 <Formik
                     initialValues={{
-                        email: "",
                         password: "",
+                        confirm: "",
                     }}
                     validationSchema={validationSchema}
                     onSubmit={(values, actions) => {
-
-                        dispatch(logIn({email: values.email, password: values.password}))
-                            .then((response) => {
-                                if (response.action.error) {
-                                    actions.setFieldError('backend', response.action.error.response.data.message);
-                                    actions.setSubmitting(false);
-                                }
-                            })
-                            .catch(error => {
-                                actions.setFieldError('backend', error.message);
-                            })
+                        console.log("token ===> ", token);
+                        console.log("typeof token ===> ", typeof(token));
+                        dispatch(newPassword(token, values.password))
                     }}
                 >
                     {({
@@ -81,18 +76,17 @@ const LoginForm = (props) => {
                                 <Grid item xs={12}>
                                     <Field
                                         component={TextField}
-                                        type="email"
-                                        //autoFocus
+                                        type="password"
                                         margin="normal"
                                         variant="outlined"
-                                        autoComplete="email"
+                                        autoComplete="password"
                                         required
                                         fullWidth
-                                        id="email"
-                                        label="Email Address"
-                                        name="email"
-                                        helperText={touched.email ? errors.email : ""}
-                                        error={touched.email && Boolean(errors.email)}
+                                        id="password"
+                                        label="Password"
+                                        name="password"
+                                        helperText={touched.password ? errors.password : ""}
+                                        error={touched.password && Boolean(errors.password)}
                                         onChange={handleChange}
                                     />
                                 </Grid>
@@ -105,12 +99,12 @@ const LoginForm = (props) => {
                                         margin="normal"
                                         required
                                         fullWidth
-                                        id="password"
-                                        label="Password"
-                                        name="password"
-                                        autoComplete="password"
-                                        helperText={touched.password ? errors.password : ""}
-                                        error={touched.password && Boolean(errors.password)}
+                                        id="confirm"
+                                        label="Confirm Password"
+                                        name="confirm"
+                                        autoComplete="confirm"
+                                        helperText={touched.confirm ? errors.confirm : ""}
+                                        error={touched.confirm && Boolean(errors.confirm)}
                                         onChange={handleChange}
                                     />
                                 </Grid>
@@ -124,21 +118,8 @@ const LoginForm = (props) => {
                                     onClick={submitForm}
                                     disabled={!isValid}
                                 >
-                                    Sign In
+                                    Update password
                                 </Button>
-
-                                <Grid container>
-                                    <Grid item xs={12} sm={8}>
-                                        <Link href="signup" variant="body2">
-                                            {"Don't have an account? Sign Up"}
-                                        </Link>
-                                    </Grid>
-                                    <Grid item xs={12} sm={4}>
-                                        <Link href="reset" variant="body2">
-                                            {"Forgot password?"}
-                                        </Link>
-                                    </Grid>
-                                </Grid>
 
                                 {!errors?.backend ?
                                     <></>
@@ -162,4 +143,4 @@ const LoginForm = (props) => {
     );
 }
 
-export default LoginForm;
+export default NewPasswordForm;

@@ -4,6 +4,8 @@ import {
     SIGN_UP_USER,
     USER_LOADING,
     SET_CURRENT_USER,
+    RESET_PASSWORD,
+    NEW_PASSWORD
 } from "./types";
 
 // Init app
@@ -54,3 +56,21 @@ export const logoutUser = () => {
         type: LOGOUT_USER
     };
 };
+
+export const resetPassword = (email) => ({
+    type: RESET_PASSWORD,
+    request: {
+        method: "POST",
+        url: "/auth/reset",
+        data: {...email},
+    }
+});
+
+export const newPassword = (token, password) => ({
+    type: NEW_PASSWORD,
+    request: {
+        method: "POST",
+        url: `/auth/password/${token}`,
+        data: {password},
+    }
+});

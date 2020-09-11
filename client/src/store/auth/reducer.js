@@ -4,6 +4,8 @@ import {
     SIGN_UP_USER,
     USER_LOADING,
     SET_CURRENT_USER,
+    RESET_PASSWORD,
+    NEW_PASSWORD,
 } from "./types";
 import {success, error} from "@redux-requests/core";
 import jwt_decode from "jwt-decode";
@@ -129,6 +131,57 @@ export default (state = initialState, action) => {
                 ...state,
                 isAuthenticated: false,
                 user: {}
+            };
+        }
+
+        ////////   RESET_PASSWORD   ////////
+        case RESET_PASSWORD: {
+            return {
+                ...state,
+                isAuthenticated: false,
+                user: {}
+            };
+        }
+        case success(RESET_PASSWORD): {
+            return {
+                ...state,
+                isAuthenticated: false,
+                user: {}
+            };
+        }
+        case error(RESET_PASSWORD): {
+            return {
+                ...state,
+                errors: action.error.response.data
+            };
+        }
+
+        ////////   NEW_PASSWORD   ////////
+        case NEW_PASSWORD: {
+            return {
+                ...state,
+                isAuthenticated: false,
+                user: {}
+            };
+        }
+        case success(NEW_PASSWORD): {
+            // Set token to localStorage
+            const {token} = action.response.data;
+            localStorage.setItem("accessToken", token);
+            // Decode token to get user data
+            const decoded = jwt_decode(token);
+            return {
+                ...state,
+                isAuthenticated: true,
+                user: decoded
+            };
+
+        }
+        case error(NEW_PASSWORD): {
+            return {
+                ...state,
+                isAuthenticated: false,
+                errors: action.error.response.data,
             };
         }
 

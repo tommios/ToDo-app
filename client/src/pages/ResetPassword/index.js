@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
-//import {useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {Formik, Form, Field} from 'formik';
 import * as Yup from "yup";
 // Material UI components
 import {
     Avatar,
     Button,
+    Paper,
     CssBaseline,
     Container,
     Link,
@@ -18,23 +19,35 @@ import Alert from '@material-ui/lab/Alert';
 import {TextField} from 'formik-material-ui';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from "./style";
-import {logIn} from "../../store/auth/actions";
+import {resetPassword} from "../../store/auth/actions";
 
+const MainResetForm = () => {
+    const [state, setState] = useState(true);
+
+    const handleToggle = () => {
+        setState(false);
+    }
+
+    if (state) {
+        return <ResetForm state={state} toggleForm={handleToggle}/>
+    } else {
+        return <InfoForm/>
+    }
+
+}
 
 const validationSchema = Yup.object({
     email: Yup.string()
         .email('Invalid email')
         .required('Email is required'),
-    password: Yup.string("Enter a password")
-        .min(6)
-        .required("Password is required"),
 });
 
 
-const LoginForm = (props) => {
+const ResetForm = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    //let history = useHistory();
+    const history = useHistory();
+    const {toggleForm} = props;
 
     return (
         <Container component="main" maxWidth="xs">
@@ -45,27 +58,19 @@ const LoginForm = (props) => {
                 </Avatar>
 
                 <Typography component="h1" variant="h5">
-                    Login
+                    Reset your password
                 </Typography>
-
+                <Typography variant="subtitle1" align={"center"} gutterBottom>
+                    Enter your user account's verified email address and we will send you a password reset link.
+                </Typography>
                 <Formik
                     initialValues={{
                         email: "",
-                        password: "",
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values, actions) => {
-
-                        dispatch(logIn({email: values.email, password: values.password}))
-                            .then((response) => {
-                                if (response.action.error) {
-                                    actions.setFieldError('backend', response.action.error.response.data.message);
-                                    actions.setSubmitting(false);
-                                }
-                            })
-                            .catch(error => {
-                                actions.setFieldError('backend', error.message);
-                            })
+                    onSubmit={(values, actions)=>{
+                        dispatch(resetPassword({email: values.email}))
+                        toggleForm();
                     }}
                 >
                     {({
@@ -97,24 +102,6 @@ const LoginForm = (props) => {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12}>
-                                    <Field
-                                        component={TextField}
-                                        type="password"
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="password"
-                                        label="Password"
-                                        name="password"
-                                        autoComplete="password"
-                                        helperText={touched.password ? errors.password : ""}
-                                        error={touched.password && Boolean(errors.password)}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-
                                 <Button
                                     type="button"
                                     fullWidth
@@ -124,21 +111,8 @@ const LoginForm = (props) => {
                                     onClick={submitForm}
                                     disabled={!isValid}
                                 >
-                                    Sign In
+                                    Send password reset email
                                 </Button>
-
-                                <Grid container>
-                                    <Grid item xs={12} sm={8}>
-                                        <Link href="signup" variant="body2">
-                                            {"Don't have an account? Sign Up"}
-                                        </Link>
-                                    </Grid>
-                                    <Grid item xs={12} sm={4}>
-                                        <Link href="reset" variant="body2">
-                                            {"Forgot password?"}
-                                        </Link>
-                                    </Grid>
-                                </Grid>
 
                                 {!errors?.backend ?
                                     <></>
@@ -162,4 +136,51 @@ const LoginForm = (props) => {
     );
 }
 
-export default LoginForm;
+const InfoForm = (props) => {
+    const history = useHistory();
+    const classes = useStyles();
+
+    const handleClick = () => {
+        history.push("login")
+    }
+
+    return (
+        <Container component="main" maxWidth="xs">
+            <CssBaseline/>
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon/>
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Reset your password
+                </Typography>
+                <br/>
+
+                <Paper variant="elevation" elevation={2}>
+                    <br/><br/>
+                    <Typography variant="subtitle2" align={"center"} gutterBottom>
+                        Check your email for a link to reset your password.
+                    </Typography>
+                    <Typography variant="subtitle2" align={"center"} gutterBottom>
+                        If it doesn’t appear within a few minutes, check your spam folder.
+                    </Typography>
+                    <br/>
+                </Paper>
+
+                <Button
+                    type="button"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={handleClick}
+                >
+                    Return to sign in
+                </Button>
+            </div>
+        </Container>
+    );
+}
+
+
+export default MainResetForm;

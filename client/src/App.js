@@ -6,6 +6,8 @@ import Todo from "./pages/Todo";
 import NewTodo from "./pages/NewTodo";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ResetPassword from "./pages/ResetPassword";
+import NewPassword from "./pages/NewPassword"
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from "@material-ui/core/Container";
 import {useSelector} from "react-redux";
@@ -56,6 +58,10 @@ function App() {
                                       component={NewTodo}/>
                         <PrivateRoute authed={isAuthenticated} exact path="/todos/:id" redirectTo="/login"
                                       component={Todo}/>
+                        <PrivateRoute authed={!isAuthenticated} exact path="/reset" redirectTo="/login"
+                                      component={ResetPassword}/>
+                        <PrivateRoute authed={!isAuthenticated} exact path="/password/:token" redirectTo="/login"
+                                      component={NewPassword}/>
                     </Switch>
                 </Router>
             </Container>
