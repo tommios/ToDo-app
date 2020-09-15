@@ -16,13 +16,19 @@ const userSchema = new mongoose.Schema({
     },
     phoneNumber: {
         type: String,
-        unique: [true, "Field phoneNumber already exists"],
         required: [true, "Phone number field is required!"],
     },
     email: {
         type: String,
         unique: [true, "Field Email already exists"],
         required: [true, "Email field is required!"],
+    },
+    emailValidated: {
+        type: Boolean,
+        default: false,
+    },
+    hash: {
+        type: String,
     },
     country: {
         type: String,

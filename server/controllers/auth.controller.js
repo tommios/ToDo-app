@@ -26,28 +26,65 @@ export const signUp = async (req, res, next) => {
         return res.status(400).json(errors);
     }
 
-    const user = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        username: req.body.username,
-        phoneNumber: req.body.phoneNumber,
-        country: req.body.country,
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 8)
-    });
+    try {
+        crypto.randomBytes(32, async (err, buffer) => {
+            if (err) {
+                return res.status(400).send({message: err});
+            }
 
-    user.save((err, user) => {
-        if (err) {
-            res.status(500).send({message: err.message});
-            return;
-        }
+            const hash = buffer.toString("hex");
 
-        req.user = user;
-        next();
-    });
+            const user = new User({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                username: req.body.username,
+                phoneNumber: req.body.phoneNumber,
+                country: req.body.country,
+                email: req.body.email,
+                hash: hash,
+                password: bcrypt.hashSync(req.body.password, 8)
+            });
 
-    await mailer.sendMail(regEmail(user.email));
-};
+            await user.save((err, user) => {
+                if (err) {
+                    res.status(500).send({message: err.message});
+                    return;
+                }
+                req.user = user;
+                next();
+            })
+
+            await mailer.sendMail(regEmail(user.email, user.hash));
+            // await mailer.sendMail(resetEmail(candidate.email, candidate.resetPasswordToken));
+            // return res.status(200).send("Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder.");
+
+        })
+    } catch (e) {
+        console.log(e)
+    }
+
+    // const user = new User({
+    //     firstName: req.body.firstName,
+    //     lastName: req.body.lastName,
+    //     username: req.body.username,
+    //     phoneNumber: req.body.phoneNumber,
+    //     country: req.body.country,
+    //     email: req.body.email,
+    //     password: bcrypt.hashSync(req.body.password, 8)
+    // });
+
+    // user.save((err, user) => {
+    //     if (err) {
+    //         res.status(500).send({message: err.message});
+    //         return;
+    //     }
+    //
+    //     req.user = user;
+    //     next();
+    // }
+
+    // await mailer.sendMail(regEmail(user.email));
+}
 
 
 export const logIn = (req, res, next) => {
@@ -154,6 +191,7 @@ export const resetPassword = (req, res) => {
             if (err) {
                 return res.status(400).send({message: err});
             }
+
             const token = buffer.toString("hex");
             const candidate = await User.findOne({email: req.body.email});
 
@@ -175,8 +213,6 @@ export const resetPassword = (req, res) => {
 
 
 export const newPassword = async (req, res, next) => {
-    console.log("\n\nreq.params.token ===> ", req.params.token);
-    console.log("req.body.password ===> ", req.body.password);
     if (!req.params.token) {
         return res.status(400).send("Token not found!");
     }

@@ -129,12 +129,12 @@ const LoginForm = (props) => {
 
                                 <Grid container>
                                     <Grid item xs={12} sm={8}>
-                                        <Link href="signup" variant="body2">
+                                        <Link href="/signup" variant="body2">
                                             {"Don't have an account? Sign Up"}
                                         </Link>
                                     </Grid>
                                     <Grid item xs={12} sm={4}>
-                                        <Link href="reset" variant="body2">
+                                        <Link href="/reset" variant="body2">
                                             {"Forgot password?"}
                                         </Link>
                                     </Grid>
