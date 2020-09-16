@@ -1,5 +1,12 @@
 import mongoose from "mongoose";
 
+function deleteEmpty(v) {
+    if (v == null) {
+        return undefined;
+    }
+    return v;
+}
+
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -29,6 +36,7 @@ const userSchema = new mongoose.Schema({
     },
     hash: {
         type: String,
+        set: deleteEmpty
     },
     country: {
         type: String,

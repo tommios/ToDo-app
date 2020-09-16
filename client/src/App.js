@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ResetPassword from "./pages/ResetPassword";
 import NewPassword from "./pages/NewPassword"
+import EmailValidate from "./pages/EmailValidate";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from "@material-ui/core/Container";
 import {useSelector} from "react-redux";
@@ -17,13 +18,19 @@ import {SET_CURRENT_USER} from "./store/auth/types";
 
 
 // todo move to configs
-function PrivateRoute({component: Component, redirectTo, authed, ...rest}) {
+function PrivateRoute({component: Component, redirectTo, authed, verify, ...rest}) {
     return (
         <Route
             {...rest}
-            render={(props) => authed === true
-                ? <Component {...props} />
-                : <Redirect to={{pathname: redirectTo, state: {from: props.location}}}/>}
+            render={(props) => {
+                if (authed === false) {
+                    return <Redirect to={{pathname: redirectTo, state: {from: props.location}}}/>
+                } else if (verify == false && authed === true) {
+                    return <EmailValidate/>
+                } else if (verify == true && authed === true) {
+                    return <Component {...props} />
+                }
+            }}
         />
     )
 }
@@ -37,6 +44,9 @@ function App() {
 
     const isResponse = useSelector((state) => getQuery(state, {type: SET_CURRENT_USER}));
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const isEmailValidate = useSelector((state) => state.auth.user.emailValidated);
+    console.log("isEmailValidate ===> ", isEmailValidate);
+    console.log("isAuthenticated ===> ", isAuthenticated);
 
     if (isResponse.loading || isResponse.pristine) {
         return (
@@ -49,18 +59,27 @@ function App() {
             <Container>
                 <Router>
                     <Switch>
-                        <PrivateRoute authed={!isAuthenticated} exact path="/login" redirectTo='/' component={Login}/>
-                        <PrivateRoute authed={!isAuthenticated} exact path="/signup" redirectTo='/' component={Signup}/>
-                        <PrivateRoute authed={isAuthenticated} exact path="/" redirectTo="/login" component={Todos}/>
-                        <PrivateRoute authed={isAuthenticated} exact path="/todos" redirectTo="/login"
+                        <PrivateRoute authed={!isAuthenticated} verify={!isEmailValidate} exact path="/login"
+                                      redirectTo='/' component={Login}/>
+                        <PrivateRoute authed={!isAuthenticated} verify={!isEmailValidate} exact path="/signup"
+                                      redirectTo='/' component={Signup}/>
+                        <PrivateRoute authed={isAuthenticated} verify={isEmailValidate} exact path="/"
+                                      redirectTo="/login"
                                       component={Todos}/>
-                        <PrivateRoute authed={isAuthenticated} exact path="/todos/new" redirectTo="/login"
+                        <PrivateRoute authed={isAuthenticated} verify={isEmailValidate} exact path="/todos"
+                                      redirectTo="/login"
+                                      component={Todos}/>
+                        <PrivateRoute authed={isAuthenticated} verify={isEmailValidate} exact path="/todos/new"
+                                      redirectTo="/login"
                                       component={NewTodo}/>
-                        <PrivateRoute authed={isAuthenticated} exact path="/todos/:id" redirectTo="/login"
+                        <PrivateRoute authed={isAuthenticated} verify={isEmailValidate} exact path="/todos/:id"
+                                      redirectTo="/login"
                                       component={Todo}/>
-                        <PrivateRoute authed={!isAuthenticated} exact path="/reset" redirectTo="/login"
+                        <PrivateRoute authed={!isAuthenticated} verify={isEmailValidate} exact path="/reset"
+                                      redirectTo="/login"
                                       component={ResetPassword}/>
-                        <PrivateRoute authed={!isAuthenticated} exact path="/password/:token" redirectTo="/login"
+                        <PrivateRoute authed={!isAuthenticated} verify={isEmailValidate} exact path="/password/:token"
+                                      redirectTo="/login"
                                       component={NewPassword}/>
                     </Switch>
                 </Router>

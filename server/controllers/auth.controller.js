@@ -178,6 +178,7 @@ export const makeJwt = (req, res, next) => {
             phoneNumber: req.user.phoneNumber,
             country: req.user.country,
             email: req.user.email,
+            emailValidated: req.user.emailValidated,
         }
     }
     //tokenList[refreshToken] = response;
@@ -255,7 +256,6 @@ export const getUserInfo = async (req, res) => {
                         return res.status(404).send({message: "User Not found."});
                     }
 
-
                     const response = {
                         "userinfo": {
                             id: user._id,
@@ -265,6 +265,7 @@ export const getUserInfo = async (req, res) => {
                             phoneNumber: user.phoneNumber,
                             country: user.country,
                             email: user.email,
+                            emailValidated: user.emailValidated,
                         }
                     }
                     res.status(200).json(response);
@@ -275,5 +276,13 @@ export const getUserInfo = async (req, res) => {
     } catch
         (e) {
         res.status(401).send('Invalid token');
+    }
+}
+
+
+export const emailValidate = (req, res) =>{
+    console.log(req.params);
+    if (!req.params.hash) {
+        return res.status(400).send("Token not found!");
     }
 }

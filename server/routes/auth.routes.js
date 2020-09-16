@@ -7,7 +7,8 @@ import {
     resetPassword,
     newPassword,
     makeJwt,
-    getUserInfo
+    getUserInfo,
+    emailValidate,
 }
     from "../controllers/auth.controller";
 
@@ -27,5 +28,6 @@ authRouter.post("/token", refreshToken);
 authRouter.get("/userinfo", getUserInfo);
 authRouter.post("/reset", resetPassword);
 authRouter.post("/password/:token", newPassword, makeJwt);
-
+authRouter.post("/verify/:hash", emailValidate);
+authRouter.get("/verify/:hash", emailValidate);
 export default authRouter;
