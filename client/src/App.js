@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import ResetPassword from "./pages/ResetPassword";
 import NewPassword from "./pages/NewPassword"
 import EmailValidate from "./pages/EmailValidate";
+import EmailConfirm from "./pages/EmailConfirm"
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from "@material-ui/core/Container";
 import {useSelector} from "react-redux";
@@ -39,13 +40,15 @@ function PrivateRoute({component: Component, redirectTo, authed, verify, ...rest
 function App() {
     const dispatch = useDispatch();
 
+    const isResponse = useSelector((state) => getQuery(state, {type: SET_CURRENT_USER}));
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const isEmailValidate = useSelector((state) => state.auth.user.emailValidated);
+
     useEffect(() => {
         dispatch(init())
     }, [dispatch])
 
-    const isResponse = useSelector((state) => getQuery(state, {type: SET_CURRENT_USER}));
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    const isEmailValidate = useSelector((state) => state.auth.user.emailValidated);
+
     console.log("isEmailValidate ===> ", isEmailValidate);
     console.log("isAuthenticated ===> ", isAuthenticated);
 
@@ -82,6 +85,9 @@ function App() {
                         <PrivateRoute authed={!isAuthenticated} verify={!isEmailValidate} exact path="/password/:token"
                                       redirectTo="/login"
                                       component={NewPassword}/>
+                        <PrivateRoute authed={isAuthenticated} verify={!isEmailValidate} exact path="/verify/:hash"
+                                      redirectTo="/login"
+                                      component={EmailConfirm}/>
                     </Switch>
                 </Router>
             </Container>

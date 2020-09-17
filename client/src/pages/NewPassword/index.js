@@ -1,7 +1,6 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
-//import {useHistory} from "react-router-dom";
 import {Formik, Form, Field} from 'formik';
 import * as Yup from "yup";
 // Material UI components
@@ -35,8 +34,6 @@ const NewPasswordForm = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const {token} = useParams();
-    console.log("NewPasswordForm token =====> ", token);
-    //let history = useHistory();
 
     return (
         <Container component="main" maxWidth="xs">
@@ -57,8 +54,6 @@ const NewPasswordForm = (props) => {
                     }}
                     validationSchema={validationSchema}
                     onSubmit={(values, actions) => {
-                        console.log("token ===> ", token);
-                        console.log("typeof token ===> ", typeof(token));
                         dispatch(newPassword(token, values.password))
                     }}
                 >

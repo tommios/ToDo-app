@@ -5,7 +5,8 @@ import {
     USER_LOADING,
     SET_CURRENT_USER,
     RESET_PASSWORD,
-    NEW_PASSWORD
+    NEW_PASSWORD,
+    EMAIL_CONFIRM
 } from "./types";
 
 // Init app
@@ -72,5 +73,14 @@ export const newPassword = (token, password) => ({
         method: "POST",
         url: `/auth/password/${token}`,
         data: {password},
+    }
+});
+
+export const emailConfirm = (hash, user) => ({
+    type: EMAIL_CONFIRM,
+    request: {
+        method: "POST",
+        url: `/auth/verify`,
+        data: {hash, user},
     }
 });

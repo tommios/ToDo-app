@@ -47,7 +47,7 @@ const validationSchema = Yup.object({
 const SignupForm = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    let history = useHistory();
+    const history = useHistory();
 
     return (
         <Container component="main" maxWidth="xs">

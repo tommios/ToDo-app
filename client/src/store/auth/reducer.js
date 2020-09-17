@@ -6,6 +6,7 @@ import {
     SET_CURRENT_USER,
     RESET_PASSWORD,
     NEW_PASSWORD,
+    EMAIL_CONFIRM,
 } from "./types";
 import {success, error} from "@redux-requests/core";
 import jwt_decode from "jwt-decode";
@@ -184,6 +185,28 @@ export default (state = initialState, action) => {
                 errors: action.error.response.data,
             };
         }
+
+        ////////   NEW_PASSWORD   ////////
+        case EMAIL_CONFIRM: {
+            return {
+                ...state,
+                user: {}
+            };
+        }
+        case success(EMAIL_CONFIRM): {
+            return {
+                ...state,
+                user: action.response.data.userinfo
+            };
+
+        }
+        case error(EMAIL_CONFIRM): {
+            return {
+                ...state,
+                errors: action.error.response.data,
+            };
+        }
+
 
         default: {
             return state;

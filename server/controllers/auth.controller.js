@@ -280,9 +280,38 @@ export const getUserInfo = async (req, res) => {
 }
 
 
-export const emailValidate = (req, res) =>{
-    console.log(req.params);
-    if (!req.params.hash) {
-        return res.status(400).send("Token not found!");
+export const emailValidate = async (req, res) => {
+    if (!req.body.hash) {
+        return res.status(400).send("Missing hash");
     }
+
+    try {
+        const user = await User.findOne({_id: req.body.user.id})
+            .exec((err, user) => {
+                if (err) {
+                    res.status(500).send({message: err});
+                    return;
+                }
+                if (!user) {
+                    return res.status(404).send({message: "User Not found."});
+                }
+
+                const response = {
+                    "userinfo": {
+                        id: user._id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        username: user.username,
+                        phoneNumber: user.phoneNumber,
+                        country: user.country,
+                        email: user.email,
+                        emailValidated: true,
+                    }
+                }
+                res.status(200).json(response);
+            })
+    } catch (e) {
+        console.log(e)
+    }
+
 }

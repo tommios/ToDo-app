@@ -28,6 +28,5 @@ authRouter.post("/token", refreshToken);
 authRouter.get("/userinfo", getUserInfo);
 authRouter.post("/reset", resetPassword);
 authRouter.post("/password/:token", newPassword, makeJwt);
-authRouter.post("/verify/:hash", emailValidate);
-authRouter.get("/verify/:hash", emailValidate);
+authRouter.post("/verify", emailValidate);
 export default authRouter;
