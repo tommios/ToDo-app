@@ -14,7 +14,7 @@ const todoSchema = new mongoose.Schema({
   },
   created: {
     type: Date,
-    default: Date.now,
+    default: new Date().toISOString(),
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,

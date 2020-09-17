@@ -18,16 +18,17 @@ import {SET_CURRENT_USER} from "./store/auth/types";
 
 
 // todo move to configs
+/* eslint eqeqeq: 0 */
 function PrivateRoute({component: Component, redirectTo, authed, verify, ...rest}) {
     return (
         <Route
             {...rest}
             render={(props) => {
-                if (authed === false) {
+                if (!authed) {
                     return <Redirect to={{pathname: redirectTo, state: {from: props.location}}}/>
-                } else if (verify == false && authed === true) {
+                } else if (!verify) {
                     return <EmailValidate/>
-                } else if (verify == true && authed === true) {
+                } else if (!!verify && !!authed) {
                     return <Component {...props} />
                 }
             }}
@@ -75,10 +76,10 @@ function App() {
                         <PrivateRoute authed={isAuthenticated} verify={isEmailValidate} exact path="/todos/:id"
                                       redirectTo="/login"
                                       component={Todo}/>
-                        <PrivateRoute authed={!isAuthenticated} verify={isEmailValidate} exact path="/reset"
+                        <PrivateRoute authed={!isAuthenticated} verify={!isEmailValidate} exact path="/reset"
                                       redirectTo="/login"
                                       component={ResetPassword}/>
-                        <PrivateRoute authed={!isAuthenticated} verify={isEmailValidate} exact path="/password/:token"
+                        <PrivateRoute authed={!isAuthenticated} verify={!isEmailValidate} exact path="/password/:token"
                                       redirectTo="/login"
                                       component={NewPassword}/>
                     </Switch>

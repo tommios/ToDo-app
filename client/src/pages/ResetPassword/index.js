@@ -10,7 +10,6 @@ import {
     Paper,
     CssBaseline,
     Container,
-    Link,
     Grid,
     Typography,
 } from '@material-ui/core';
@@ -46,7 +45,6 @@ const validationSchema = Yup.object({
 const ResetForm = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const history = useHistory();
     const {toggleForm} = props;
 
     return (
@@ -158,10 +156,10 @@ const InfoForm = (props) => {
 
                 <Paper variant="elevation" elevation={2}>
                     <br/><br/>
-                    <Typography variant="subtitle2" align={"center"} gutterBottom>
+                    <Typography variant="subtitle1" align={"center"} gutterBottom>
                         Check your email for a link to reset your password.
                     </Typography>
-                    <Typography variant="subtitle2" align={"center"} gutterBottom>
+                    <Typography variant="subtitle1" align={"center"} gutterBottom>
                         If it doesn’t appear within a few minutes, check your spam folder.
                     </Typography>
                     <br/>

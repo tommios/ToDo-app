@@ -1,16 +1,12 @@
-import {useHistory} from "react-router-dom";
 import useStyles from "../ResetPassword/style";
-import {Avatar, Button, Container, CssBaseline, Paper, Typography} from "@material-ui/core";
+import {Avatar, Container, CssBaseline, Paper, Typography} from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import React from "react";
+import {useSelector} from "react-redux";
 
 const EmailValidate = (props) => {
-    const history = useHistory();
     const classes = useStyles();
-
-    const handleClick = () => {
-        history.push("login")
-    }
+    const email = useSelector((state) => state.auth.user.email);
 
     return (
         <Container component="main" maxWidth="xs">
@@ -28,7 +24,7 @@ const EmailValidate = (props) => {
                     <br/><br/>
                     <Typography variant="subtitle1" align={"center"} gutterBottom>
                         We have sent you a letter.
-                        Please check your mail.
+                        Please check your mail <b>{email}</b>
                     </Typography>
                     <br/>
                     <Typography variant="subtitle1" align={"center"} gutterBottom>
