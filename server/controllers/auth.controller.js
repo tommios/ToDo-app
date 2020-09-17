@@ -286,30 +286,31 @@ export const emailValidate = async (req, res) => {
     }
 
     try {
-        const user = await User.findOne({_id: req.body.user.id})
-            .exec((err, user) => {
-                if (err) {
-                    res.status(500).send({message: err});
-                    return;
-                }
-                if (!user) {
-                    return res.status(404).send({message: "User Not found."});
-                }
+        const user = await User.findOne({_id: req.body.user.id});
 
-                const response = {
-                    "userinfo": {
-                        id: user._id,
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        username: user.username,
-                        phoneNumber: user.phoneNumber,
-                        country: user.country,
-                        email: user.email,
-                        emailValidated: true,
-                    }
-                }
-                res.status(200).json(response);
-            })
+        if (!user) {
+            return res.status(404).send({message: "User Not found."});
+        }
+
+        if (user) {
+            user.emailValidated = true;
+            user.hash = null;
+            await user.save();
+        }
+
+        const response = {
+            "userinfo": {
+                id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                username: user.username,
+                phoneNumber: user.phoneNumber,
+                country: user.country,
+                email: user.email,
+                emailValidated: user.emailValidated,
+            }
+        }
+        res.status(200).json(response);
     } catch (e) {
         console.log(e)
     }
