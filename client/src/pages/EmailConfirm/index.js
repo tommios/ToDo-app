@@ -1,5 +1,5 @@
 import useStyles from "../ResetPassword/style";
-import {Avatar, Container, CssBaseline, Paper, Typography} from "@material-ui/core";
+import {Avatar, Container, CssBaseline, Typography} from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import React, {useEffect} from "react";
 import {useParams, useHistory} from "react-router-dom";
@@ -22,7 +22,7 @@ const EmailConfirm = (props) => {
                 })
         }, 1500)
 
-    }, [dispatch]);
+    }, []);
 
 
     return (

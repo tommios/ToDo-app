@@ -1,16 +1,8 @@
 export const onRequest = (request, action, store) => {
     try {
         const token = localStorage.getItem('accessToken');
-        if (token) {
-            // Apply authorization token to every request if logged in
-            request.headers = {
-                Authorization: `Bearer ${token}`,
-            }
-        } else {
-            // Delete auth header
-            request.headers = {
-                Authorization: "",
-            }
+        request.headers = {
+            Authorization: token ? `Bearer ${token}` : '',
         }
     }
     catch(err){

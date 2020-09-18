@@ -107,15 +107,10 @@ export default (state = initialState, action) => {
             };
         }
         case success(SIGN_UP_USER): {
-            // Set token to localStorage
-            const {token} = action.response.data;
-            localStorage.setItem("accessToken", token);
-            // Decode token to get user data
-            const decoded = jwt_decode(token);
             return {
                 ...state,
                 isAuthenticated: true,
-                user: decoded
+                user: action.response.decoded
             };
         }
         case error(SIGN_UP_USER): {

@@ -55,7 +55,6 @@ const ItemList = (props) => {
   };
 
   const handleChangeCompletionFilter = (event) => {
-    // const name = event.target.name;
     setSelect(event.target.value);
   };
 

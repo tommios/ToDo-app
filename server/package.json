@@ -4,6 +4,7 @@
   "description": "todo app",
   "main": "index.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
     "client": "npm start --prefix ../client",
     "start": "npm run build && node dist/",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",

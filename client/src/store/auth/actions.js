@@ -8,6 +8,7 @@ import {
     NEW_PASSWORD,
     EMAIL_CONFIRM
 } from "./types";
+import jwt_decode from "jwt-decode";
 
 // Init app
 export const init = () => ({
@@ -39,6 +40,19 @@ export const signUp = (user) => ({
         method: "POST",
         url: "/auth/signup",
         data: {...user},
+    },
+    meta: {
+        onSuccess: (response) => {
+            // Set token to localStorage
+            const {token} = response.data;
+            localStorage.setItem("accessToken", token);
+
+            // Decode token to get user data
+            const decoded = jwt_decode(token);
+            response.decoded = decoded;
+
+            return response;
+        }
     }
 });
 

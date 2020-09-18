@@ -6,6 +6,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     backgroundColor: "#ffffff",
+    color: "#0055ff",
+    fontSize: "150%",
   },
   avatar: {
     margin: "auto",
