@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./theme";
-import App from "./App";
+import App from "./App1";
 //import App from "../src/pages/EmailValidate"
 //import App from "../src/components/forms/FormikTodoForm/newForm"
 import * as serviceWorker from "./serviceWorker";

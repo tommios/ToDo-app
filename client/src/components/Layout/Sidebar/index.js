@@ -23,7 +23,6 @@ const Sidebar = () => {
         <>
             <Avatar alt="user-avatar" src="" className={classes.avatar}/>
             <Paper className={classes.userInfo}>{username}</Paper>
-            <hr/>
             <Box m={2}>
                 <Button startIcon={<NotesOutlinedIcon/>}>Todo</Button>
             </Box>
