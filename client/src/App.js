@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import Todos from "./pages/Todos";
 import Todo from "./pages/Todo";
@@ -17,83 +17,49 @@ import {init} from "./store/auth/actions";
 import {getQuery} from '@redux-requests/core';
 import {SET_CURRENT_USER} from "./store/auth/types";
 
+const AppRoute = props => <Route exact {...props} />;
 
-// todo move to configs
-/* eslint eqeqeq: 0 */
-function PrivateRoute({component: Component, redirectTo, authed, verify, ...rest}) {
-    return (
-        <Route
-            {...rest}
-            render={(props) => {
-                if (!authed) {
-                    return <Redirect to={{pathname: redirectTo, state: {from: props.location}}}/>
-                } else if (!verify) {
-                    return <EmailValidate/>
-                } else if (!!verify && !!authed) {
-                    return <Component {...props} />
-                }
-            }}
-        />
-    )
-}
-
-function App() {
-    const dispatch = useDispatch();
-
-    const isResponse = useSelector((state) => getQuery(state, {type: SET_CURRENT_USER}));
+const PrivateRoute = ({component: Component, ...props}) => {
+    const history = useHistory();
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const isEmailValidate = useSelector((state) => state.auth.user.emailValidated);
+
+    if (!isAuthenticated) return history.push('/login');
+
+    return <AppRoute {...props} component={isEmailValidate ? Component : EmailValidate}/>;
+}
+
+
+const App = () => {
+    const dispatch = useDispatch();
+    const isResponse = useSelector((state) => getQuery(state, {type: SET_CURRENT_USER}));
+    const isLoading = isResponse.loading || isResponse.pristine;
 
     useEffect(() => {
         dispatch(init())
     }, [dispatch])
 
-
-    console.log("isEmailValidate ===> ", isEmailValidate);
-    console.log("isAuthenticated ===> ", isAuthenticated);
-
-    if (isResponse.loading || isResponse.pristine) {
-        return (
-            <div>
-                <CircularProgress size={"10rem"} style={{margin: "5em 50em 5em"}}/>
-            </div>
-        )
-    } else {
-        return (
-            <Container>
-                <Router>
-                    <Switch>
-                        <PrivateRoute authed={!isAuthenticated} verify={!isEmailValidate} exact path="/login"
-                                      redirectTo='/' component={Login}/>
-                        <PrivateRoute authed={!isAuthenticated} verify={!isEmailValidate} exact path="/signup"
-                                      redirectTo='/' component={Signup}/>
-                        <PrivateRoute authed={isAuthenticated} verify={isEmailValidate} exact path="/"
-                                      redirectTo="/login"
-                                      component={Todos}/>
-                        <PrivateRoute authed={isAuthenticated} verify={isEmailValidate} exact path="/todos"
-                                      redirectTo="/login"
-                                      component={Todos}/>
-                        <PrivateRoute authed={isAuthenticated} verify={isEmailValidate} exact path="/todos/new"
-                                      redirectTo="/login"
-                                      component={NewTodo}/>
-                        <PrivateRoute authed={isAuthenticated} verify={isEmailValidate} exact path="/todos/:id"
-                                      redirectTo="/login"
-                                      component={Todo}/>
-                        <PrivateRoute authed={!isAuthenticated} verify={!isEmailValidate} exact path="/reset"
-                                      redirectTo="/login"
-                                      component={ResetPassword}/>
-                        <PrivateRoute authed={!isAuthenticated} verify={!isEmailValidate} exact path="/password/:token"
-                                      redirectTo="/login"
-                                      component={NewPassword}/>
-                        <PrivateRoute authed={isAuthenticated} verify={!isEmailValidate} exact path="/verify/:hash"
-                                      redirectTo="/login"
-                                      component={EmailConfirm}/>
-                    </Switch>
-                </Router>
-            </Container>
-        );
-    }
-
+    return !isLoading ? (
+        <Container>
+            <Router>
+                <Switch>
+                    <AppRoute path="/login" component={Login}/>
+                    <AppRoute path="/signup" component={Signup}/>
+                    <AppRoute path="/reset" component={ResetPassword}/>
+                    <AppRoute path="/password/:token" component={NewPassword}/>
+                    <AppRoute path="/verify/:hash" component={EmailConfirm}/>
+                    <PrivateRoute path="/" component={Todos}/>
+                    <PrivateRoute path="/todos" component={Todos}/>
+                    <PrivateRoute path="/todos/new" component={NewTodo}/>
+                    <PrivateRoute path="/todos/:id" component={Todo}/>
+                </Switch>
+            </Router>
+        </Container>
+    ) : (
+        <div>
+            <CircularProgress size={"10rem"} style={{margin: "5em 50em 5em"}}/>
+        </div>
+    )
 }
 
 export default App;
