@@ -87,6 +87,19 @@ export const newPassword = (token, password) => ({
         method: "POST",
         url: `/auth/password/${token}`,
         data: {password},
+    },
+    meta: {
+        onSuccess: (response) => {
+            // Set token to localStorage
+            const {token} = response.data;
+            localStorage.setItem("accessToken", token);
+
+            // Decode token to get user data
+            const decoded = jwt_decode(token);
+            response.decoded = decoded;
+
+            return response;
+        }
     }
 });
 

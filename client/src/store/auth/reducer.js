@@ -60,10 +60,6 @@ export default (state = initialState, action) => {
             };
         }
         case success(LOGIN_USER): {
-            /**
-             * { token: string; user: object; }
-             * @type {any | undefined}
-             */
             return {
                 ...state,
                 isAuthenticated: true,
@@ -161,15 +157,10 @@ export default (state = initialState, action) => {
             };
         }
         case success(NEW_PASSWORD): {
-            // Set token to localStorage
-            const {token} = action.response.data;
-            localStorage.setItem("accessToken", token);
-            // Decode token to get user data
-            const decoded = jwt_decode(token);
-            return {
+             return {
                 ...state,
                 isAuthenticated: true,
-                user: decoded
+                user: action.response.decoded
             };
 
         }
