@@ -23,14 +23,17 @@ const Sidebar = () => {
         <>
             <Avatar alt="user-avatar" src="" className={classes.avatar}/>
             <Paper className={classes.userInfo}>{username}</Paper>
-            <Box m={2}>
-                <Button startIcon={<NotesOutlinedIcon/>}>Todo</Button>
-            </Box>
-            <Box m={2}>
-                <Button startIcon={<AccountBoxOutlinedIcon/>}>Account</Button>
-            </Box>
-            <Box m={2}>
-                <Button startIcon={<ExitToAppOutlinedIcon/>} onClick={handleClickLogout}>Logout</Button>
+            <Box m={2} className={classes.menu}>
+                <Box m={2}>
+                    <Button startIcon={<NotesOutlinedIcon/>} className={classes.btn}>Todo</Button>
+                </Box>
+                <Box m={2}>
+                    <Button startIcon={<AccountBoxOutlinedIcon/>} className={classes.btn}>Account</Button>
+                </Box>
+                <Box m={2}>
+                    <Button startIcon={<ExitToAppOutlinedIcon/>}
+                            onClick={handleClickLogout} className={classes.btn}>Logout</Button>
+                </Box>
             </Box>
         </>
     );
