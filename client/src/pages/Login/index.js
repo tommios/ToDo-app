@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-//import {useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {Formik, Form, Field} from 'formik';
 import * as Yup from "yup";
 // Material UI components
@@ -34,7 +34,7 @@ const validationSchema = Yup.object({
 const LoginForm = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    //let history = useHistory();
+    let history = useHistory();
 
     return (
         <Container component="main" maxWidth="xs">
@@ -61,105 +61,107 @@ const LoginForm = (props) => {
                                 if (response.action.error) {
                                     actions.setFieldError('backend', response.action.error.response.data.message);
                                     actions.setSubmitting(false);
+                                } else {
+                                    history.push("/");
                                 }
                             })
                             .catch(error => {
                                 actions.setFieldError('backend', error.message);
                             })
                     }}
-                >
+                        >
                     {({
-                          submitForm,
-                          handleChange,
-                          isValid,
-                          touched,
-                          errors
-                      }) => {
+                        submitForm,
+                        handleChange,
+                        isValid,
+                        touched,
+                        errors
+                    }) => {
                         return (
-                            <Form className={classes.form}>
+                        <Form className={classes.form}>
 
-                                <Grid item xs={12}>
-                                    <Field
-                                        component={TextField}
-                                        type="email"
-                                        //autoFocus
-                                        margin="normal"
-                                        variant="outlined"
-                                        autoComplete="email"
-                                        required
-                                        fullWidth
-                                        id="email"
-                                        label="Email Address"
-                                        name="email"
-                                        helperText={touched.email ? errors.email : ""}
-                                        error={touched.email && Boolean(errors.email)}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
+                        <Grid item xs={12}>
+                        <Field
+                        component={TextField}
+                        type="email"
+                        //autoFocus
+                        margin="normal"
+                        variant="outlined"
+                        autoComplete="email"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        helperText={touched.email ? errors.email : ""}
+                        error={touched.email && Boolean(errors.email)}
+                        onChange={handleChange}
+                        />
+                        </Grid>
 
-                                <Grid item xs={12}>
-                                    <Field
-                                        component={TextField}
-                                        type="password"
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="password"
-                                        label="Password"
-                                        name="password"
-                                        autoComplete="password"
-                                        helperText={touched.password ? errors.password : ""}
-                                        error={touched.password && Boolean(errors.password)}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
+                        <Grid item xs={12}>
+                        <Field
+                        component={TextField}
+                        type="password"
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="password"
+                        label="Password"
+                        name="password"
+                        autoComplete="password"
+                        helperText={touched.password ? errors.password : ""}
+                        error={touched.password && Boolean(errors.password)}
+                        onChange={handleChange}
+                        />
+                        </Grid>
 
-                                <Button
-                                    type="button"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                    onClick={submitForm}
-                                    disabled={!isValid}
-                                >
-                                    Sign In
-                                </Button>
+                        <Button
+                        type="button"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={submitForm}
+                        disabled={!isValid}
+                        >
+                        Sign In
+                        </Button>
 
-                                <Grid container>
-                                    <Grid item xs={12} sm={8}>
-                                        <Link href="/signup" variant="body2">
-                                            {"Don't have an account? Sign Up"}
-                                        </Link>
-                                    </Grid>
-                                    <Grid item xs={12} sm={4}>
-                                        <Link href="/reset" variant="body2">
-                                            {"Forgot password?"}
-                                        </Link>
-                                    </Grid>
-                                </Grid>
+                        <Grid container>
+                        <Grid item xs={12} sm={8}>
+                        <Link href="/signup" variant="body2">
+                        {"Don't have an account? Sign Up"}
+                        </Link>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                        <Link href="/reset" variant="body2">
+                        {"Forgot password?"}
+                        </Link>
+                        </Grid>
+                        </Grid>
 
-                                {!errors?.backend ?
-                                    <></>
-                                    :
-                                    <Alert
-                                        severity="error"
-                                        variant="filled"
-                                    >
-                                        {errors.backend}
-                                    </Alert>
+                        {!errors?.backend ?
+                            <></>
+                            :
+                            <Alert
+                                severity="error"
+                                variant="filled"
+                            >
+                                {errors.backend}
+                            </Alert>
 
-                                }
-                            </Form>
+                        }
+                        </Form>
                         )
                     }
                     }
 
-                </Formik>
-            </div>
-        </Container>
-    );
-}
+                        </Formik>
+                        </div>
+                        </Container>
+                        );
+                        }
 
-export default LoginForm;
+                        export default LoginForm;

@@ -1,6 +1,6 @@
 import React from 'react';
-import {useHistory}  from "react-router-dom";
-import { withStyles } from '@material-ui/core/styles';
+import {useHistory} from "react-router-dom";
+import {withStyles} from '@material-ui/core/styles';
 import {
     Button,
     Dialog,
@@ -35,13 +35,13 @@ const styles = (theme) => ({
 
 const DialogTitle = withStyles(styles)((props) => {
 
-    const { children, classes, onClose, ...other } = props;
+    const {children, classes, onClose, ...other} = props;
     return (
         <MuiDialogTitle disableTypography className={classes.root} {...other}>
             <Typography variant="h6">{children}</Typography>
             {onClose ? (
                 <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-                    <CloseIcon />
+                    <CloseIcon/>
                 </IconButton>
             ) : null}
         </MuiDialogTitle>
@@ -64,7 +64,7 @@ const DialogActions = withStyles((theme) => ({
 
 const TodoView = (props) => {
     const history = useHistory();
-    const { todo = {}, onEdit } = props;
+    const {todo = {}, onEdit} = props;
     const [open, setOpen] = React.useState(true);
 
     const handleClose = () => {
@@ -78,17 +78,21 @@ const TodoView = (props) => {
                 <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                     {todo.title}
                 </DialogTitle>
-                <DialogContent>
+                <DialogContent dividers>
                     <TextField
                         fullWidth
                         readOnly
                         multiline
+                        disabled={true}
                         rows={5}
                         rowsMax={25}
                         name="body"
                         type="text"
                         id="body"
                         value={todo.body || ""}
+                        InputProps={{
+                            disableUnderline: true
+                        }}
                     />
                 </DialogContent>
                 <DialogActions>

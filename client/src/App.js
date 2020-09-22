@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch, useHistory} from "react-router-d
 import {useDispatch} from "react-redux";
 import Todos from "./pages/Todos";
 import Todo from "./pages/Todo";
-import NewTodo from "./pages/NewTodo";
+import NewTodo from "./pages/NewTodo.js";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ResetPassword from "./pages/ResetPassword";
@@ -17,16 +17,27 @@ import {init} from "./store/auth/actions";
 import {getQuery} from '@redux-requests/core';
 import {SET_CURRENT_USER} from "./store/auth/types";
 
-const AppRoute = props => <Route exact {...props} />;
+const AppRoute = props => {
+    return <Route exact {...props} />
+};
 
-const PrivateRoute = ({component: Component, ...props}) => {
+const PrivateRoute = ({component: Component, ...rest}) => {
     const history = useHistory();
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const isEmailValidate = useSelector((state) => state.auth.user.emailValidated);
 
     if (!isAuthenticated) return history.push('/login');
+    if (!isEmailValidate) return <EmailValidate/>;
 
-    return <AppRoute {...props} component={isEmailValidate ? Component : EmailValidate}/>;
+    // return (
+    //     <Route {...rest}
+    //            render={props => (
+    //                <Component {...props} />
+    //            )}
+    //     />
+    // )
+
+    return <AppRoute {...rest} component={isEmailValidate ? Component : EmailValidate} />;
 }
 
 
@@ -48,10 +59,10 @@ const App = () => {
                     <AppRoute path="/reset" component={ResetPassword}/>
                     <AppRoute path="/password/:token" component={NewPassword}/>
                     <AppRoute path="/verify/:hash" component={EmailConfirm}/>
-                    <PrivateRoute path="/" component={Todos}/>
-                    <PrivateRoute path="/todos" component={Todos}/>
-                    <PrivateRoute path="/todos/new" component={NewTodo}/>
-                    <PrivateRoute path="/todos/:id" component={Todo}/>
+                    <PrivateRoute path="/" component={Todos} exact/>
+                    <PrivateRoute path="/todos" component={Todos} exact/>
+                    <PrivateRoute path="/todos/new" component={NewTodo} exact/>
+                    <PrivateRoute path="/todos/:id" component={Todo} exact/>
                 </Switch>
             </Router>
         </Container>

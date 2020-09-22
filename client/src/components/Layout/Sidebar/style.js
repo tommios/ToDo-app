@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
     btn: {
         width: "75%",
-        paddingLeft: theme.spacing(3),
+        paddingLeft: theme.spacing(4),
         justifyContent: "left",
     },
 }));

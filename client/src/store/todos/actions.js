@@ -17,18 +17,16 @@ export const todoCreate = (data) => ({
 });
 
 export const todoGetAll = (params = {}) => {
-    /** const queryString =
-
-     * 1) получить все ключи объекта (Object.keys)
-     * 2) отфильтровать этот массив что бы у ключей было значение
-     * 3) преобразовать полученный массив в строку
-     */
+    const {search, completed} = params;
     return {
         type: TODOS_GET_ALL,
         request: {
             method: "GET",
             url: `/todos`,
-            params,
+            params: {
+                search,
+                completed,
+            },
         },
     };
 };
