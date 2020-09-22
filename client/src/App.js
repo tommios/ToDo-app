@@ -27,15 +27,6 @@ const PrivateRoute = ({component: Component, ...rest}) => {
     const isEmailValidate = useSelector((state) => state.auth.user.emailValidated);
 
     if (!isAuthenticated) return history.push('/login');
-    if (!isEmailValidate) return <EmailValidate/>;
-
-    // return (
-    //     <Route {...rest}
-    //            render={props => (
-    //                <Component {...props} />
-    //            )}
-    //     />
-    // )
 
     return <AppRoute {...rest} component={isEmailValidate ? Component : EmailValidate} />;
 }
