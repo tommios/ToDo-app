@@ -1,9 +1,10 @@
 import React from 'react';
 import {Formik, Form, Field} from 'formik';
 import * as Yup from "yup"
-
 import {Grid, Button} from '@material-ui/core';
 import {TextField, CheckboxWithLabel} from 'formik-material-ui';
+import useStyles from "./style";
+
 
 const validationSchema = Yup.object({
     title: Yup.string("Enter a title")
@@ -12,8 +13,10 @@ const validationSchema = Yup.object({
     body: Yup.string("Enter your description")
 });
 
+
 const TodoForm = (props) => {
     const {formData, onSubmit, onCancel} = props;
+    const classes = useStyles();
 
     const handleSave = (values) => {
         const {title, body, completed} = values;
@@ -50,7 +53,7 @@ const TodoForm = (props) => {
                   touched,
                   errors
               }) => {
-                return <Form>
+                return <Form className={classes.form}>
                     <Grid container spacing={2}>
 
                         <Grid item xs={12}>
