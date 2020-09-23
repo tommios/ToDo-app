@@ -79,7 +79,7 @@ const TodoView = (props) => {
                     {todo.title}
                 </DialogTitle>
                 <DialogContent dividers>
-                    <p id={'pizdatoe-body'} dangerouslySetInnerHTML={{__html: todo.body}}/>
+                    <p id={'body'} dangerouslySetInnerHTML={{__html: todo.body}}/>
                     {/*<p id="body">{todo.body}</p>*/}
                 </DialogContent>
                 <DialogActions>

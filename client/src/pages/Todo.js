@@ -10,9 +10,7 @@ const Todo = (props) => {
     const {id} = useParams();
     const location = useLocation();
     const {isEdit} = location;
-
     const dispatch = useDispatch();
-
     const todo = useSelector((state) => state?.todos?.todo || {});
     const [editMode, setEditMode] = useState(isEdit);
 

@@ -38,6 +38,7 @@ const Item = (props) => {
                 title={todo.title}
                 subheader={moment(todo.created).fromNow()}
             />
+
             {!todo.completed ? (
                 <CardContent
                     component="section"
@@ -70,6 +71,7 @@ const Item = (props) => {
                 >
                     <ViewHeadlineIcon/>
                 </Link>
+
                 <Link
                     to={{
                         pathname: `/todos/${todo._id}`,
@@ -80,7 +82,7 @@ const Item = (props) => {
                     <EditIcon/>
                 </Link>
 
-                <MaterialLink href="#" onClick={() => onDelete(todo._id)}>
+                <MaterialLink href="" onClick={() => onDelete(todo._id)}>
                     <DeleteIcon/>
                 </MaterialLink>
             </CardActions>

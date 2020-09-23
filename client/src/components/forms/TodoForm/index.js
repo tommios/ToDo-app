@@ -43,7 +43,7 @@ const TodoForm = (props) => {
             onSubmit={(values) => {
                 handleSave(values);
             }}
-            onReset={handleCancel}
+            // onReset={handleCancel}
         >
             {({
                   submitForm,
@@ -120,7 +120,7 @@ const TodoForm = (props) => {
                                 fullWidth
                                 color="secondary"
                                 variant="contained"
-                                onClick={resetForm}
+                                onClick={handleCancel}
                             >
                                 Cancel
                             </Button>
