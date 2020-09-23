@@ -22,7 +22,7 @@ const EmailConfirm = (props) => {
                 })
         }, 1500)
 
-    }, []);
+    }, [dispatch, history, hash, user]);
 
 
     return (

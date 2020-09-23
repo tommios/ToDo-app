@@ -9,7 +9,6 @@ import {
     EMAIL_CONFIRM,
 } from "./types";
 import {success, error} from "@redux-requests/core";
-import jwt_decode from "jwt-decode";
 
 const initialState = {
     isAuthenticated: false,

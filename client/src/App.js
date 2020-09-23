@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
-import {BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import Todos from "./pages/Todos";
 import Todo from "./pages/Todo";
@@ -23,14 +24,16 @@ const AppRoute = props => {
 
 const PrivateRoute = ({component: Component, ...rest}) => {
     const history = useHistory();
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const isEmailValidate = useSelector((state) => state.auth.user.emailValidated);
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-    if (!isAuthenticated) return history.push('/login');
-
-    return <AppRoute {...rest} component={isEmailValidate ? Component : EmailValidate} />;
+    if (!isAuthenticated) {
+        history.push('/login');
+        return <AppRoute path="/login" component={Login}/>;
+    } else {
+        return <AppRoute {...rest} component={isEmailValidate ? Component : EmailValidate}/>;
+    }
 }
-
 
 const App = () => {
     const dispatch = useDispatch();
