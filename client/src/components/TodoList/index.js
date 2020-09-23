@@ -10,6 +10,7 @@ const TodosList = ({title, todos, onDelete, onUpdate}) => {
     if (todos.length === 0) {
         title = ""
     }
+
     return (
         <Grid container justify="flex-start" spacing={2}>
             <Grid
@@ -20,6 +21,7 @@ const TodosList = ({title, todos, onDelete, onUpdate}) => {
             >
                 {title}
             </Grid>
+
             {todos.map((todo) => (
                 <Grid
                     key={todo._id}

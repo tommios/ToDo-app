@@ -1,7 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import moment from "moment";
-
 import {
     Card,
     CardHeader,
@@ -11,20 +10,18 @@ import {
     Checkbox,
     Link as MaterialLink,
 } from "@material-ui/core";
-
 import {
     Edit as EditIcon,
     ViewHeadline as ViewHeadlineIcon,
     Delete as DeleteIcon,
 } from "@material-ui/icons";
 
+
 const Item = (props) => {
     const {todo, onDelete, onUpdate} = props;
     const handleChange = (event) => {
         onUpdate({...todo, completed: event.target.checked});
     };
-
-    const created = moment(todo.created);
 
     return (
         <Card className="" variant="outlined">
@@ -39,7 +36,7 @@ const Item = (props) => {
                     />
                 }
                 title={todo.title}
-                subheader={created.fromNow()}
+                subheader={moment(todo.created).fromNow()}
             />
             {!todo.completed ? (
                 <CardContent

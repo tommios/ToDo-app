@@ -20,9 +20,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from "./style";
 import {resetPassword} from "../../store/auth/actions";
 
+
 const MainResetForm = () => {
     const [state, setState] = useState(true);
-
     const handleToggle = () => {
         setState(false);
     }
@@ -32,7 +32,6 @@ const MainResetForm = () => {
     } else {
         return <InfoForm/>
     }
-
 }
 
 const validationSchema = Yup.object({
@@ -66,7 +65,7 @@ const ResetForm = (props) => {
                         email: "",
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values, actions)=>{
+                    onSubmit={(values, actions) => {
                         dispatch(resetPassword({email: values.email}))
                         toggleForm();
                     }}
@@ -179,6 +178,5 @@ const InfoForm = (props) => {
         </Container>
     );
 }
-
 
 export default MainResetForm;
