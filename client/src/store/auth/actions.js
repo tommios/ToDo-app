@@ -8,6 +8,8 @@ import {
     NEW_PASSWORD,
     EMAIL_CONFIRM
 } from "./types";
+import {useHistory} from "react-router-dom";
+
 import jwt_decode from "jwt-decode";
 
 // Init app
@@ -82,26 +84,27 @@ export const resetPassword = (email) => ({
 });
 
 export const newPassword = (token, password) => ({
-    type: NEW_PASSWORD,
-    request: {
-        method: "POST",
-        url: `/auth/password/${token}`,
-        data: {password},
-    },
-    meta: {
-        onSuccess: (response) => {
-            // Set token to localStorage
-            const {token} = response.data;
-            localStorage.setItem("accessToken", token);
+        type: NEW_PASSWORD,
+        request: {
+            method: "POST",
+            url: `/auth/password/${token}`,
+            data: {password},
+        },
+        meta: {
+            onSuccess: (response) => {
+                // Set token to localStorage
+                const {token} = response.data;
+                localStorage.setItem("accessToken", token);
+                // Decode token to get user data
+                const decoded = jwt_decode(token);
+                response.decoded = decoded;
 
-            // Decode token to get user data
-            const decoded = jwt_decode(token);
-            response.decoded = decoded;
-
-            return response;
+                return response;
+            }
         }
     }
-});
+)
+
 
 export const emailConfirm = (hash, user) => ({
     type: EMAIL_CONFIRM,

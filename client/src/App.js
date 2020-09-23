@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {useHistory} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import Todos from "./pages/Todos";
 import Todo from "./pages/Todo";
@@ -18,22 +17,25 @@ import {init} from "./store/auth/actions";
 import {getQuery} from '@redux-requests/core';
 import {SET_CURRENT_USER} from "./store/auth/types";
 
+
 const AppRoute = props => {
-    return <Route exact {...props} />
+    const {redirectTo} = props;
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    return !!redirectTo && isAuthenticated ?
+        <Redirect exact to="/" /> :
+        <Route exact {...props} />
 };
 
+
 const PrivateRoute = ({component: Component, ...rest}) => {
-    const history = useHistory();
     const isEmailValidate = useSelector((state) => state.auth.user.emailValidated);
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-    if (!isAuthenticated) {
-        history.push('/login');
-        return <AppRoute path="/login" component={Login}/>;
-    } else {
-        return <AppRoute {...rest} component={isEmailValidate ? Component : EmailValidate}/>;
-    }
+    return isAuthenticated ?
+        <AppRoute {...rest} component={isEmailValidate ? Component : EmailValidate}/> :
+        <Redirect to="/login" />
 }
+
 
 const App = () => {
     const dispatch = useDispatch();
@@ -48,8 +50,8 @@ const App = () => {
         <Container>
             <Router>
                 <Switch>
-                    <AppRoute path="/login" component={Login}/>
-                    <AppRoute path="/signup" component={Signup}/>
+                    <AppRoute path="/login" redirectTo='/' component={Login}/>
+                    <AppRoute path="/signup" redirectTo='/' component={Signup}/>
                     <AppRoute path="/reset" component={ResetPassword}/>
                     <AppRoute path="/password/:token" component={NewPassword}/>
                     <AppRoute path="/verify/:hash" component={EmailConfirm}/>

@@ -127,7 +127,7 @@ export default (state = initialState, action) => {
         }
         case success(TODOS_DELETE_ONE): {
             let index = state.todos.findIndex((element) => action.meta.requestAction.id === element._id);
-            if (!index) return state;
+            if (index === -1) return state;
 
             const todos = [...state.todos];
             todos.splice(index, 1);

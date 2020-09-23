@@ -5,7 +5,7 @@ import React, {useEffect} from "react";
 import {useParams, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {emailConfirm} from "../../store/auth/actions"
-
+let timer;
 const EmailConfirm = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -15,12 +15,16 @@ const EmailConfirm = (props) => {
     const user = useSelector((state) => state.auth.user);
 
     useEffect(() => {
-        setTimeout(() => {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
             dispatch(emailConfirm(hash, user))
                 .then(() => {
                     history.push("/");
                 })
-        }, 1500)
+        }, 1500);
+        return () => {
+            clearTimeout(timer)
+        }
 
     }, [dispatch, history, hash, user]);
 

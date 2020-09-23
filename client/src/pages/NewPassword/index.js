@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
 import {Formik, Form, Field} from 'formik';
 import * as Yup from "yup";
 // Material UI components
@@ -33,6 +33,7 @@ const validationSchema = Yup.object({
 const NewPasswordForm = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
     const {token} = useParams();
 
     return (
@@ -54,7 +55,7 @@ const NewPasswordForm = (props) => {
                     }}
                     validationSchema={validationSchema}
                     onSubmit={(values, actions) => {
-                        dispatch(newPassword(token, values.password))
+                        dispatch(newPassword(token, values.password));
                     }}
                 >
                     {({

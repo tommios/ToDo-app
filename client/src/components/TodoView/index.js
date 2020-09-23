@@ -79,21 +79,8 @@ const TodoView = (props) => {
                     {todo.title}
                 </DialogTitle>
                 <DialogContent dividers>
-                    <TextField
-                        fullWidth
-                        readOnly
-                        multiline
-                        disabled={true}
-                        rows={5}
-                        rowsMax={25}
-                        name="body"
-                        type="text"
-                        id="body"
-                        value={todo.body || ""}
-                        InputProps={{
-                            disableUnderline: true
-                        }}
-                    />
+                    <p id={'pizdatoe-body'} dangerouslySetInnerHTML={{__html: todo.body}}/>
+                    {/*<p id="body">{todo.body}</p>*/}
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={onEdit} color="primary">
