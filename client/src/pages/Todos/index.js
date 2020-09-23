@@ -62,7 +62,6 @@ const ItemList = (props) => {
     <Grid container spacing={3}>
       <Grid item xs={12} component="header">
         <Paper className={classes.header}>Todo App</Paper>
-        {isLoading && "Loading..."}
       </Grid>
 
       <Grid item xs={3} component="aside">
