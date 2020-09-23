@@ -1,118 +1,133 @@
-import React, { useState, useEffect } from "react";
-import {
-  Grid,
-  FormControlLabel,
-  Button,
-  Checkbox,
-  TextField,
-} from "@material-ui/core";
-import useStyles from "./style";
+import React from 'react';
+import {Formik, Form, Field} from 'formik';
+import * as Yup from "yup"
+
+import {Grid, Button} from '@material-ui/core';
+import {TextField, CheckboxWithLabel} from 'formik-material-ui';
+
+const validationSchema = Yup.object({
+    title: Yup.string("Enter a title")
+        .min(2, "Title must contain at least 2 characters")
+        .required("Title is required"),
+    body: Yup.string("Enter your description")
+});
 
 const TodoForm = (props) => {
-  const classes = useStyles();
+    const {formData, onSubmit, onCancel} = props;
 
-  const { formData: original, onSubmit, onCancel } = props;
-  const [todo, setTodo] = useState(original || {});
+    const handleSave = (values) => {
+        const {title, body, completed} = values;
+        onSubmit({
+            title,
+            body,
+            completed,
+        });
+    };
 
-  useEffect(() => {
-    setTodo(original || {});
-  }, [original]);
+    const handleCancel = () => {
+        onCancel();
+    };
 
-  const handleChange = (key, value) => {
-    setTodo({
-      ...todo,
-      [key]: value,
-    });
-  };
+    return (
+        <Formik
+            enableReinitialize
+            initialValues={{
+                title: formData ? formData.title : "",
+                body: formData ? formData.body : "",
+                completed: formData ? formData.completed : false
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
+                handleSave(values);
+            }}
+            onReset={handleCancel}
+        >
+            {({
+                  submitForm,
+                  handleChange,
+                  isValid,
+                  resetForm,
+                  touched,
+                  errors
+              }) => {
+                return <Form>
+                    <Grid container spacing={2}>
 
-  const handleSave = (event) => {
-    const { title, body, completed } = todo;
-    onSubmit({
-      title,
-      body,
-      completed,
-    });
-  };
+                        <Grid item xs={12}>
+                            <Field
+                                component={TextField}
+                                name="title"
+                                type="text"
+                                label="Title"
+                                variant="outlined"
+                                fullWidth
+                                helperText={touched.title ? errors.title : ""}
+                                error={touched.title && Boolean(errors.title)}
+                                onChange={handleChange}
+                            />
+                        </Grid>
 
-  const handleCancel = () => {
-    onCancel();
-  };
+                        <Grid item xs={12}>
+                            <Field
+                                name="body"
+                                helperText={touched.body ? errors.body : ""}
+                                error={touched.body && Boolean(errors.body)}
+                                onChange={handleChange}
+                            >
+                                {(props) => <TextField
+                                    {...props}
+                                    label="Description"
+                                    fullWidth
+                                    multiline
+                                    rows={20}
+                                    rowsMax={25}
+                                    variant="outlined"
 
-  return (
-          <form className={classes.form} noValidate>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  required
-                  autoComplete="todoTitle"
-                  id="title"
-                  label="Title"
-                  name="title"
-                  value={todo.title || ""}
-                  onChange={(e) => handleChange("title", e.target.value)}
-                />
-              </Grid>
+                                />}
+                            </Field>
+                        </Grid>
 
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  required
-                  multiline
-                  rows={20}
-                  rowsMax={25}
-                  name="body"
-                  label="Description"
-                  type="text"
-                  id="body"
-                  value={todo.body || ""}
-                  onChange={(e) => handleChange("body", e.target.value)}
-                />
-              </Grid>
+                        <Grid item xs={12}>
+                            <Field
+                                component={CheckboxWithLabel}
+                                type="checkbox"
+                                Label={{label: 'Completed'}}
+                                name="completed"
+                                color="primary"
+                                onChange={handleChange}
+                            />
+                        </Grid>
 
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={todo.completed || false}
-                      onChange={(e) => handleChange("completed", !!e.target.checked)}
-                      color="primary"
-                    />
-                  }
-                  label="Completed"
-                />
-              </Grid>
+                        <Grid item xs={9}>
+                            <Button
+                                type="button"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                onClick={submitForm}
+                                disabled={!isValid}
+                            >
+                                {(formData && formData._id) ? "Update" : "Create"}
+                            </Button>
+                        </Grid>
 
-              <Grid item xs={9}>
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  onClick={handleSave}
-                >
-                  {todo._id ? "Update" : "Create"}
-                </Button>
-              </Grid>
+                        <Grid item xs={3}>
+                            <Button
+                                type="button"
+                                fullWidth
+                                color="secondary"
+                                variant="contained"
+                                onClick={resetForm}
+                            >
+                                Cancel
+                            </Button>
+                        </Grid>
 
-              <Grid item xs={3}>
-                <Button
-                  type="button"
-                  fullWidth
-                  color="secondary"
-                  variant="contained"
-                  className={classes.submit}
-                  onClick={handleCancel}
-                >
-                  Cancel
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-      )
-};
+                    </Grid>
+                </Form>
+            }}
+        </Formik>
+    );
+}
 
 export default TodoForm;

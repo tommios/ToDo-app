@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import Todos from "./pages/Todos";
 import Todo from "./pages/Todo";
-import NewTodo from "./pages/NewTodo.js";
+import NewTodo from "./pages/NewTodo";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ResetPassword from "./pages/ResetPassword";
