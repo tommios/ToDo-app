@@ -22,8 +22,8 @@ const AppRoute = props => {
     const {redirectTo} = props;
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     return !!redirectTo && isAuthenticated ?
-        <Redirect exact to="/" /> :
-        <Route exact {...props} />
+        <Redirect to="/" /> :
+        <Route {...props} />
 };
 
 

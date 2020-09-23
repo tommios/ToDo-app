@@ -159,7 +159,7 @@ export default (state = initialState, action) => {
              return {
                 ...state,
                 isAuthenticated: true,
-                user: action.response.decoded
+                user: action.response.userinfo
             };
 
         }

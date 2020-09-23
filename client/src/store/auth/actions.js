@@ -93,12 +93,12 @@ export const newPassword = (token, password) => ({
         meta: {
             onSuccess: (response) => {
                 // Set token to localStorage
-                const {token} = response.data;
+                const {token, userinfo} = response.data;
                 localStorage.setItem("accessToken", token);
                 // Decode token to get user data
-                const decoded = jwt_decode(token);
-                response.decoded = decoded;
-
+                // const decoded = jwt_decode(token);
+                // response.decoded = decoded;
+                response.userinfo = userinfo;
                 return response;
             }
         }

@@ -55,7 +55,10 @@ const NewPasswordForm = (props) => {
                     }}
                     validationSchema={validationSchema}
                     onSubmit={(values, actions) => {
-                        dispatch(newPassword(token, values.password));
+                        dispatch(newPassword(token, values.password))
+                            .then(() => {
+                                history.push("/");
+                            })
                     }}
                 >
                     {({
