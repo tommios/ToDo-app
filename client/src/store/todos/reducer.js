@@ -131,7 +131,6 @@ export default (state = initialState, action) => {
             };
         }
         case success(TODOS_DELETE_ONE): {
-            console.log("action ===> ", action);
             let index = state.todos.findIndex((element) => action.meta.requestAction.id === element._id);
             if (index === -1) return state;
 

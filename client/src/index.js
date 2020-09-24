@@ -1,23 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ThemeProvider } from "@material-ui/core/styles";
+import {ThemeProvider} from "@material-ui/core/styles";
 import theme from "./theme";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { Provider } from "react-redux";
-import { configureStore } from "./store";
+import {Provider} from "react-redux";
+import {configureStore} from "./store";
 
 const store = configureStore();
 
 ReactDOM.render(
-  <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <App />
-      </Provider>
+        <Provider store={store}>
+            <App/>
+        </Provider>
     </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+    ,
+    document.getElementById("root")
 );
 
 serviceWorker.unregister();
