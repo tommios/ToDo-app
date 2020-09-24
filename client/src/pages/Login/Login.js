@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {useHistory} from "react-router-dom";
+import {useHistory, Redirect} from "react-router-dom";
+import {useSelector} from "react-redux";
 import {Formik, Form, Field} from 'formik';
 import * as Yup from "yup";
 // Material UI components
@@ -35,8 +36,9 @@ const LoginForm = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     let history = useHistory();
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-    return (
+    return isAuthenticated ? <Redirect to="/" /> : (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
             <div className={classes.paper}>

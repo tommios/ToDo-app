@@ -1,15 +1,15 @@
 import React, {useEffect} from "react";
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import Todos from "./pages/Todos";
+import Todos from "./pages/Todos/Todos";
 import Todo from "./pages/Todo";
 import NewTodo from "./pages/NewTodo";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import ResetPassword from "./pages/ResetPassword";
-import NewPassword from "./pages/NewPassword"
-import EmailValidate from "./pages/EmailValidate";
-import EmailConfirm from "./pages/EmailConfirm"
+import Login from "./pages/Login/Login";
+import Signup from "./pages/Signup/Signup";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import NewPassword from "./pages/NewPassword/NewPassword"
+import EmailValidate from "./pages/EmailValidate/EmailValidate";
+import EmailConfirm from "./pages/EmailConfirm/EmailConfirm"
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from "@material-ui/core/Container";
 import {useSelector} from "react-redux";
@@ -18,13 +18,7 @@ import {getQuery} from '@redux-requests/core';
 import {SET_CURRENT_USER} from "./store/auth/types";
 
 
-const AppRoute = props => {
-    const {redirectTo} = props;
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    return !!redirectTo && isAuthenticated ?
-        <Redirect to="/" /> :
-        <Route {...props} />
-};
+const AppRoute = props => <Route {...props} />;
 
 
 const PrivateRoute = ({component: Component, ...rest}) => {
@@ -33,7 +27,7 @@ const PrivateRoute = ({component: Component, ...rest}) => {
 
     return isAuthenticated ?
         <AppRoute {...rest} component={isEmailValidate ? Component : EmailValidate}/> :
-        <Redirect to="/login" />
+        <Redirect to="/login"/>
 }
 
 
@@ -50,8 +44,8 @@ const App = () => {
         <Container>
             <Router>
                 <Switch>
-                    <AppRoute path="/login" redirectTo='/' component={Login}/>
-                    <AppRoute path="/signup" redirectTo='/' component={Signup}/>
+                    <AppRoute path="/login" component={Login}/>
+                    <AppRoute path="/signup" component={Signup}/>
                     <AppRoute path="/reset" component={ResetPassword}/>
                     <AppRoute path="/password/:token" component={NewPassword}/>
                     <AppRoute path="/verify/:hash" component={EmailConfirm}/>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import TodoList from "../../components/TodoList";
-import Sidebar from "../../components/Layout/Sidebar";
+import TodoList from "../../components/TodoList/TodoList";
+import Sidebar from "../../components/Layout/Sidebar/Sidebar";
 import {
     Grid,
     Paper,

@@ -1,6 +1,6 @@
 import React from 'react';
-import {useDispatch} from "react-redux";
-import {useHistory} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {useHistory, Redirect} from "react-router-dom";
 import {signUp} from "../../store/auth/actions";
 import {Formik, Form, Field} from 'formik';
 import * as Yup from "yup"
@@ -48,8 +48,9 @@ const SignupForm = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-    return (
+    return isAuthenticated ? <Redirect to="/" /> : (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
             <div className={classes.paper}>
