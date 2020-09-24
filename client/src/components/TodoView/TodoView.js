@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {createRef} from 'react';
 import {useHistory} from "react-router-dom";
 import {withStyles} from '@material-ui/core/styles';
 import {
@@ -10,6 +10,7 @@ import {
     IconButton,
     Typography, TextField
 } from '@material-ui/core';
+import Slide from '@material-ui/core/Slide';
 import CloseIcon from '@material-ui/icons/Close';
 
 const styles = (theme) => ({
@@ -31,6 +32,10 @@ const styles = (theme) => ({
         margin: "auto",
         marginTop: theme.spacing(3),
     },
+});
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const DialogTitle = withStyles(styles)((props) => {
@@ -73,14 +78,14 @@ const TodoView = (props) => {
     };
 
     return (
-        <div>
-            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} fullWidth>
+
+            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} fullWidth
+                    TransitionComponent={Transition}>
                 <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                     {todo.title}
                 </DialogTitle>
                 <DialogContent dividers>
-                    <p id={'body'} dangerouslySetInnerHTML={{__html: todo.body}}/>
-                    {/*<p id="body">{todo.body}</p>*/}
+                    <i><p id={'body'} dangerouslySetInnerHTML={{__html: todo.body}}/></i>
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={onEdit} color="primary">
@@ -88,7 +93,7 @@ const TodoView = (props) => {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+
     );
 }
 

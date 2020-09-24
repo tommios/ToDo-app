@@ -16,6 +16,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        //////////  TODOS_CREATE  //////////
         case TODOS_CREATE: {
             return {
                 ...state,
@@ -42,6 +43,7 @@ export default (state = initialState, action) => {
             };
         }
 
+        //////////  TODOS_GET_ALL  //////////
         case TODOS_GET_ALL: {
             return {
                 ...state,
@@ -66,6 +68,7 @@ export default (state = initialState, action) => {
             };
         }
 
+        //////////  TODOS_GET_ONE  //////////
         case TODOS_GET_ONE: {
             return {
                 ...state,
@@ -89,6 +92,7 @@ export default (state = initialState, action) => {
             };
         }
 
+        //////////  TODOS_UPDATE  //////////
         case TODOS_UPDATE: {
             return {
                 ...state,
@@ -118,6 +122,7 @@ export default (state = initialState, action) => {
             };
         }
 
+        //////////  TODOS_DELETE_ONE  //////////
         case TODOS_DELETE_ONE: {
             return {
                 ...state,
@@ -126,6 +131,7 @@ export default (state = initialState, action) => {
             };
         }
         case success(TODOS_DELETE_ONE): {
+            console.log("action ===> ", action);
             let index = state.todos.findIndex((element) => action.meta.requestAction.id === element._id);
             if (index === -1) return state;
 

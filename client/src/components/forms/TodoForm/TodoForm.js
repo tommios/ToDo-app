@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Formik, Form, Field} from 'formik';
 import * as Yup from "yup"
 import {Grid, Button} from '@material-ui/core';
@@ -33,11 +33,11 @@ const TodoForm = (props) => {
 
     return (
         <Formik
-            enableReinitialize
+            enableReinitialize={true}
             initialValues={{
                 title: formData ? formData.title : "",
                 body: formData ? formData.body : "",
-                completed: formData ? formData.completed : false
+                completed: formData ? formData.completed : false,
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
@@ -51,7 +51,8 @@ const TodoForm = (props) => {
                   isValid,
                   resetForm,
                   touched,
-                  errors
+                  errors,
+                  values
               }) => {
                 return <Form className={classes.form}>
                     <Grid container spacing={2}>
@@ -60,10 +61,10 @@ const TodoForm = (props) => {
                             <Field
                                 component={TextField}
                                 name="title"
-                                type="text"
                                 label="Title"
-                                variant="outlined"
                                 fullWidth
+                                variant="outlined"
+                                value={values.title || ""}
                                 helperText={touched.title ? errors.title : ""}
                                 error={touched.title && Boolean(errors.title)}
                                 onChange={handleChange}
@@ -72,21 +73,24 @@ const TodoForm = (props) => {
 
                         <Grid item xs={12}>
                             <Field
+                                component={TextField}
                                 name="body"
+                                label="Description"
+                                fullWidth
+                                multiline
+                                rows={20}
+                                rowsMax={25}
+                                variant="outlined"
+                                value={values.body || ""}
                                 helperText={touched.body ? errors.body : ""}
                                 error={touched.body && Boolean(errors.body)}
                                 onChange={handleChange}
                             >
-                                {(props) => <TextField
-                                    {...props}
-                                    label="Description"
-                                    fullWidth
-                                    multiline
-                                    rows={20}
-                                    rowsMax={25}
-                                    variant="outlined"
+                                {/*{(props) => <TextField*/}
+                                {/*    {...props}*/}
+                                {/*    */}
 
-                                />}
+                                {/*/>}*/}
                             </Field>
                         </Grid>
 
@@ -97,6 +101,7 @@ const TodoForm = (props) => {
                                 Label={{label: 'Completed'}}
                                 name="completed"
                                 color="primary"
+                                value={values.completed || false}
                                 onChange={handleChange}
                             />
                         </Grid>
